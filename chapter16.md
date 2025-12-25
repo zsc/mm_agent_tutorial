@@ -1,4 +1,4 @@
-# [第 16 章 机器人操作与具身 VLA Agent](https://www.google.com/search?q=chapter16.md)
+# 第 16 章 机器人操作与具身 VLA Agent
 
 > **本章摘要**：
 > 本章标志着我们从“比特世界”正式跨入“原子世界”。具身智能（Embodied AI）不仅仅是给 ChatGPT 装上摄像头，它要求模型理解物理规律、空间几何以及自身形态。我们将深入剖析 Vision-Language-Action (VLA) 模型的架构，探讨如何将连续的物理动作“Token 化”，如何通过“动作分块”解决推理延迟问题，以及如何构建一个“仿真-现实”闭环的开发管线。

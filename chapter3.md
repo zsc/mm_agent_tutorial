@@ -1,4 +1,4 @@
-# [第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)
+# 第 3 章 Tool Call：工具调用设计与编排
 
 ## 3.1 开篇：从“大脑”到“手脚”
 
