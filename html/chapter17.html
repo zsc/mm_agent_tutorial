@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第 17 章 文档/票据/表格多模 RPA Agent：企业流程自动化</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 3 章 Tool Call：工具调用设计与编排</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 16 章 机器人操作与具身 VLA Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 17 章 文档/票据/表格多模 RPA Agent：企业流程自动化</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 18 章 生产级工程化：可观测、可回归、可运营 (Production-Grade Engineering)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 19 章 安全、对齐与红队：把风险变成可测试项</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：Harmony 格式与多模态消息协议标准 (Appendix A)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="17-rpa-agent">第 17 章 文档/票据/表格多模 RPA Agent：企业流程自动化</h1>
+<h2 id="1">1. 开篇段落：从“读图”到“业务交付”</h2>
+<p>在企业数字化转型的浪潮中，最“脏、累、苦”却又最具商业价值的领域，莫过于<strong>业务流程自动化（RPA, Robotic Process Automation）</strong>。传统的 RPA 脚本脆弱不堪，一旦发票版式微调或网页 UI 变更，自动化流程就会崩溃。</p>
+<p>本章我们将构建一个基于多模态大模型（VLM）的 <strong>Cognitive RPA Agent（认知型 RPA）</strong>。它不依赖死板的坐标定位，而是像人类一样具备“阅读理解”能力。它能处理模糊的手机照片、理解跨页的复杂表格、校验逻辑矛盾的财务数据，并将非结构化的文档转化企业 ERP 系统所需的严丝合缝的结构化数据（JSON/SQL）。</p>
+<p><strong>本章学习目标：</strong></p>
+<ol>
+<li><strong>架构设计</strong>：搭建“OCR 辅助 + VLM 推理”的混合流水线。</li>
+<li><strong>难点攻克</strong>：掌握处理嵌套表格、跨页合并、印章遮挡等极端情况的策略。</li>
+<li><strong>可靠性工程</strong>：建立多层级校验（Verification）与人机回环（HITL）机制，确保 99.9% 的业务可用性。</li>
+</ol>
+<hr />
+<h2 id="2">2. 核心论述：构建高鲁棒性文档处理流水线</h2>
+<h3 id="21-vlm-the-hybrid-approach">2.1 为什么纯 VLM 还不够？（The Hybrid Approach）</h3>
+<p>直接把一张密密麻麻的银行流水单丢给 GPT-4V 或 Claude 3.5 Sonnet，通常会遇到两个问题：</p>
+<ol>
+<li><strong>幻觉（Hallucination）</strong>：模型可能会凭空捏造一个看不清的数字。</li>
+<li><strong>字符级精度（Character Accuracy）</strong>：对于 18 位身份证号、20 位银行卡号或复杂的 SKU 编码，VLM 的 OCR 精度在某些字体下不如传统的专用 OCR 引擎（如 PaddleOCR, Tesseract 或商业 OCR API）。</li>
+</ol>
+<p>因此，工业级的佳实践是 <strong>Hybrid Pipeline（混合流水线）</strong>。</p>
+<p><strong>图 17.1：混合模态文档处理流水线</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nb">+-------------------+</span><span class="c">      </span><span class="nb">+-------------------------+</span>
+<span class="c">| </span><span class="k">[</span><span class="c">Raw Input</span><span class="k">]</span><span class="c">       | </span><span class="nb">---</span><span class="nv">&gt;</span><span class="c"> | </span><span class="k">[</span><span class="c">Preprocessing</span><span class="k">]</span><span class="c">         |</span>
+<span class="c">| Image / PDF / Scan|      | Deskew / Crop / Denoise |</span>
+<span class="nb">+-------------------+</span><span class="c">      </span><span class="nb">+-----------+-------------+</span>
+<span class="c">                                       |</span>
+<span class="c">           </span><span class="nb">+---------------------------+---------------------------+</span>
+<span class="c">           | (Visual Stream)           | (Text Stream)             |</span>
+<span class="c">           v                           v                           v</span>
+<span class="nb">+-----------------------+</span><span class="c">    </span><span class="nb">+-----------------------+</span><span class="c">   </span><span class="nb">+-------------------+</span>
+<span class="c">| </span><span class="k">[</span><span class="c">VLM </span><span class="nb">-</span><span class="c"> The Brain</span><span class="k">]</span><span class="c">     |    | </span><span class="k">[</span><span class="c">OCR Engine </span><span class="nb">-</span><span class="c"> The Eye</span><span class="k">]</span><span class="c">|   | </span><span class="k">[</span><span class="c">Layout Analysis</span><span class="k">]</span><span class="c"> |</span>
+<span class="c">| Focus: Semantics      |    | Focus: Characters     |   | Focus: Structure  |</span>
+<span class="c">| &quot;What is the Total?&quot;  |    | &quot;Recognize text&quot;      |   | &quot;Where is Table?&quot; |</span>
+<span class="nb">+----------+------------+</span><span class="c">    </span><span class="nb">+-----------+-----------+</span><span class="c">   </span><span class="nb">+---------+---------+</span>
+<span class="c">           |                             |                         |</span>
+<span class="c">           </span><span class="nb">+-------------+---------------+-------------------------+</span>
+<span class="c">                         |</span>
+<span class="c">                         v</span>
+<span class="c">               </span><span class="nb">+---------------------------+</span>
+<span class="c">               | </span><span class="k">[</span><span class="c">Context Fusion Layer</span><span class="k">]</span><span class="c">    |</span>
+<span class="c">               | Prompt: &quot;Here is the img  |</span>
+<span class="c">               | AND the OCR text overlay&quot; |</span>
+<span class="c">               </span><span class="nb">+-------------+-------------+</span>
+<span class="c">                             |</span>
+<span class="c">                             v</span>
+<span class="c">               </span><span class="nb">+---------------------------+</span>
+<span class="c">               | </span><span class="k">[</span><span class="c">Extraction &amp; Normalize</span><span class="k">]</span><span class="c">  |</span>
+<span class="c">               | Output: JSON Schema       |</span>
+<span class="c">               </span><span class="nb">+-------------+-------------+</span>
+<span class="c">                             |</span>
+<span class="c">                             v</span>
+<span class="c">               </span><span class="nb">+---------------------------+</span>
+<span class="c">               | </span><span class="k">[</span><span class="c">Logic Gate / Validation</span><span class="k">]</span><span class="c"> |</span>
+<span class="c">               | Sum Check / DB Lookup     |</span>
+<span class="c">               </span><span class="nb">+---------------------------+</span>
+</code></pre></div>
+
+<h3 id="22">2.2 核心策略详解</h3>
+<h4 id="221-roi-region-of-interest">2.2.1 锚点定位与 ROI 切分 (Region of Interest)</h4>
+<p>对于长文档或复杂版面，直接全图输入会导致分辨压缩，丢失细节。</p>
+<ul>
+<li><strong>策略</strong>：先用一个轻量级模型（如 YOLO 或即便是小参数的 VLM）识别关键区域（ROI），例如“发票明细栏”、“收件人信息区”。</li>
+<li><strong>Rule-of-Thumb</strong>：永远不要让 VLM 在 1024x1024 的缩略图中去猜 6 号字体的小字。先切图（Crop），再识别。</li>
+</ul>
+<h4 id="222-schema-driven-extraction">2.2.2 Schema-Driven Extraction (模式驱动提取)</h4>
+<p>不要对模型说“提取所有信息”，要告诉它具体的 JSON Schema。</p>
+<ul>
+<li><strong>类型约束</strong>：明确字段是 <code>String</code>（保留原始格式）、<code>Float</code>（用于计算）还是 <code>Enum</code>（枚举值，如 "男/女"）。</li>
+<li><strong>空值处理</strong>：明确指示当字段不存在或看不清时，是输出 <code>null</code>、<code>""</code> 还是 <code>N/A</code>。这对于后续清洗至关重要。</li>
+</ul>
+<h3 id="23-the-table-boss-fight">2.3 攻克“表格”难题 (The Table Boss Fight)</h3>
+<p>表格是文档理解中的“最终 BOSS”。由于缺乏显式的行列分隔符（无框线表格），或者存在合并单元格，模型极易“看串行”。</p>
+<p><strong>三种有效的表格处策略：</strong></p>
+<ol>
+<li>
+<p><strong>Markdown 中间态法</strong>：
+* 要求 VLM 先将表格转换为 Markdown 格式（<code>| Col1 | Col2 |</code>）。VLM 在训练时见过大量 Markdown 数据，这种格式能很好地保留二维结构。
+* <em>适用场景</em>：标准表格，线条清晰。</p>
+</li>
+<li>
+<p><strong>坐标锚定法 (Coordinate Grounding)</strong>：
+* 要求模型输出每个单元格内容的 <code>box_2d</code> [x1, y1, x2, y2]。
+* 后处理脚本通过计算 Y 轴中心点的重合度，将 Box 聚类为“行”；通过 X 轴重合度聚类为“列”。
+* <em>适用场景</em>：错位严重的表格、手写表格。</p>
+</li>
+<li>
+<p><strong>JSON Map 法 (Row-wise Extraction)</strong>：
+* 定义一个 <code>row_item</code> 的对象结构，要求模型输出一个 List。
+* <em>技巧</em>：如果表格跨页，需要在 Prompt 中注入“Header Context”（即把第一页的表头文字强行加到第二页的 Prompt 中），否则模型不知道第二页的第一列代表什么。</p>
+</li>
+</ol>
+<h3 id="24-validation-hitl">2.4 校验与人机回环 (Validation &amp; HITL)</h3>
+<p>在财务场景，<strong>Confidence（置信度）</strong> 是比 <strong>Accuracy（准确率）</strong> 更重要的指标。我们宁愿模型说“我不知道”，也不要它瞎猜。</p>
+<p><strong>图 17.2：多层级校验漏斗</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">[</span><span class="c">Extracted JSON</span><span class="k">]</span>
+<span class="c">      |</span>
+<span class="c">      v</span>
+<span class="nb">+-------------------------+</span>
+<span class="c">| Level 1: Syntax Check   |  </span><span class="nb">--</span><span class="nv">&gt;</span><span class="c"> Fail? </span><span class="nb">--</span><span class="nv">&gt;</span><span class="c"> </span><span class="k">[</span><span class="c">Retry with Reflection</span><span class="k">]</span>
+<span class="c">| (Date fmt</span><span class="nt">,</span><span class="c"> RegEx types) |</span>
+<span class="nb">+-----------+-------------+</span>
+<span class="c">            | Pass</span>
+<span class="c">            v</span>
+<span class="nb">+-------------------------+</span>
+<span class="c">| Level 2: Arithmetic     |  </span><span class="nb">--</span><span class="nv">&gt;</span><span class="c"> Fail? </span><span class="nb">--</span><span class="nv">&gt;</span><span class="c"> </span><span class="k">[</span><span class="c">Retry logic: &quot;Recalculate&quot;</span><span class="k">]</span>
+<span class="c">| (Qty * Price == Total?) |</span>
+<span class="nb">+-----------+-------------+</span>
+<span class="c">            | Pass</span>
+<span class="c">            v</span>
+<span class="nb">+-------------------------+</span>
+<span class="c">| Level 3: Business Logic |  </span><span class="nb">--</span><span class="nv">&gt;</span><span class="c"> Fail? </span><span class="nb">--</span><span class="nv">&gt;</span><span class="c"> </span><span class="k">[</span><span class="c">Flag for Human Review</span><span class="k">]</span>
+<span class="c">| (Supplier in DB? Valid?)|</span>
+<span class="nb">+-----------+-------------+</span>
+<span class="c">            | Pass</span>
+<span class="c">            v</span>
+<span class="c">      </span><span class="k">[</span><span class="c">Auto</span><span class="nb">-</span><span class="c">Approve</span><span class="k">]</span>
+</code></pre></div>
+
+<ul>
+<li><strong>自修复（Self-Correction）</strong>：当算术校验失败（如总额不平），可以将错误信息反馈给 Agent：“你提取的明细加总为 100，但发票总额显示 102，请检查是否漏读了某一行或读错了数字” VLM 往往能自我修正。</li>
+</ul>
+<hr />
+<h2 id="3">3. 本章小结</h2>
+<ul>
+<li><strong>架构观</strong>：RPA Agent 不是单一的模型调用，而是 <code>Pre-process -&gt; OCR/VLM Ensemble -&gt; Logic Check -&gt; Post-process</code> 的精密流水线。</li>
+<li><strong>数据观</strong>：Schema 定义即开发。Schema 写得越详细（包含 description 和 pattern），提取效果越好。</li>
+<li><strong>底线思维</strong>：必须假设模型会犯错。通过算术平衡（Math Balance）和数据库比对（Master Data Lookup）来构建安全网。</li>
+<li><strong>隐私观</strong>：敏感字段（PII）应在本地或通过专用小模型进行掩码处理，再上传至云端大模型。</li>
+</ul>
+<hr />
+<h2 id="4">4. 练习题</h2>
+<h3 id="schema">基础题（熟悉流程与 Schema）</h3>
+<p><strong>练习 1：为混合票据设计通用 Schema</strong>
+假设你需要处理一个文件夹，里面混杂着“打车票”、“餐饮发票”和“酒店水单”。请设计一个兼容这三种票据的 JSON Schema，并包含分类字段。</p>
+<ul>
+<li><strong>提示</strong>：使用 <code>oneOf</code> 结构或包含通用的 <code>metadata</code> 字段。</li>
+</ul>
+<details>
+<summary>参考答案思路</summary>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;document_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;enum&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;taxi_receipt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;restaurant_invoice&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;hotel_folio&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;unknown&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;首先判断票据类型&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;common_fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YYYY-MM-DD&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;total_amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 统一用字符串防止精度丢失</span>
+<span class="w">    </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CNY&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;specific_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;taxi_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;start_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HH:MM&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;end_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HH:MM&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;distance_km&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;number&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;invoice_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 餐饮/酒店发票通用</span>
+<span class="w">      </span><span class="nt">&quot;seller_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tax_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;invoice_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;invoice_number&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;hotel_details&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;check_in&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YYYY-MM-DD&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;check_out&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YYYY-MM-DD&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;room_number&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>解析</strong>：先分类，再提取。利用 <code>common_fields</code> 提取所有票据都有的信息，利用 <code>specific_data</code> 存储特定业务字段。</p>
+</details>
+<p><strong>练习 2：算术校验逻辑编写</strong>
+提取到了个报销单的表格数据：<code>items: [{price: 10, qty: 2}, {price: 5, qty: 4}]</code>，以及总金额 <code>total: 45</code>。请写出一段伪代码逻辑，判断该提取结果是否可信，并生成错误报告。</p>
+<details>
+<summary>参考答案思路</summary>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 伪代码逻辑</span>
+<span class="n">calculated_sum</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+    <span class="c1"># 转换为浮点数或定点数进行计算</span>
+    <span class="n">line_total</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">price</span> <span class="o">*</span> <span class="n">item</span><span class="o">.</span><span class="n">qty</span>
+    <span class="n">calculated_sum</span> <span class="o">+=</span> <span class="n">line_total</span>
+
+<span class="n">tolerance</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># 允许5分的误差，处理四舍五入</span>
+<span class="n">diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">calculated_sum</span> <span class="o">-</span> <span class="n">total</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">diff</span> <span class="o">&lt;=</span> <span class="n">tolerance</span><span class="p">:</span>
+    <span class="k">return</span> <span class="s2">&quot;PASS&quot;</span><span class="p">,</span> <span class="s2">&quot;Data is consistent&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 生成具体的错误原因，用于反馈给 Agent 或人类</span>
+    <span class="n">error_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Arithmetic Mismatch: Sum of lines is </span><span class="si">{</span><span class="n">calculated_sum</span><span class="si">}</span><span class="s2">, but document total says </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2">. Difference: </span><span class="si">{</span><span class="n">diff</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="s2">&quot;FAIL&quot;</span><span class="p">,</span> <span class="n">error_msg</span>
+</code></pre></div>
+
+<p><strong>关键点</strong>：容差（Tolerance）是必须的，因为发票计算往往存在舍入规则差异。</p>
+</details>
+<p><strong>练习 3：Prompt 优化</strong>
+初级 Prompt：“请把图里的字读出来。”
+请将其优化为适合提取<strong>多语言混合名片</strong>（中文、英文、日文）的 Expert Prompt。</p>
+<details>
+<summary>参考答案思路</summary>
+<p><strong>优化后的 Prompt 结构：</strong></p>
+<ol>
+<li><strong>角色定义</strong>：你是一个精通多语言的 OCR 专家和数据结构化助手。</li>
+<li><strong>任务描述</strong>：从名片图像中提取联系人信息，并输出为 JSON。</li>
+<li><strong>语言指令</strong>：注意识别混合语言（中/英/日）。保留原文拼写，不要翻译人名或公司名。</li>
+<li>
+<p><strong>字段定义</strong>：
+* <code>name</code>: 全名。
+* <code>title</code>: 职位（如果是多行，用 / 分隔）。
+* <code>phone</code>: 优先提取手机号，格式化为 E.164。
+* <code>email</code>: 必须包含 @ 符号。</p>
+</li>
+<li>
+<p><strong>特殊处理</strong>：如果名片包含正反两面（即两张图），请合并信息。</p>
+</li>
+<li><strong>输出示例</strong>：给出期望的 JSON 样例。</li>
+</ol>
+</details>
+<hr />
+<h3 id="_1">挑战题（包括开放性思考题）</h3>
+<p><strong>练习 4：复杂嵌套表格的“分治法”</strong>
+处理一张复杂的工程物料清单（BOM），表格中包含“大类”（合并单元格，跨越 10 行）和“子项”。如果直接提取，模型往往会忘记第 5-10 行属于哪个“大类”。设计一个处理流程解决此问题。</p>
+<details>
+<summary>参考答案思路</summary>
+<p><strong>策略：视觉增强 + 状态填充</strong></p>
+<ol>
+<li><strong>预处理（视觉增强）</strong>：使用 OpenCV 检测表格横竖线。如果检测到“合并单元格”，在送入模型前，通过图像处理算法在图像上绘制辅助线，或者直接把“大类”名称 <code>Copy</code> 并“印”在属于它的每一行的左侧空白处（Virtual Unmerging）。</li>
+<li><strong>Prompt 策略（状态保持）</strong>：指示模型：“这是一个嵌套表格。当你读取每一行时，如果第一列（大类）是空的，请自动继承上一行的值（Fill-down logic）。”</li>
+<li><strong>后处理校验</strong>：提取后，检查 JSON 数组，如果某行的 <code>category</code> 字段为空，代码层逻辑自动填入上一个非空值。</li>
+</ol>
+</details>
+<p><strong>练习 5：构建“自动纠错”的 Agent Loop</strong>
+设计一个 Agent 循环，当 VLM 提取的“发票日期”是 <code>2024-02-30</code>（无效日期）时，Agent 不直接报错，而是重新观察图片，并尝试自我修正。请画出流程图或写出伪代码。</p>
+<details>
+<summary>参考答案思路</summary>
+<p><strong>Reflexion Loop (反思循环):</strong></p>
+<ol>
+<li><strong>Act 1</strong>: Agent 提取日期 -&gt; "2024-02-30"。</li>
+<li><strong>Validate</strong>: 代码校验器检查 <code>isValidDate("2024-02-30")</code> -&gt; False。</li>
+<li><strong>Prompt Generator</strong>: 构造新的 Prompt -&gt; "之前提取的日期 '2024-02-30' 是无效的（二月没有30号）。请重新仔细查看图片的右上角日期栏。可能是 OCR 把 '03' 看成了 '30'，或者是 '28' 看成了 '30'？请给出新的置信度最高的猜测。"</li>
+<li><strong>Act 2</strong>: Agent 重新观察 -&gt; 输出 "2024-02-03"。</li>
+<li><strong>Validate</strong>: 校验通过 -&gt; 输出结果。</li>
+<li><strong>Fallback</strong>: 如果 3 次重试都失败，标记为 "Human Review Needed"。</li>
+</ol>
+</details>
+<p><strong>练习 6：对抗性测试（Red Teaming）</strong>
+如果用户上传了一张伪造的发票（如，PS 修改了金额，但字体有细微边缘锯齿；或者二维码被篡改）。设计一个“鉴伪 Agent”的思路。</p>
+<ul>
+<li><strong>提示</strong>：不仅仅关注文本，还要关注图像特征。</li>
+</ul>
+<details>
+<summary>参考答案思路</summary>
+<p><strong>多维鉴伪策略：</strong></p>
+<ol>
+<li><strong>视觉一致性（Visual Consistency）</strong>：微调一个 CV 模型（如 ResNet）专门检测“篡改痕迹”（Tampering Detection），寻找文字周围的伪影、背景纹理的不连续性。</li>
+<li><strong>字体分析</strong>：VLM 提示词：“请检查图中的数字字体是否一致？是否有某一行数字的大小、颜色深度与其他行明显不同？”</li>
+<li>
+<p><strong>逻辑验证（查验）</strong>：
+* 提取发票二维码内容，解码后与票面明文信息（金额、代码、号码）比对。
+* 调用国税局 API（如果可用）进行真伪核验。</p>
+</li>
+<li>
+<p><strong>EXIF/元数据分析</strong>：检查图片是否由 Photoshop 保存，而非相机拍摄（虽然可被擦除，但可作为线索）。</p>
+</li>
+</ol>
+</details>
+<p><strong>练习 7：隐私规的本地化方案</strong>
+某银行客户要求：所有的客户姓名和账号绝对不能传给 OpenAI/Anthropic。但你需要用 GPT-4 来分析银行流水的消费习惯。请设计架构。</p>
+<details>
+<summary>参考答案思路</summary>
+<p><strong>Local-Cloud Hybrid Architecture (本地-云端混合架构):</strong></p>
+<ol>
+<li><strong>Step 1 (Local)</strong>: 使用本地部署的轻量级 OCR (PaddleOCR) 或开源 VLM (如 Qwen-VL-Chat 7B INT4)，在本地服务器运行。</li>
+<li><strong>Step 2 (Redaction)</strong>: 本地模型提取所有文本及其坐标。通过正则匹配（Regex）定位“姓名”和“账号”区域。</li>
+<li><strong>Step 3 (Masking)</strong>: 在原始图像上，将定位到的区域涂黑（Black out）。同时，在提取的文本中，将这些字段替换为 <code>&lt;REDACTED_NAME_1&gt;</code>, <code>&lt;REDACTED_ACCOUNT_1&gt;</code>。</li>
+<li><strong>Step 4 (Cloud)</strong>: 将涂黑后的图像 + 脱敏后的文本发送给 GPT-4。Prompt：“请分析用户 <code>&lt;REDACTED_NAME_1&gt;</code> 的消费趋势...”。</li>
+<li><strong>Step 5 (Mapping)</strong>: 得到分析结果后，在本地将 <code>&lt;REDACTED_NAME_1&gt;</code> 映射回真实姓名（仅在最后展示给授权员工时）。</li>
+</ol>
+</details>
+<hr />
+<h2 id="5-gotchas">5. 常见陷阱与错误 (Gotchas)</h2>
+<p>| 陷阱 (Gotcha) | 现象描述 | 调试与解决技巧 |</p>
+<table>
+<thead>
+<tr>
+<th>陷阱 (Gotcha)</th>
+<th>现象描述</th>
+<th>调试与解决技巧</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JSON 截断</strong></td>
+<td>长文档（如 50 行的清单）导致 VLM 输出的 JSON 在中间断开，格式损坏。</td>
+<td>1. <strong>流式修复</strong>：使用专门的 Parser 尝试补全末尾的 <code>]}</code>。<br></td>
+</tr>
+</tbody>
+</table>
+<p><br>2. <strong>分块策略</strong>：按页或按视觉块（每 10 行）切分图片，分别提取后再合并。<br></p>
+<p><br>3. <strong>Output Token Limit</strong>：检查模型配置的 <code>max_tokens</code> 是否太小。 |
+| <strong>0 与 O / 1 与 l / 8 与 B</strong> | 最经典的 OCR 错误，尤其在验证码或哈希值中。 | <strong>Context Is King</strong>。不要只让模型看字符，要给语境。Prompt: "这是一个十六进制代码，只包含 0-9 和 A-F，请根据此规则纠正 OCR 错误。" |
+| <strong>方向错误</strong> | 用户上传了倒置（旋转 180 度）的发票，VLM 乱读一气。 | 在 Pipeline 第一步加入 <strong>Orientation Detection</strong>（方向检测）。如果置信度显示图片旋转了，先用 OpenCV 转正，再送入 VLM。 |
+| <strong>多余的解释</strong> | 要求输出 JSON，但模型喜欢在前面加 "Here is the JSON:"，导致代码解析失败。 | 1. 强制使用 <code>json_object</code> 模式（OpenAI API）。<br></p>
+<p><br>2. 在 System Prompt 强调：<code>Output raw JSON only. No markdown formatting, no intro text.</code><br></p>
+<p><br>3. 代码层直接用正则提取第一个 <code>{</code> 和最后一个 <code>}</code> 之间的内容。 |
+| <strong>日期格式地狱</strong> | 同样是 <code>01/02/2023</code>，是 1 月 2 日还是 2 月 1 日？ | <strong>必须指定输出格式</strong>。Prompt: "Extract all dates and normalize them to ISO 8601 format (YYYY-MM-DD). If ambiguous, infer from the country context (e.g., US format vs. UK format)." |</p>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter16.html" class="nav-link prev">← 第 16 章 机器人操作与具身 VLA Agent</a><a href="chapter18.html" class="nav-link next">第 18 章 生产级工程化：可观测、可回归、可运营 (Production-Grade Engineering) →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

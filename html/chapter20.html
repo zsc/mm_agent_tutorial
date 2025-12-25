@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>附录 A：Harmony 格式与多模态消息协议标准 (Appendix A)</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 3 章 Tool Call：工具调用设计与编排</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 16 章 机器人操作与具身 VLA Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 17 章 文档/票据/表格多模 RPA Agent：企业流程自动化</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 18 章 生产级工程化：可观测、可回归、可运营 (Production-Grade Engineering)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 19 章 安全、对齐与红队：把风险变成可测试项</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：Harmony 格式与多模态消息协议标准 (Appendix A)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="aharmony-appendix-a">附录 A：Harmony 格式与多模态消息协议标准 (Appendix A)</h1>
+<h2 id="1">1. 协议设计哲学与适用范围</h2>
+<p>本附录定义的 JSON 结构被称为 <strong>"Harmony Schema"</strong>，它是一种基于 OpenAI ChatCompletions API 的超集，旨在解决标准 API 在处理<strong>复杂多模态、多智能体协作、以及长链路状态管理</strong>时的不足。</p>
+<p><strong>设计原则 (Rule of Thumb):</strong></p>
+<ol>
+<li><strong>单一事实来源 (Single Source of Truth)</strong>：所有的感知（图片/音频）、推理（文本）、行动（工具调用）都必须序列化为 Message List。</li>
+<li><strong>原子化 (Atomicity)</strong>：多模态内容（Content Parts）必须独立的、可寻址的对象，而不是单纯的拼接字符串。</li>
+<li><strong>无状态性 (Statelessness)</strong>：Handoff Packet（移交包）必须包含接手任务所需的一切信息，接收方无需查询上一轮 Agent 的原始日志。</li>
+</ol>
+<hr />
+<h2 id="2-a1-the-universal-message-object">2. A.1 通用消息体结构 (The Universal Message Object)</h2>
+<p>这是系统中流转的最小数据单元。</p>
+<h3 id="a11">A.1.1 基础骨架</h3>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;msg_123456789&quot;</span><span class="p">,</span><span class="w">          </span><span class="c1">// 消息唯一 ID（用于引用和回滚）</span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user | assistant | system | tool&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ResearchAgent_01&quot;</span><span class="p">,</span><span class="w">     </span><span class="c1">// [可选] 发言者名称，多 Agent 场景必填</span>
+<span class="w">  </span><span class="nt">&quot;created_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1715000000</span><span class="p">,</span><span class="w">       </span><span class="c1">// Unix 时间戳</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">],</span><span class="w">             </span><span class="c1">// 见下文 Content Parts</span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">             </span><span class="c1">// 见 A.6 元数据部分</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="a12-content-parts">A.1.2 Content Parts：多模态载荷详解</h3>
+<p><code>content</code> 字段不再是字符串，而是一个对象数组。</p>
+<h4 id="1-text-thought">(1) 文本与推理链 (Text &amp; Thought)</h4>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;根据用户上传的图片，我测到了明显的裂痕。&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="2-image-url-base64">(2) 图像 (Image) - 支持 URL 与 Base64</h4>
+<blockquote>
+<p><strong>注意</strong>：对于生产环境，强烈建议使用 URL（配合短期签名的 S3 链接），Base64 仅用于调试或极低延迟的本地交互。</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;image_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://s3.amazonaws.com/bucket/invoice_scan_01.jpg&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 选项: low (85 tokens), high (按 tiles 计算), auto</span>
+<span class="w">    </span><span class="nt">&quot;rotation&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">     </span><span class="c1">// [扩展] 预处理旋转角度，防止模型看歪</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="3-video-segment-">(3) 视频片段 (Video Segment) - 抽帧序列表示</h4>
+<p>视频通常不直接发给模型，而是转为一组带时间戳的图片帧。</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;image_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;video_metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">           </span><span class="c1">// [扩展字段]</span>
+<span class="w">    </span><span class="nt">&quot;video_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vid_abc&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timestamp_sec&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">12.5</span><span class="p">,</span><span class="w">      </span><span class="c1">// 该帧在视频中的秒数</span>
+<span class="w">    </span><span class="nt">&quot;frame_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="4-input-audio">(4) 音频输入 (Input Audio)</h4>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;input_audio&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;input_audio&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base64_string...&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// PCM 原始数据或压缩格式</span>
+<span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wav&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;sample_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">24000</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="3-a2-tool-invocation-protocol">3. A.2 工具调用协议 (Tool Invocation Protocol)</h2>
+<p>这是 Agent 与外部世界交互的<strong>物理层</strong>。</p>
+<h3 id="a21-assistant-message">A.2.1 模型发起的调用 (Assistant Message)</h3>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="c1">// 或者是 &quot;我将为您查询天气...&quot;</span>
+<span class="w">  </span><span class="nt">&quot;tool_calls&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;call_890xyz&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;function&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;function&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search_knowledge_base&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;keywords\&quot;: [\&quot;Transformer architecture\&quot;, \&quot;Attention mechanism\&quot;], \&quot;year_filter\&quot;: 2023}&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="a22-tool-message">A.2.2 工具执行结果 (Tool Message)</h3>
+<p><strong>关键规则</strong>：</p>
+<ul>
+<li><strong>1对1映射</strong>：<code>tool_calls</code> 数组中有几个元素，后续就必须紧跟几个 <code>role: tool</code> 的消息。</li>
+<li><strong>错误处理</strong>：如果工具报错，<strong>必须</strong>返回 JSON 格式的错误信息，而不是抛出异常，以便模型决定是否重试。</li>
+</ul>
+<h4 id="_1">成功响应：</h4>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tool&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tool_call_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;call_890xyz&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search_knowledge_base&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;status\&quot;: \&quot;success\&quot;, \&quot;results\&quot;: [{\&quot;title\&quot;: \&quot;Attention is All You Need\&quot;, \&quot;snippet\&quot;: \&quot;...\&quot;}]}&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="_2">失败响应（让模型自我修复）：</h4>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tool&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tool_call_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;call_890xyz&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;status\&quot;: \&quot;error\&quot;, \&quot;error_type\&quot;: \&quot;InvalidDateRange\&quot;, \&quot;message\&quot;: \&quot;The year 2023 is in the future relative to the database snapshot (2022). Please try an earlier year.\&quot;}&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="a23-advanced">A.2.3 多模态工具返回 (Advanced)</h3>
+<p>有些工具（如浏览器截图、matplotlib 绘图）返回的是图片。</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tool&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tool_call_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;call_render_chart&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;status\&quot;: \&quot;rendered_successfully\&quot;}&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image_url&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;image_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://.../chart_temp.png&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="4-a3-handoff-packet-schema">4. A.3 任务移交与状态包 (Handoff Packet Schema)</h2>
+<p>当流程从 "Planner Agent" 转移到 "Coder Agent" 时，使用此 Schema。</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;protocol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;harmony_handoff_v1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;source_agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;planner_v2&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;target_agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;coder_v1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-03-20T10:00:00Z&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 1. 任务目标（不可变）</span>
+<span class="w">    </span><span class="nt">&quot;primary_objective&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;为用户构建一个 Python 贪吃蛇游戏&quot;</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">// 2. 当前进度</span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;in_progress&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;completed_steps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;需求分析&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;技术选型(Pygame)&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;next_immediate_step&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;编写核心游戏循环代码&quot;</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">// 3. 关键约束 (Memory)</span>
+<span class="w">    </span><span class="nt">&quot;constraints&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;必须有详细注释&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;背景颜色设为黑色&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+
+<span class="w">    </span><span class="c1">// 4. 共享资产 (Artifacts) - 避免重复上传/下载</span>
+<span class="w">    </span><span class="nt">&quot;artifacts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;design_doc&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3://.../spec.md&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;assets_folder&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;./assets/&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="c1">// 5. [可选] 压缩后的对话历史摘要</span>
+<span class="w">  </span><span class="nt">&quot;history_summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;用户最初要求3D游戏，经协商确认为2D版本...&quot;</span><span class="w"> </span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="5-a4-citation-grounding-schema">5. A.4 引用与证据锚定 (Citation &amp; Grounding Schema)</h2>
+<p>为实现“可信回答”，每条生成内容都应关联证据。这通常存储在消息的 <code>metadata</code> 或专门的 <code>context_block</code> 中。</p>
+<h3 id="a41">A.4.1 证据对象定义</h3>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;citation_map&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;cit_01&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;source_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pdf_document&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;doc_fin_report_2023&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023_Financial_Report.pdf&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;page_number&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;bbox&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w"> </span><span class="mi">600</span><span class="p">],</span><span class="w"> </span><span class="c1">// [x1, y1, x2, y2] 用于前端在 PDF 上画框</span>
+<span class="w">        </span><span class="nt">&quot;text_snippet&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Revenue increased by 20% YoY.&quot;</span><span class="w"> </span><span class="c1">// 用于校验</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.89</span><span class="w"> </span><span class="c1">// 检索相关性分数</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;cit_02&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;source_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web_search&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://wikipedia.org/...&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;access_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-03-20&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="a42-in-text-anchors">A.4.2 文本中的锚点 (In-text Anchors)</h3>
+<p>模型输出的文本应包含如下标记：</p>
+<blockquote>
+<p>"2023年的营收增长强劲 <strong><cite id="cit_01"/></strong>，这主要是由于云服务市场的扩张 <strong><cite id="cit_02"/></strong>。"</p>
+</blockquote>
+<hr />
+<h2 id="6-a6-metadata-observability">6. A.6 元数据与可观性字段 (Metadata &amp; Observability)</h2>
+<p>为了生产环境的调试（Trace）和计费，每条消息应携带以下隐形信息。</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 成本追踪</span>
+<span class="w">  </span><span class="nt">&quot;token_usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;prompt_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;completion_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">150</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;total_cost_usd&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.002</span>
+<span class="w">  </span><span class="p">},</span>
+
+<span class="w">  </span><span class="c1">// 延迟追踪</span>
+<span class="w">  </span><span class="nt">&quot;latency_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;ttft&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">        </span><span class="c1">// Time to First Token</span>
+<span class="w">    </span><span class="nt">&quot;total_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1200</span>
+<span class="w">  </span><span class="p">},</span>
+
+<span class="w">  </span><span class="c1">// 模型指纹</span>
+<span class="w">  </span><span class="nt">&quot;model_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4-vision-preview-2024-04-09&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;system_fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fp_12345&quot;</span><span class="p">,</span>
+
+<span class="w">  </span><span class="c1">// 业务上下文</span>
+<span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sess_user_999&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trace_uuid_v4&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 关联到 Datadog/LangSmith</span>
+
+<span class="w">  </span><span class="c1">// 安全标记</span>
+<span class="w">  </span><span class="nt">&quot;safety_check&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;flagged&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="7">7. 本章小结</h2>
+<ul>
+<li><strong>结构化至上</strong>：永远不要依赖正则表达式去解析 Agent 的输出，必须强制要求 JSON 输出或 Tool Call。</li>
+<li><strong>ID 是生命线</strong>：在多轮对话和工具调用中，<code>tool_call_id</code> 是连接 "思考" 与 "结果" 的唯一纽带，丢失 ID 会导致上下文错乱。</li>
+<li><strong>Handoff 显式化</strong>：在多 Agent 切换时，必须显式传递 <code>constraints</code> 和 <code>artifacts</code>，否则接手的 Agent 会像失忆一样重复询问用户。</li>
+</ul>
+<hr />
+<h2 id="8">8. 练习题</h2>
+<h3 id="1_1">练习 1：构建一个“视频异常检测”的消息载荷</h3>
+<p><strong>场景</strong>：安防摄像头每秒截取一帧，Agent 需要分析第 10 秒到第 15 秒的画面，判断是否有人员入侵。
+<strong>要求</strong>：使用 <code>content parts</code> 构造 User Message，包含 5 张关键帧，并附带时间戳元数据。</p>
+<details>
+<summary>点击查看参考答案</summary>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;请分析以下监控画面序列（10s-15s），判断是否存在未授权人员进入禁区。&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="c1">// 第 10 秒帧</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;image_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://.../frame_10s.jpg&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;low&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;video_metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;timestamp_sec&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">10.0</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// 自定义字段，需模型或中间件支持解析</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="c1">// ... 间帧省略 ...</span>
+<span class="w">    </span><span class="c1">// 第 15 秒帧</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;image_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://.../frame_15s.jpg&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;low&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;video_metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;timestamp_sec&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">15.0</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><em>提示：对于安防场景，通常设置 detail: "low" 以降低延迟，除非需要识别人脸细节。</em></p>
+</details>
+<h3 id="2">练习 2：设计一个“需要用户确认”的工具中断协议</h3>
+<p><strong>场景</strong>：Agent 想要执行 <code>delete_database</code>，这是一个高危操作。设计一个 Tool Call 响应，既不执行删除，又引导模型去询问用户。</p>
+<details>
+<summary>点击查看参考答案</summary>
+<p><strong>思路</strong>：工具层拦截该请求，返回一个特殊的 Error 或 Info，告诉模型“需要确认”。</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tool&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tool_call_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;call_delete_db_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;status\&quot;: \&quot;halted\&quot;, \&quot;reason\&quot;: \&quot;human_confirmation_required\&quot;, \&quot;message\&quot;: \&quot;This is a high-risk operation. You MUST ask the user for explicit confirmation (type &#39;YES&#39;) before proceeding. Do not execute this tool again until confirmation is received.\&quot;}&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><em>Agent 收到此消息后，会输出文本向用户提问，从而实现 Human-in-the-loop。</em></p>
+</details>
+<hr />
+<h2 id="9-gotchas">9. 常见陷阱 (Gotchas)</h2>
+<ol>
+<li>
+<p><strong>JSON 嵌套地狱</strong>：
+* <em>错误</em>：在 <code>tool_call</code> 的 <code>arguments</code> 里直接放 JSON 对象。
+* <em>正确</em>：<code>arguments</code> <strong>必须是 String</strong>。即 <code>JSON.stringify(args_object)</code>。这是最常见的新手错误，导致 API 400 报错。</p>
+</li>
+<li>
+<p><strong>图片过期</strong>：
+* 如果是使用临时签名的 URL（如 AWS S3 Presigned URL），通常有效期只有 15-60 分钟。如果用户第二天回来翻看历史记录，Agent 可能会因为链接失效而报错。
+* <em>对策</em>：在应用层（Application Layer）做一层代理，或者在存入 Long-term Memory 时将图片转存到持久化存储并更新 URL。</p>
+</li>
+<li>
+<p><strong>Token 溢出与截断</strong>：
+* History List 不限长，但 Context Window 有限。
+* <em>对策</em>：不要盲目 <code>.append()</code>。必须实现一个 <code>trim_messages(history, max_tokens)</code> 函数。对于多模态消息，要特别注意一张 <code>detail: high</code> 的图片可能占用 1000+ tokens，比几百行文字还多。优先丢弃旧的图片，保留旧的文本摘要。</p>
+</li>
+<li>
+<p><strong>Audio/Video 混淆</strong>：
+* 目前的模型通常不支持直接上传 <code>.mp4</code> 文件。你必须在客户端或服务端通过 <code>ffmpeg</code> 抽帧（Frames Extraction）并提取音轨（Audio Extraction），分别作为 Image List 和 Audio Input 传入。不要试图把二进制流直接塞进 Text 字段。</p>
+</li>
+</ol>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter19.html" class="nav-link prev">← 第 19 章 安全、对齐与红队：把风险变成可测试项</a><a href="chapter21.html" class="nav-link next">Untitled →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

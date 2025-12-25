@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第 18 章 生产级工程化：可观测、可回归、可运营 (Production-Grade Engineering)</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 3 章 Tool Call：工具调用设计与编排</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 16 章 机器人操作与具身 VLA Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 17 章 文档/票据/表格多模 RPA Agent：企业流程自动化</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 18 章 生产级工程化：可观测、可回归、可运营 (Production-Grade Engineering)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 19 章 安全、对齐与红队：把风险变成可测试项</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：Harmony 格式与多模态消息协议标准 (Appendix A)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="18-production-grade-engineering">第 18 章 生产级工程化：可观测、可回归、可运营 (Production-Grade Engineering)</h1>
+<blockquote>
+<p><strong>本章目标</strong>：
+将 Agent 从“能跑的 Demo”转变为“可信赖的产品”。
+在本章中，我们将从单纯的代码实现转向系统设计，重点解决多模态智能体在生产环境中面临的四大核心挑战：<strong>黑盒状态的可视化（Observability）</strong>、<strong>不确定性的质量控制（QA &amp; Evals）</strong>、<strong>指数级增长的成本治理（Cost Governance）以及版本迭代的安全性（Safe Deployment）</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="181">18.1 引言：非确定性系统的工程挑战</h2>
+<p>传统软件工程建立在“确定性”之上：输入  + 逻辑  必然得到输出 。
+然，多模态 Agent 系统本质上是<strong>概率性（Probabilistic）</strong>且<strong>有状态（Stateful）</strong>的。</p>
+<p>在生产环境中，你会遇到以下“鬼故事”：</p>
+<ol>
+<li><strong>蝴蝶效应</strong>：Prompt 中修改了一个标点符号，导致 Agent 在处理 PDF 表格时准确率下降 20%。</li>
+<li><strong>长尾延迟</strong>：99% 的请求在 3 秒内完成，但 1% 的复杂任务（如深度推理）可能消耗 60 秒，拖垮整个服务连接池。</li>
+<li><strong>幻觉循环</strong>：Agent 陷入“报错-重试-再报错”的死循环，一晚上烧掉 500 美元的 API 配额。</li>
+<li><strong>黑盒调试</strong>：用户反馈“它不听懂人话”，但你没有当时的上下文、没有当时的图像输入，无法复现。</li>
+</ol>
+<p><strong>Agent Ops</strong> 的核心任务，就是为这个概率系统套上确定性的缰绳。</p>
+<hr />
+<h2 id="182-deep-observability">18.2 深度可观测性 (Deep Observability)</h2>
+<p>普通的日志（Logging）已经不够用了。Agent 系统需要<strong>全链路追踪（Tracing）</strong>，并且必须是<strong>多模态感知</strong>的。</p>
+<h3 id="1821-agent-trace">18.2.1 剖析 Agent Trace 构</h3>
+<p>一个标准的 Agent Trace 不仅仅是函数调用链，它是<strong>思维链的可视化</strong>。</p>
+<p><strong>[图示：Agent 交互的 Trace 拓扑结构]</strong></p>
+<div class="codehilite"><pre><span></span><code>[Trace ID: trace-gen-8832]  User: &quot;分析这份财报的风险&quot; (Duration: 12.4s, Cost: $0.04)
+├── [Span] Input Processing
+│   ├── [Event] Image Upload: s3://bucket/reports/Q3_2024.pdf (Page 1-5)
+│   └── [Event] OCR &amp; Layout Analysis (200ms)
+├── [Span] Reasoning Loop (Agent Executor)
+│   ├── [Span] Iteration 1: Plan
+│   │   ├── [Model Input] System Prompt + User Query + Image Summary
+│   │   └── [Model Output] Thought: &quot;I need to check the debt ratio.&quot; -&gt; Call Tool: `extract_table`
+│   ├── [Span] Tool: extract_table (External API)
+│   │   ├── [Args] page_index=3, table_hint=&quot;Liabilities&quot;
+│   │   └── [Result] { &quot;Current Liabilities&quot;: &quot;50M&quot;, ... }
+│   ├── [Span] Iteration 2: Synthesis
+│   │   └── [Model Output] Thought: &quot;Debt is high.&quot; -&gt; Final Answer
+   └── [Guardrail Check] (Safety Filter)
+│       ├── [Input] &quot;Debt is high...&quot;
+│       └── [Result] PASS
+└── [Span] Final Response Streaming
+</code></pre></div>
+
+<h3 id="1822-trace">18.2.2 多模态 Trace 的特殊处理</h3>
+<p>在记录 Trace 时，处理图像和音频数据需要特别的工程策略：</p>
+<ul>
+<li><strong>引用而非值（Reference by Reference）</strong>：</li>
+<li><strong>错误做法</strong>：将 Base64 编码的图片直接写入 Trace 日志。这会导致日志体积爆炸，查询极其缓慢，且容易触发日志系统的单条大小限制。</li>
+<li>
+<p><strong>最佳实践</strong>：上传图片到对象存储（S3/OSS），在 Trace 中仅记录 <code>s3_key</code>、<code>hash</code> 和 <code>metadata</code>（分辨率、格式）。</p>
+</li>
+<li>
+<p><strong>隐私脱敏（Redaction）</strong>：</p>
+</li>
+<li>多模态输入容易意外包含 PII（如身份证照片、人脸）。</li>
+<li><strong>策略</strong>：在 Trace 采集端（Exporter）引入“视觉脱敏层”，对人脸或文字区域进行高斯模糊处理后再归档（保留原始数据在受控的高安存储中用于极端Debug，日常Trace用脱版）。</li>
+</ul>
+<h3 id="1823-business-metrics">18.2.3 关键业务指标 (Business Metrics)</h3>
+<p>除了 CPU/Memory，你需要监控以下 Agent 特有指标：</p>
+<p>| 指标名称 | 定义与意义 | 告警阈值建议 |</p>
+<table>
+<thead>
+<tr>
+<th>指标名称</th>
+<th>定义与意义</th>
+<th>告警阈值建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pass Rate (SR)</strong></td>
+<td>任务成功率。对于非问答类任务（如操作），需定义何为“成功”。</td>
+<td>&lt; 90%</td>
+</tr>
+<tr>
+<td><strong>Token Efficiency</strong></td>
+<td><code>Output Tokens / Input Tokens</code>。比率过低说明 Prompt 上下文过重但产出少。</td>
+<td>突变 &gt; 20%</td>
+</tr>
+<tr>
+<td><strong>Tool Error Rate</strong></td>
+<td>Agent 试图调用工具但因参数错误（Schema Error）失败的比例。</td>
+<td>&gt; 5%</td>
+</tr>
+<tr>
+<td><strong>Handoff Rate</strong></td>
+<td>触发“转人工”或“无法回答”的比例。</td>
+<td>&gt; 10%</td>
+</tr>
+<tr>
+<td><strong>Hallucination Rate</strong></td>
+<td>(需事后抽检) 引用了文档中不存在的数据的比例。</td>
+<td>N/A (需长期治理)</td>
+</tr>
+<tr>
+<td><strong>Steps per Task</strong></td>
+<td>完成一个意图平均需要的推理轮数。轮数突增通常意味着模型变“笨”了。</td>
+<td>周环比 +15%</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="183-cost-performance-governance">18.3 成本治理与性能优化 (Cost &amp; Performance Governance)</h2>
+<p>Agent 是资源密集型用。不加控制的 Agent 会吃掉所有利润。</p>
+<h3 id="1831-semantic-caching">18.3.1 语义缓存 (Semantic Caching)</h3>
+<p>传统缓存基于 Key-Value 精确匹配。Agent 需要基于<strong>意图相似度</strong>的缓存。</p>
+<ul>
+<li><strong>工作流</strong>：
+1. 用户输入 Query 。
+2. 计算  的向量 Embedding 。
+3. 在向量数据库（VectorDB）中检索最近邻 。
+4. <strong>关键判别</strong>：</li>
+<li>若 Cosine Similarity &gt; 0.95（极高相似度）：直接返回缓存的 Answer。</li>
+<li>
+<p>若 Similarity 在 0.85 - 0.95 之间：将  的 Answer 作为上下文提示给模型（"Few-shot cache"），加速生成。</p>
+</li>
+<li>
+<p><strong>多模态缓存键</strong>：</p>
+</li>
+<li>Key = <code>Hash(Image_Content) + Embedding(Text_Query)</code>。</li>
+<li>只有当图片<strong>和</strong>问题都相似时，才命中缓存。</li>
+</ul>
+<h3 id="1832-token">18.3.2 Token 预算管理</h3>
+<ul>
+<li><strong>全局配额（Global Quota）</strong>：每个租户/用户每日 Token 上限。</li>
+<li><strong>请求级熔断（Request Circuit Breaker）</strong>：</li>
+<li>设置 <code>Max_Steps</code>（例如 15 步）。</li>
+<li>设置 <code>Max_Cost</code>（例如 $0.50 / Request）。</li>
+<li>一旦达到阈值，Agent 必须制停止并返回“任务过长，请分拆指令”的错误，防止死循环烧钱。</li>
+</ul>
+<h3 id="1833-model-routing">18.3.3 模型路由策略 (Model Routing)</h3>
+<p>不是所有任务都需要 GPT-4 或 Claude 3.5 Sonnet。</p>
+<ul>
+<li><strong>快慢链（Fast-Slow Lane）设计</strong>：</li>
+<li><strong>Router Node</strong>：一个小模型（如 Llama-3-8B 或专门的 Classifier），分析用户意图难度。</li>
+<li><strong>Lane A (Fast/Cheap)</strong>：简单意图（打招呼、查天气、翻译） -&gt; 路由到 <code>gpt-3.5-turbo</code> / <code>haiku</code>。</li>
+<li>
+<p><strong>Lane B (Slow/Smart)</strong>：复杂意图（代码编写、图表分析、长文档推理） -&gt; 路由到 <code>gpt-4o</code> / <code>sonnet</code>。</p>
+</li>
+<li>
+<p><strong>降级策略</strong>：当昂贵模型 API 超时或限流时，自动降级到备用模型，并在 System Prompt 中附加：“你现在处于降级模式，请简短回答”。</p>
+</li>
+</ul>
+<hr />
+<h2 id="184-evaluation-pipeline">18.4 质量守门：自动化评测体系 (Evaluation Pipeline)</h2>
+<p><strong>“没经过评测的 Prompt 改动，禁止上线。”</strong> —— 这是 Agent 工程的第一铁律。</p>
+<h3 id="1841-golden-dataset">18.4.1 黄金数据集 (Golden Dataset) 的构建</h3>
+<p>你需要维护三个级别的测试集：</p>
+<ol>
+<li>
+<p><strong>Sanity Set (冒烟测试集)</strong>：
+* 规模：5-10 条。
+* 内容：最基础的功能（如“你是谁”、“读取这张图”）。
+* 通过标准：100% 通过，耗时 &lt; 5s。</p>
+</li>
+<li>
+<p><strong>Regression Set (回归测试集)</strong>：
+* 规模：50-200 条。
+* 内容：覆盖所有核心工具、边界条件（无图、坏图）、常见攻击指令。
+* 通过标准：Pass Rate 不低于基线。</p>
+</li>
+<li>
+<p><strong>Adversarial Set (红队测试集)</strong>：
+* 规模：持续增长。
+* 内容：专门诱导幻觉、套取 System Prompt、注入攻击的案例。</p>
+</li>
+</ol>
+<h3 id="1842-llm-as-a-judge">18.4.2 LLM-as-a-Judge (用模型评测模型)</h3>
+<p>人工评测太慢且不可扩展。我们编写专门的 <strong>Evaluator Agent</strong> 来打分。</p>
+<p><strong>评测 Prompt 模板示例 (伪代码)：</strong></p>
+<div class="codehilite"><pre><span></span><code>You are an expert judge evaluating an AI assistant&#39;s performance.
+
+[Input Context]
+User Query: {query}
+Retrieved Docs: {docs}
+Image Description: {img_desc}
+
+[Model Output]
+Response: {response}
+Tool Used: {tool_calls}
+
+[Evaluation Criteria]
+
+<span class="k">1.</span> Faithfulness: Is the answer derived ONLY from the context? (Score 1-5)
+<span class="k">2.</span> Relevance: Does it directly answer the user&#39;s specific question? (Score 1-5)
+<span class="k">3.</span> Tool Usage: Was the correct tool selected with valid arguments? (Pass/Fail)
+
+[Verdict]
+Provide concise reasoning and the final JSON score.
+</code></pre></div>
+
+<h3 id="1843">18.4.3 离线与在线评测</h3>
+<ul>
+<li><strong>离线评测 (Offline Eval)</strong>：在 CI/CD 阶段运行。对比新旧 Prompt 在 Golden Dataset 上的得分。</li>
+<li><strong>在线评测 (Online Eval)</strong>：</li>
+<li><strong>隐式反馈</strong>：用户是否点击了“复制”？用户是否在 30 秒内追问了“不对”？</li>
+<li><strong>抽样审计</strong>：随机抽取 1% 的线上日志，送入 Evaluator Agent 进行打分监控。</li>
+</ul>
+<hr />
+<h2 id="185-deployment-ops">18.5 发布策略与运维 (Deployment &amp; Ops)</h2>
+<p>Agent 的发布更像是<strong>炼金术的实验</strong>，而不是代码的部署。</p>
+<h3 id="1851-prompt-prompt-registry">18.5.1 Prompt 注册中心 (Prompt Registry)</h3>
+<p>不要把 Prompt 硬编码在代码里。使用“配置中心”或专门的 Prompt Management 工具。</p>
+<ul>
+<li><strong>版本</strong>：<code>v1.0.1</code> (生产), <code>v1.1.0-beta</code> (实验)。</li>
+<li><strong>结构</strong>：</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">finance-agent-core</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v2.3</span>
+<span class="nt">variables</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;user_name&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;risk_level&quot;</span><span class="p p-Indicator">]</span>
+<span class="nt">template</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;You</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">financial</span><span class="nv"> </span><span class="s">advisor</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">{user_name}...&quot;</span>
+<span class="nt">config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gpt-4o</span>
+</code></pre></div>
+
+<h3 id="1852-shadow-testing">18.5.2 影子测试 (Shadow Testing)</h3>
+<p>在正式切换流量前，进行“影子流量”回放。</p>
+<ol>
+<li>线上用户请求 -&gt; 旧版 Agent (v1) -&gt; 返回结果给用户。</li>
+<li><strong>异步复制</strong>请求 -&gt; 新版 Agent (v2) -&gt; 记录结果但不返回。</li>
+<li><strong>后台比对</strong>：比较 v1 和 v2 的结果差异。如果 v2 报错率高或回答显著变短，报警并终止发布。</li>
+</ol>
+<h3 id="1853">18.5.3 故障回滚机制</h3>
+<p>当发现新版 Agent 开始大量胡言乱语（如模型微调导致对齐偏移）：</p>
+<ul>
+<li><strong>一键切回</strong>：运维平台应支持秒级将 <code>Active_Prompt_Version</code> 从 v2 回滚到 v1。</li>
+<li><strong>知识库回滚</strong>：如果是因为更新了错误的 RAG 文档导致的，需要支持向量库快照（Snapshot）回滚。</li>
+</ul>
+<hr />
+<h2 id="186">18.6 本章小结</h2>
+<ol>
+<li><strong>可观测性是生命线</strong>：Trace 必须包含 Tool 的输入输出和多模态数据的引用。</li>
+<li><strong>成本是可以设计的</strong>：通过语义缓存、模型路由和熔断机制，将成本控制在预算内。</li>
+<li><strong>以评测驱动迭代</strong>：建立 Golden Dataset，用 LLM-as-a-Judge 实现自动化回归测试，拒绝“凭感觉”上线。</li>
+<li><strong>防御性编程</strong>：假设模型一定会出错、工具一定会超时、用户一定会注入，据此设计冗余和兜底逻辑。</li>
+</ol>
+<hr />
+<h2 id="187">18.7 练习题</h2>
+<h3 id="fundamentals">基础题 (Fundamentals)</h3>
+<ol>
+<li>
+<p><strong>Trace Schema 设计</strong>
+* <strong>场景</strong>：设计一个 JSON 结构，用于记录一次包含“OCR 读取 -&gt; 关键词提取 -&gt; 搜索”的完整 Agent 链路。
+* <strong>要求</strong>：包含父子 Span 关系、耗时、Token 消耗、以及图片的 S3 引用。
+* <strong>提示</strong>：参考 OpenTelemetry 标准，增加 <code>attributes.llm</code> 扩展字段。</p>
+</li>
+<li>
+<p><strong>语义缓存键计算</strong>
+* <strong>场景</strong>：用户上传了一张发票图片并问“总金额是多少”。
+* <strong>问题</strong>：如果用户下次上传同一张发票但文件名变了，如何确保存储命中？如果用户问“发票日期是多少”，如何确保<strong>不</strong>命中“总金额”的缓存？
+* <strong>提示</strong>：考虑 Image Hash 和 Query Vector 的组合策略。</p>
+</li>
+</ol>
+<h3 id="challenge">挑战题 (Challenge)</h3>
+<ol start="3">
+<li>
+<p><strong>设计“防死循环”算法</strong>
+* <strong>场景</strong>：Agent 在写代码时，反复遇到 <code>SyntaxError</code>，每次都尝试修复但每次都产生同样的错误代码。
+* <strong>任务</strong>：设计一个基于<strong>滑动窗口</strong>和<strong>状态哈希</strong>的算法，检测这种“原地踏步”的行为并强制终止。
+* <strong>提示</strong>：比较最近 3 次 <code>(Tool_Input, Tool_Output)</code> 的哈希值。</p>
+</li>
+<li>
+<p><strong>构建自动化评测器</strong>
+* <strong>任务</strong>：编写一个 Python 脚本（伪代码），使用 GPT-4 对一组 <code>(Question, Ground_Truth, Agent_Answer)</code> 进行打分。
+* <strong>要求</strong>：输出 JSON 格式，包含 <code>score</code> (1-10) 和 <code>reasoning</code>。处理 Agent 回答正确但表述不同的情况（语义一致性）。</p>
+</li>
+</ol>
+<hr />
+<h2 id="188-gotchas">18.8 常见陷阱错误 (Gotchas)</h2>
+<ul>
+<li><strong>陷阱 1：过度依赖 Log 文本</strong></li>
+<li><em>现象</em>：Debug 时只有 <code>INFO: Agent finished</code>，没有中间思考过程。</li>
+<li>
+<p><em>对策</em>：强制记录 CoT（Chain of Thought）的全过程。</p>
+</li>
+<li>
+<p><strong>陷阱 2：生产环境使用“内存记忆”</strong></p>
+</li>
+<li><em>现象</em>：服务重启后，所有用户的对话历史丢失。</li>
+<li>
+<p><em>对策</em>：必须使用 Redis 或 PostgreSQL 持久化 Session History。</p>
+</li>
+<li>
+<p><strong>陷阱 3：忽视流式输出的审核</strong></p>
+</li>
+<li><em>现象</em>：为了快，直接把 Token 流推给前端。结果 Agent 输出了一半骂人的话，审核系统来不及撤回。</li>
+<li>
+<p><em>对策</em>：使用 <strong>Buffered Streaming</strong>（缓冲 10-20 个 token 再发）或<strong>异步审核</strong>机制。</p>
+</li>
+<li>
+<p><strong>陷阱 4：测试集过拟合</strong></p>
+</li>
+<li><em>现象</em>：针对 Golden Dataset 疯狂优化 Prompt，导致泛化能力下降（Overfitting）。</li>
+<li><em>对策</em>：定期引入全新的、未见过的 Case 更新测试集。</li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter17.html" class="nav-link prev">← 第 17 章 文档/票据/表格多模 RPA Agent：企业流程自动化</a><a href="chapter19.html" class="nav-link next">第 19 章 安全、对齐与红队：把风险变成可测试项 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

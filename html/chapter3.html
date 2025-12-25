@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="./">
-    <title>[第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)</title>
+    <title>第 3 章 Tool Call：工具调用设计与编排</title>
     <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/highlight.css">
     <script src="assets/script.js" defer></script>
@@ -67,7 +67,7 @@
                     <div class="tree-item active" >
                         <a href="chapter3.html" class="tree-link">
                             <span class="tree-icon">📄</span>
-                            <span class="tree-title">[第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)</span>
+                            <span class="tree-title">第 3 章 Tool Call：工具调用设计与编排</span>
                         </a>
                     </div>
                 
@@ -158,7 +158,42 @@
                     <div class="tree-item " >
                         <a href="chapter16.html" class="tree-link">
                             <span class="tree-icon">📄</span>
-                            <span class="tree-title">[第 16 章 机器人操作与具身 VLA Agent](https://www.google.com/search?q=chapter16.md)</span>
+                            <span class="tree-title">第 16 章 机器人操作与具身 VLA Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 17 章 文档/票据/表格多模 RPA Agent：企业流程自动化</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 18 章 生产级工程化：可观测、可回归、可运营 (Production-Grade Engineering)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 19 章 安全、对齐与红队：把风险变成可测试项</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：Harmony 格式与多模态消息协议标准 (Appendix A)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
                         </a>
                     </div>
                 
@@ -174,7 +209,7 @@
         
         <main class="content">
             <article>
-                <h1 id="3-tool-call"><a href="https://www.google.com/search?q=chapter3.html">第 3 章 Tool Call：工具调用设计与编排</a></h1>
+                <h1 id="3-tool-call">第 3 章 Tool Call：工具调用设计与编排</h1>
 <h2 id="31">3.1 开篇：从“大脑”到“手脚”</h2>
 <p>如果说大模型（LLM/VLM）是 Agent 的大脑，那么<strong>工具（Tools）</strong> 就是它的手、脚、眼睛和耳朵。没有工具，模型只是一个被困在 GPU 显存里的、知识渊博但行动瘫痪的哲学家。</p>
 <p><strong>Tool Call（工具调用）</strong>，在某些框架中也被称为 Function Calling，是 Agent 跨越“语义世界”与“物理/数字世界”鸿沟的唯一桥梁。它不仅仅是简单的 API 调用，而是一套完整的<strong>协议</strong>：模型根据上下文判断意图，生成符合规范的结构化指令，宿主系统执行指令，并将结果（无论是文本、图片还错误堆栈）回传给模型，从而形成闭环。</p>
