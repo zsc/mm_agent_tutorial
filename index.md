@@ -1,35 +1,8 @@
-````markdown
 # 基于多模态理解生成模型的智能体构建教程（目录）
 
 > 目标：从“多模态模型 + 工具调用 + 协作协议 + 评测与蒸馏”出发，系统讲清楚如何设计、实现、评估并部署可落地的多模态智能体（Multi-modal Agent）。
 >
 > 文件组织：`index.md` + `chapter1.md` + `chapter2.md` + ...（每章独立可阅读；案例章可选读）
-
----
-
-## 项目结构建议
-
-```text
-.
-├── index.md
-├── chapter1.md
-├── chapter2.md
-├── ...
-├── appendixA.md
-├── appendixB.md
-├── assets/
-│   ├── images/
-│   ├── pdf_samples/
-│   ├── traces/
-│   └── schemas/
-└── examples/
-    ├── deep_research/
-    ├── coding_agent/
-    ├── vla_driving/
-    ├── in_cabin_assistant/
-    ├── geoguessr/
-    └── eval/
-````
 
 ---
 
