@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第 4 章 Agent Loop：规划-执行-反思的闭环</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 16 章 机器人操作与具身 VLA Agent](https://www.google.com/search?q=chapter16.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="4-agent-loop-">第 4 章 Agent Loop：规划-执行-反思的闭环</h1>
+<h2 id="1">1. 开篇：构建智能体的“心跳”</h2>
+<p>在前几章中，我们赋予了系统“眼睛”（多模态理解）和“手”（工具调用）。然而，拥有一堆工具和强大的感知能力，并不等同于拥有一个能干活的智能体。</p>
+<p><strong>Agent Loop（智能体循环）</strong> 是系统的运行时（Runtime）核心，它像操作系统的调度器一样，协调着感知、记忆、推理和行动。它决定了智能体在接收到模糊指令后，是立即行动，还是先制定计划；是盲目重试，还是停下来反思错误。</p>
+<p>如果说 LLM 是大脑（CPU），Prompt 是指令集，那么 Agent Loop 就是 <strong>主线程（Main Thread）</strong>。一个设计糟糕的 Loop 会导致智能体陷入死循环、烧穿预算或在任务完成前过早停止。</p>
+<p><strong>本章学习目标：</strong></p>
+<ul>
+<li><strong>深入理解 O-T-A-R 循环</strong>：Observe（观测）、Think（思考）、Act（行动）、Reflect（反思）的微观运作。</li>
+<li><strong>掌握三种主流架构</strong>：ReAct（单流）、Plan-and-Execute（双流）与 Reflexion（自修正）的适用场景与优劣。</li>
+<li><strong>学会“刹车”</strong>：设计鲁棒的终止条件（Termination Conditions）与预算控制（Budgeting）。</li>
+<li><strong>处理多模态特异性</strong>：如何在 Loop 中处理视觉反馈的滞后与不确定性。</li>
+</ul>
+<hr />
+<h2 id="2">2. 核心论述</h2>
+<h3 id="21-the-o-t-a-r-cycle">2.1 智能体控制循环的标准模型 (The O-T-A-R Cycle)</h3>
+<p>最基础的 Agent Loop 是一个状态机。在每一个时间步 ，智能体接收环境状态 ，生成思考  和 动作 ，并获得新的观测 。</p>
+<p>我们将其扩展为 <strong>O-T-A-R</strong> 四阶段模型：</p>
+<h4 id="1-observe">1. Observe (全模态观测)</h4>
+<p>在传统文本 Agent 中，观测仅是 API 的 JSON 返回。但在多模态 Agent 中，<strong>观测是异构的</strong>：</p>
+<ul>
+<li><strong>文本流</strong>：工具的标准输出（stdout）、错误日志（stderr）。</li>
+<li><strong>视觉流</strong>：网页渲染后的截图（Screenshot）、PDF 的特定区域（Crop）、摄像头的实时帧。</li>
+<li><strong>状态流</strong>：文件系统的变更、数据库的行更新。</li>
+</ul>
+<blockquote>
+<p><strong>Rule of Thumb</strong>: 永远不要假设模型能“记住”上一轮的图片。在 Loop 的每一步，必须显式地管理多模态数据的<strong>生命周期</strong>（是重新传入图片，还是传入图片的 Embedding/Summary）。</p>
+</blockquote>
+<h4 id="2-think">2. Think (推理与路由)</h4>
+<p>这是 LLM 发挥作用的阶段。它需要根据历史上下文（Memory）和当前观测，决定：</p>
+<ul>
+<li><strong>任务是否完成？</strong></li>
+<li><strong>是否需要调用工具？</strong> 哪个工具？参数是什么？</li>
+<li><strong>是否遇到了阻碍？</strong> 需要修改策略吗？</li>
+</ul>
+<h4 id="3-act">3. Act (执行与副作用)</h4>
+<p>执行具体的工具代码。</p>
+<ul>
+<li><strong>关键点</strong>：Act 阶段应当捕获所有常。工具的崩溃不应导致 Agent Loop 的崩溃，而应转化为一段“错误观测文本”返回给 Think 阶段。</li>
+</ul>
+<h4 id="4-reflect">4. Reflect (反思与评价) <em>[可选但推荐]</em></h4>
+<p>这是区分“脚本”与“智能体”的关键。在 Action 执行后，不立即进入下一次 Observe，而是增加一个“评价”步骤：</p>
+<ul>
+<li><em>“这个截图里真的包含我要的数据吗？”</em></li>
+<li><em>“我连续翻了3页都没找到，是不是方向错了？”</em></li>
+</ul>
+<h4 id="41-o-t-a-r">[图示 4.1] O-T-A-R 状态流转图</h4>
+<div class="codehilite"><pre><span></span><code>       Start Task
+           |
+           v
++-----------------------------+
+|  1. Observe (Senses)        |&lt;-----------------------+
+|  - Inputs: User Query,      |                        |
+|    Tool Output, Screenshot  |                        |
++----------+------------------+                        |
+
++----------+------------------+                        |
+           |                                           |
+           v                                           |
++-----------------------------+                        |
+|  2. Think (Reasoning)       |                        |
+|  - &quot;Based on the error...&quot;  |                        |
+|  - &quot;I should try...&quot;        |                        |
++----------+------------------+                        |
+           |                                           |
+           v                                           |
+
++-----------------------------+                  +-----+------+
+|  3. Act (Execution)         | --(Success)--&gt;   | 4. Reflect |
+|  - Call Tool: browser.get() |                  | (Critique) |
+|  - Call Tool: pdf.read()    | &lt;--(Failure)--   +------------+
++-----------------------------+
+</code></pre></div>
+
+<hr />
+<h3 id="22">2.2 架构范式演进</h3>
+<p>工程中主要存在三种 Loop 组织形式，复杂度由低到高：</p>
+<h4 id="a-react-reason-act">A. ReAct (Reason + Act) —— 鲁棒的独行侠</h4>
+<p><strong>核心逻辑</strong>：将“思考”与“行动”交织在一起。模型必须在输出 Tool Call 之前，先输出一段 <code>Thought: ...</code>。</p>
+<ul>
+<li><strong>优势</strong>：极高的容错率。模型通过“自言自语”可以动态调整短期计划。</li>
+<li><strong>劣</strong>：<strong>上下文窗口杀手</strong>。对于长链路任务（如写代码），中间的思考过程和工具返回会迅速占满 Token，导致模型遗忘最初的目标。</li>
+<li><strong>适用</strong>：搜索问答、简单排查、单文档分析。</li>
+</ul>
+<h4 id="b-plan-and-execute-pe">B. Plan-and-Execute (P&amp;E) —— 谋定而后动</h4>
+<p><strong>核心逻辑</strong>：将“规划者（Planner）”与“执行者（Executor/Solver）”解耦。</p>
+<ol>
+<li><strong>Planner</strong>：查看任务，生成一个包含  个步骤的清单（DAG 图或线性列表）。</li>
+<li><strong>Executor</strong>：在一个简单的 Loop 中逐个执行步骤。</li>
+<li><strong>Replanner</strong>：如果 Executor 报错，或者发现步骤不合理，唤醒 Planner 重新规划后续步骤。</li>
+</ol>
+<ul>
+<li><strong>优势</strong>：Token 效率高（Executor 不需要看完整的规划历史，只需看当前步骤）。</li>
+<li><strong>劣势</strong>：不够灵活。如果第 1 步的结果彻底改变了第 2 步的前提，P&amp;E 架构往往反应迟钝。</li>
+<li><strong>适用</strong>：软件开发、长篇报告生成、复杂流程自动化。</li>
+</ul>
+<h4 id="c-reflexion-self-correction">C. Reflexion / Self-Correction —— 具有自我修复能力</h4>
+<p><strong>核心逻辑</strong>：在 Loop 中引入一个<strong>显式的“评价器（Evaluator）”</strong>。</p>
+<ul>
+<li>当工具报错或结果为空时，不直接扔给下一轮 Think。</li>
+<li><strong>Self-Correction</strong>：先生成一段“为什么失败”的分析，将其作为由内向外的“伪观测”插入 Context。</li>
+<li><strong>示例</strong>：</li>
+<li><em>Action</em>: 点击按钮 <code>&lt;btn id="submit"&gt;</code></li>
+<li><em>Observation</em>: <code>Element not interactable</code></li>
+<li><em>Reflexion</em>: “看来有弹窗遮挡了按钮，我应该先检查是否有弹窗需要关闭。”</li>
+<li><em>New Action</em>: 关闭弹窗 -&gt; 点击按钮。</li>
+</ul>
+<hr />
+<h3 id="23-decomposition-budgeting">2.3 任务分解与预算管理 (Decomposition &amp; Budgeting)</h3>
+<h4 id="_1">任务分解的艺术</h4>
+<p>对于“分析 2023 年 Q4 财报”这种模糊指令，Agent 必须具备<strong>递归分解</strong>的能力。</p>
+<ul>
+<li><strong>基于数据的分解</strong>：将 100 页 PDF 拆分为 10 个 10 页的 Chunk 处理。</li>
+<li><strong>基于步骤的分解</strong>：下载 -&gt; OCR -&gt; 提取表格 -&gt; 计算 -&gt; 撰写。</li>
+</ul>
+<blockquote>
+<p><strong>Rule of Thumb</strong>: 给 Loop 设置一个 <strong>"Depth Limit" (递归深度限制)</strong>。如果子任务还需要分子任务，且深度超过 3 层，通常意味着 Prompt 定义不清或任务过于发散。</p>
+</blockquote>
+<h4 id="budget-aware-execution">预算感知 (Budget-aware Execution)</h4>
+<p>Agent 是昂贵的。Loop 必须是“资源敏感”的。
+你需要维护以下计数器：</p>
+<ol>
+<li><strong>Step Count</strong>：当前是第几轮循环？（防止死循环）</li>
+<li><strong>Token Cost</strong>：当前会话花了多少钱？</li>
+<li><strong>Stall Count</strong>：连续多少次没有产出有效信息？（防止原地打转）</li>
+</ol>
+<p><strong>当预算耗尽时（Out of Budget）：</strong></p>
+<ul>
+<li><strong>错误做法</strong>：抛出异常 Crash。</li>
+<li><strong>正确做法</strong>：触发 <strong>"Wrap-up"（收尾）模式</strong>。强制 Agent 基于手头已有的（哪怕是不完整的）信息生成一个最终回复，并附带“置信度声明”和“未完成项清单”。</li>
+</ul>
+<hr />
+<h3 id="24-structured-output">2.4 结构化输出与状态机 (Structured Output)</h3>
+<p>不要让 Agent 在 Loop 结束时只吐出一堆自然语言。为了集成到下游系统，Loop 的最终产出应该是结构化的。</p>
+<p><strong>推荐的最状态 Payload：</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// or &quot;partial_success&quot;, &quot;failed&quot;</span>
+<span class="w">  </span><span class="nt">&quot;summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;已完成财报分析，发现营收增长 20%。&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;artifacts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="c1">// 产生的文件或链接</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;chart&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/tmp/revenue.png&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pdf&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/output/report.pdf&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;reasoning_trace&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 决策链摘要</span>
+<span class="w">  </span><span class="nt">&quot;needs_human_help&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c1">// 是否需要人工介入</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="3">3. 本章小结</h2>
+<ol>
+<li><strong>Loop 是操作系统</strong>：它不仅运行模型，还负责资源调度（Token/Money）和异常处理。</li>
+<li><strong>ReAct 是默认选择，P&amp;E 是进阶选择</strong>：简单任务用 ReAct，复杂长流程任务用 Plan-and-Execute。</li>
+<li><strong>Reflexion 提升上限</strong>：通过显式的反思步骤，可以将 Agent 的成功率显著提升，特别是面对不稳定的多模态工具（如 OCR 识别错误）时。</li>
+<li><strong>死循环是最大敌人</strong>：必须在工程层面实现“僵局检测”和“预算强制中断”。</li>
+</ol>
+<hr />
+<h2 id="4">4. 练习题</h2>
+<h3 id="_2">基础题 (熟悉材料)</h3>
+<p><strong>Q1: 为什么在 Agent Loop 中直接将所有的 Tool Output 拼接到 Context 里是危险的？请列举两个负面后果。</strong></p>
+<details>
+<summary>**提示与答案**</summary>
+<ul>
+<li><strong>Hint</strong>: 考虑上下文窗口大小和模型的注意力机制。</li>
+<li>
+<p><strong>Answer</strong>:
+1. <strong>Token 溢出与成本激增</strong>：如果工具返回了整个 HTML 源码或几千行的日志，会迅速消耗 Token 预算。
+2. <strong>注意力稀释（Lost in the Middle）</strong>：过长的无关技术细节会干扰 LLM，使其忘记最初的用户指令或之前的关键逻辑。</p>
+</li>
+<li>
+<p><em>解决办法</em>：在存入 Memory 前进行截断（Truncation）或摘要（Summarization）。</p>
+</li>
+</ul>
+</details>
+<p><strong>Q2: 解释 ReAct 模式中 "Thought" 的作用。如果去掉 "Thought" 直接输出 "Action"，会有什么影响？</strong></p>
+<details>
+<summary>**提示与答案**</summary>
+<ul>
+<li><strong>Hint</strong>: 类似于人类在做复杂数学题时打草稿。</li>
+<li><strong>Answer</strong>:</li>
+<li>"Thought" 提供了一个<strong>思维链（Chain of Thought）缓冲区</strong>，允许模型在决定行动前行推理、规划和纠错。</li>
+<li>如果去掉，模型变成了直觉反应式（Reactive），处理复杂逻辑任务（如多步推理）的能力会显著下降，更容易产生幻觉或错误的工具调用。</li>
+</ul>
+</details>
+<p><strong>Q3: 在 Agent Loop 中，什么是 "Stall Detection"（停滞检测）？</strong></p>
+<details>
+<summary>**提示与答案**</summary>
+<ul>
+<li><strong>Hint</strong>: 如果 Agent 连续 5 次都在翻同一页书...</li>
+<li><strong>Answer</strong>:</li>
+<li>这是一种工程保护机制。用于检测 Agent 是否陷入了无效循环。</li>
+<li>例如：连续 N 次调用工具的参数完全相同，或者连续 N 次 Observation 的内容极其相似。</li>
+<li>触发后通常会强制终止 Loop 或强制 Agent 更换策略。</li>
+</ul>
+</details>
+<hr />
+<h3 id="_3">挑战题 (开放性思考)</h3>
+<p><strong>Q4 (场景设计): 设计一个针对“多模态网页浏览 Agent”的 Reflexion 策略。</strong>
+<em>场景：Agent 试图点击网页上的“下载”按钮，但每次点击后，页面都没有发生变化（没有下载弹窗，URL 也没变）。</em>
+<em>要求请写出 Agent 在 Reflect 阶段应该进行的内心独白（Inner Monologue）和下一步调整策略。</em></p>
+<details>
+<summary>**提示与答案**</summary>
+<ul>
+<li><strong>Hint</strong>: 视觉上按钮可能被遮挡，或者 DOM 结构变了，或者需要先登录。</li>
+<li><strong>Answer</strong>:</li>
+<li><strong>Reflection (Inner Monologue)</strong>: "我执行了 Click 动作，但 Observation 显示页面截图和 URL 均未变化。这说明点击失败了。可能有以下原因：1. 按钮被广告遮挡；2. 这是一个伪元素，需要通过 JavaScript 触发；3. 页面还在加载中。"</li>
+<li><strong>Next Strategy</strong>: "我不应该重复点击。我将尝试：1. 调用 <code>Scroll</code> 命令确保元素在视口中心；2. 检查页面是否存在模态弹窗（Modal）遮挡；3. 尝试使用键盘事件（Enter 键）代替鼠标点击。"</li>
+</ul>
+</details>
+<p><strong>Q5 (架构权衡): 假设你要构建一个“长篇小说写作 Agent”，目标是写一本 10 万字的小说。</strong></p>
+<ul>
+<li>(A) 使用单体 ReAct Loop。</li>
+<li>(B) 使用 Plan-and-Execute Loop。</li>
+<li>请选最合适的架构，并说明为什么另一种架构会失败。</li>
+</ul>
+<details>
+<summary>**提示与答案**</summary>
+<ul>
+<li><strong>Hint</strong>: 上下文长度和全局一致性是关键。</li>
+<li><strong>Answer</strong>:</li>
+<li><strong>选择 (B) Plan-and-Execute</strong>（或者更高级的分层架构）。</li>
+<li><strong>理由</strong>：</li>
+<li>小说需要全局一致的大纲（人物、情节走向）。</li>
+<li><strong>ReAct 失败原因</strong>：在写到第 5 章时，单体 Loop 的 Context 早已溢出，Agent 会忘记第 1 章埋下的伏笔或人物性格，导致前后矛盾。</li>
+<li><strong>P&amp;E 优势</strong>：Planner 维护大纲（全局记忆），Executor 每次只负责写一个章节（局部记忆），写完后将摘要回传给 Planner。</li>
+</ul>
+</details>
+<p><strong>Q6 (多模态特有): "幻觉循环" (Hallucination Loop)。</strong>
+<em>场景：Agent 看一张图表，OCR 识别错误把 "100" 认成了 "1000"。Agent 基于 "1000" 进行推理，觉得数据异常，于是再次查询，但 OCR 依然返回 "1000"。Agent 陷入自我怀疑和反复查询的死循环。</em>
+<em>问题：如何在 Loop 层面解决这种由感知错误引起的逻辑死锁？</em></p>
+<details>
+<summary>**提示与答案**</summary>
+<ul>
+<li><strong>Hint</strong>: 引入外部校验或多路投票。</li>
+<li><strong>Answer</strong>:
+1. <strong>多视角/多工具投票</strong>：在 Loop 中引入规则——如果对同一个数据的置信度存疑，强制调用另一个异构工具（例如：不要只用 OCR，尝试用 VLM 直接看图；或者尝试获取网页底层的 Table 数据）。
+2. <strong>人类介入（Human-in-the-loop）</strong>：当 Agent 发现数据违反常识（Outlier Detection）且反复验证无果时，触发 <code>ask_human</code> 工具：“我看这个数是 1000，这很不合理，请帮我确认图片。”
+3. <strong>降级策略</strong>：在 Reflection 中承认无法看清，并在最终报告中标记该数据点为“高风险/需人工核实”，跳过该步骤继续执行。</li>
+</ul>
+</details>
+<hr />
+<h2 id="5-gotchas">5. 常见陷阱与错误 (Gotchas)</h2>
+<h3 id="51-retry-storm">5.1 解析失败导致的 "Retry Storm"</h3>
+<ul>
+<li><strong>现象</strong>：LLM 输出了一段包含 JSON 的文本，但 JSON 格式由微小的法错误（如缺个逗号），导致代码层解析失败。系统提示 LLM 重试，LLM 再次输出同样的错误 JSON。</li>
+<li><strong>调试</strong>：</li>
+<li><strong>Rule of Thumb</strong>: 使用 <strong>Robust Parser</strong>（如 JSON 修复库）而不是严格的 <code>json.loads</code>。</li>
+<li>在 System Prompt 中提供具体的 One-shot 示例。</li>
+<li>如果在 Loop 中连续 2 次解析失败，切换到简易模式或直接报错，不要无限重试。</li>
+</ul>
+<h3 id="52-i-have-done-it">5.2 "I have done it" 幻觉</h3>
+<ul>
+<li><strong>现象</strong>：用户让 Agent "给客户发邮件"。Agent 在 Thought 中写道 "Calling email tool..."，但实际上它并没有输出真正的 Tool Call 格式，或者工具调用失败了，但 Agent 在下一轮直接说 "邮件已发送"。</li>
+<li><strong>原因</strong>：模型混淆了“计划做”和“已经做完”。</li>
+<li><strong>调试</strong>：</li>
+<li>强制要求 Observation 必须来自系统注入，严禁 LLM 自己生成 Observation。</li>
+<li>在 Prompt 中强调：<em>“你只有在收到 <code>Tool Output: Success</code> 的系统消息后，才能确认动作已完成。”</em></li>
+</ul>
+<h3 id="53">5.3 忽略多模态信息的“盲视”</h3>
+<ul>
+<li><strong>现象</strong>：Agent 拿着一张全是字的截图，却说“我没看到任何文字”。</li>
+<li><strong>原因</strong>：图片分辨率被压缩太厉害，或者 VLM 的视觉编码器对密集文本支持不好。</li>
+<li><strong>调试</strong>：</li>
+<li><strong>Always check resolution</strong>：在 Loop 开始前检查图片尺寸，过小则拒绝或 Upscale。</li>
+<li><strong>混合感知</strong>：对于文档类任务，不要只依赖 VLM（视觉），必须配合 OCR（文字提取）作为辅助输入（Visual Grounding）。</li>
+</ul>
+<h3 id="54">5.4 僵尸进程</h3>
+<ul>
+<li><strong>现象</strong>：Agent 在等待一个超时的网络请求，整个 Loop 卡住，用户以为死机了。</li>
+<li><strong>调试</strong>：</li>
+<li>给所有的 Tool Call 设置严格的 <strong>Timeout</strong>（如 30秒）。</li>
+<li>实现 <strong>Stream Thinking</strong>：即使工具在跑，Agent 也可以向用户流式输出“正在读取网页，请稍候...”，保持交互活性。</li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter3.html" class="nav-link prev">← [第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)</a><a href="chapter5.html" class="nav-link next">第 5 章 记忆与知识：RAG、多模态检索与状态管理 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

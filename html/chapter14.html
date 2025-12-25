@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第 14 章 座舱多模对话机器人：可控、可靠、可解释</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 16 章 机器人操作与具身 VLA Agent](https://www.google.com/search?q=chapter16.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="14">第 14 章 座舱多模对话机器人：可控、可靠、可解释</h1>
+<h2 id="1">1. 开篇段落</h2>
+<p>智能座舱（Smart Cockpit）是多模态 AI 落地最复杂、要求最严苛的场景之一。与家庭音箱或手机助手不同，车载 Agent 运行在一个<strong>移动的、高风险的、多成员共存的</strong>物理空间中。</p>
+<p>在这里，Agent 不仅仅是一个聊天机器人，它是车辆操作系统（OS）的人格化接口。它需要同时处理毫秒级的车辆控制指令（如“打开雨刮”）和开放域的知识问答（如“前面那个雕像是什么”）。</p>
+<p><strong>本章学习目标</strong>：</p>
+<ol>
+<li><strong>掌握端云混合架构</strong>：如何在无网、弱网环境下保证核心功能（车控）的绝对可用性。</li>
+<li><strong>理解多模态融合感知</strong>：结合麦克风阵列（听觉）、车内摄像头（视觉）和 CAN 总线（触觉/本体感觉）来精准理解意图。</li>
+<li><strong>构建安全护栏</strong>：设计符合驾驶认知负荷（Cognitive Load）的安全策略，确保 AI 不会成为“马路杀手”。</li>
+</ol>
+<hr />
+<h2 id="2">2. 核心技术论述</h2>
+<h3 id="21">2.1 整体架构：端云协同与分层仲裁</h3>
+<p>车载环境的网络连接是不稳定的（隧道、地下车库、偏远山区），但车辆控制必须由 100% 的可靠性。因此，座舱 Agent 普遍采用 <strong>“端侧优先（Edge-First）”</strong> 的混合架构。</p>
+<div class="codehilite"><pre><span></span><code>[ Architecture: Hybrid In-Cabin Agent ]
+
+      User Interaction (Voice / Gaze / Touch)
+                   ||
+                   \/
++-------------------------------------------------------------+
+|  1. PERCEPTION LAYER (Sensors &amp; Signal Processing)          |
+|  [Mic Array] -&gt; Beamforming -&gt; VAD -&gt; [Wake-up Engine]      |
+|  [Cabin Cam] -&gt; Face ID -&gt; Gaze Tracking -&gt; Emotion Detect  |
+|  [Vehicle Bus] -&gt; Speed / Gear / Wiper / Temp / GPS         |
++-------------------------------------------------------------+
+                   || (Clean Audio + Visual Context + Car State)
+                   \/
++-------------------------------------------------------------+
+|  2. ORCHESTRATION &amp; ROUTING (The &quot;Switch&quot;)                  |
+
+|  2. ORCHESTRATION &amp; ROUTING (The &quot;Switch&quot;)                  |
+|                                                             |
+|  Is it a Car Control Command? (e.g., &quot;Windows down&quot;)        |
+|  Yes -&gt; [Edge NLU] (Fast, Offline, Deterministic)           |
+|  No  -&gt; [Cloud LLM] (Slow, Online, Reasoning-heavy)         |
+
++-------------------------------------------------------------+
+         //                     \\
+        // (Local Slot Filling)  \\ (Reasoning &amp; Tools)
+       //                         \\
++--------------+           +------------------+
+| 3a. EDGE EXE |           | 3b. CLOUD BRAIN  |
+| Rule Engine  |           | RAG / Search     |
+| Car Service  |           | Global Knowledge |
++--------------+           | Complex Planning |
+       |                   +------------------+
+
+       |                   +------------------+
+       |                            |
+
+       +------------+---------------+
+                    |
+                    \/
++-------------------------------------------------------------+
+|  4. ACTION &amp; GENERATION LAYER                               |
+|  [Arbitration]: Safety Check (Speed &gt; 0? Child Lock on?)    |
+|  [Feedback]: TTS (Voice) + UI (Screen Card) + Ambient Light |
+|  [Actuation]: Send signal to ECU/BCM (Body Control Module)  |
++-------------------------------------------------------------+
+</code></pre></div>
+
+<h3 id="22">2.2 听觉感知的极限：声源定位与多音区</h3>
+<p>在车内，<strong>“谁在说”</strong> 和 <strong>“说什么”</strong> 同等重要。车内是一个典型的“鸡尾酒会效应”场景，充斥着风噪、胎噪、音乐声和乘客的交谈声。</p>
+<ul>
+<li><strong>多音区锁定 (SSZ - Sound Source Localization)</strong>：</li>
+<li>通过 4-6 个麦克风组成的阵列，系统将车内空间划分为 4 个虚拟域（主驾、副驾、左后、右后）。</li>
+<li><strong>独立意图处理</strong>：</li>
+<li>主驾说“我冷了” -&gt; <strong>仅</strong>调高主驾区域的空调温度。</li>
+<li>
+<p>副驾说“我要听歌” -&gt; 检索音乐，但需判断是否打扰主驾导航。</p>
+</li>
+<li>
+<p><strong>拒识（Rejection）</strong>：系统可以配置为“仅响应主驾唤醒”，自动屏蔽后排儿童的吵闹声对指令的干扰。</p>
+</li>
+<li>
+<p><strong>全双工与免唤醒 (Full-Duplex &amp; Zero-Wakeup)</strong>：</p>
+</li>
+<li>传统模式：唤醒词 -&gt; 等待 -&gt; 指令。</li>
+<li>进阶模式（One-shot）： “你好XX把空调打开” （唤醒词与指令连读）。</li>
+<li><strong>可见即可说 (See-and-Say)</strong>：屏幕上显示的按钮（如“确认”、“取消”、“下一首”），用户无需唤醒，直接说出文字即可触发点击。这需要 UI 树与 NLU 的动态绑定。</li>
+</ul>
+<h3 id="23">2.3 视觉融合：从“语音助手”到“虚拟副驾”</h3>
+<p>视觉模态解决了语音交互中最大的痛点：<strong>指代不明</strong>。</p>
+<ul>
+<li><strong>视线追踪 (Gaze Tracking) + 语音</strong>：</li>
+<li>用户看向中控屏左侧，说“把<strong>这个</strong>关掉”。</li>
+<li>Agent 结合 Gaze 向量与屏幕坐标，判断用户看的是“车窗控制卡片”，遂执行关闭车窗。</li>
+<li>用户看向车外建筑物，说“<strong>那个</strong>是什么楼？”</li>
+<li>
+<p>Agent 结合 GPS、陀螺仪朝向、高精地图 POI 数据，回答建筑物名称。</p>
+</li>
+<li>
+<p><strong>唇语辅助 (Visual Speech Enhancement)</strong>：</p>
+</li>
+<li>在极度嘈杂（如高速开窗、极高音量音乐）环境下，麦克风信号信噪比极低。</li>
+<li>利用车内摄像头捕捉说话人的唇部运动，辅助 ASR 解码，可显著降低误识率。</li>
+</ul>
+<h3 id="24">2.4 安全护栏：驾驶员认知负荷管理</h3>
+<p>这是座舱 Agent 与 ChatGPT 最大的区别。ChatGPT 可以生成长篇大论，座舱 Agent <strong>必须惜字如金</strong>。</p>
+<ul>
+<li>
+<p><strong>认知负荷模型 (Cognitive Load Model)</strong>：
+Agent 应实时监控驾驶员状态（DMS）和车辆状态。</p>
+</li>
+<li>
+<p><em>场景 A：堵车/P档</em> -&gt; 驾驶员负荷低 -&gt; Agent 可以详细播报新闻、进行多轮闲聊。</p>
+</li>
+<li>
+<p><em>场景 B：暴雨/高速变道</em> -&gt; 驾驶负荷高 -&gt; Agent 必须<strong>主动静默</strong>，或将回复精简为“好的”、“已执行”。</p>
+</li>
+<li>
+<p><strong>车辆控制权限矩阵</strong>：
+并非所有指令都能随时执行。</p>
+</li>
+<li>
+<p><strong>车速 &gt; 10km/h</strong>：禁止播放视频、禁止打开后备箱、禁止进入深层设置菜单。</p>
+</li>
+<li><strong>儿童锁开启</strong>：忽略后排的“打开车窗”指令。</li>
+</ul>
+<hr />
+<h2 id="3">3. 本章小结</h2>
+<ul>
+<li><strong>混合架构是刚需</strong>：必须将高频、高安全要求的车控指令留在<strong>端侧（Edge）</strong>，将长尾内容放至<strong>云端</strong>。</li>
+<li><strong>上下文包含物理状态</strong>：Prompt 中必须注入车辆状态（车速、档位、车窗开合度、胎压），否则 Agent 就是瞎子。</li>
+<li><strong>多模态即安全</strong>：利用视觉确认（FaceID）和声纹识别来防止未授权的操作（如儿童误操作）。</li>
+<li><strong>沉默是金</strong>：优秀的座舱 Agent 知道何时闭嘴，不干扰驾驶员的注意力是最高优先级。</li>
+</ul>
+<hr />
+<h2 id="4">4. 练习题</h2>
+<h3 id="50">基础题 (50%)：逻辑与协议</h3>
+<p><strong>Q1. 状态感知的 Prompt 构建</strong></p>
+<blockquote>
+<p><strong>背景</strong>：你需要将用户的自然语言请求发送给云端 LLM 进行意图解析。
+<strong>题目</strong>：请设计一个 JSON 结构的 System Prompt 上下文（Context），包含座舱场景必须的关键动态信息。请至少包含 4 类关键状态数据。
+<strong>提示</strong>：想想如果用户说“我觉得有点闷”，Agent 需要哪些传感器数据才能决定是“打开窗户”还是“打开空调外循环”？</p>
+</blockquote>
+<details>
+<summary>点击查看参考答案</summary>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;system_context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;vehicle_state&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;speed_kmh&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">85</span><span class="p">,</span><span class="w">           </span><span class="c1">// 决定是否能开窗（高速开窗风噪大，倾向于空调）</span>
+<span class="w">      </span><span class="nt">&quot;gear&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;D&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;wipers_active&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">     </span><span class="c1">// 正在下雨，绝对不能开窗</span>
+<span class="w">      </span><span class="nt">&quot;windows&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;fl&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;fr&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;rl&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;rr&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="c1">// 0=closed</span>
+<span class="w">      </span><span class="nt">&quot;ac_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;recirculation&quot;</span><span class="w"> </span><span class="c1">// 当前是内循环，可能导致闷</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;environment&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;outside_temp_c&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">      </span><span class="c1">// 外面冷，可能不适合开大窗</span>
+<span class="w">      </span><span class="nt">&quot;inside_temp_c&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;air_quality_aqi&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="w">      </span><span class="c1">// 空气质量良好，允许切换外循环</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;user_state&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;driver_drowsiness_level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;low&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 如果困倦，可能需要冷风刺激</span>
+<span class="w">      </span><span class="nt">&quot;occupancy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;driver&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;passenger_front&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;我觉得有点闷&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>解析</strong>：</p>
+<ul>
+<li><strong>雨刮器状态</strong>是关键的一票否决权（下雨不开窗）。</li>
+<li><strong>车速</strong>决定了开窗的噪音成本。</li>
+<li><strong>内外温差</strong>辅助决策是调节温度还是仅仅换气。</li>
+</ul>
+</details>
+<p><strong>Q2. 优先级仲裁逻辑</strong></p>
+<blockquote>
+<p><strong>背景</strong>：Agent 接收到两个并发指令。</p>
+<ol>
+<li>主驾（驾驶员）说：“导航去公司。”</li>
+<li>副驾（乘客）说：“我要看电影。”
+<strong>题目</strong>：请编写一段伪代码逻辑，处理这两个请求的冲突与并发。假设中控屏只有一个，且行驶中不能播放视频。</li>
+</ol>
+</blockquote>
+<details>
+<summary>点击查看参考答案</summary>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">arbitration</span><span class="p">(</span><span class="n">driver_intent</span><span class="p">,</span> <span class="n">passenger_intent</span><span class="p">,</span> <span class="n">car_state</span><span class="p">):</span>
+    <span class="n">actions</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># 1. 处理主驾请求 (高优先级)</span>
+    <span class="k">if</span> <span class="n">driver_intent</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;NAVIGATION&quot;</span><span class="p">:</span>
+        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;center_screen_map&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;set_destination&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;Work&quot;</span>
+        <span class="p">})</span>
+
+    <span class="c1"># 2. 处理副驾请求</span>
+    <span class="k">if</span> <span class="n">passenger_intent</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;MEDIA_VIDEO&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">car_state</span><span class="o">.</span><span class="n">speed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># 安全限制：行驶中主屏禁播视频</span>
+            <span class="k">if</span> <span class="n">car_state</span><span class="o">.</span><span class="n">has_passenger_screen</span><span class="p">:</span>
+                <span class="c1"># 如果有专属副驾屏，重定向到副驾屏</span>
+                <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="s2">&quot;passenger_screen&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;play_video&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">passenger_intent</span><span class="o">.</span><span class="n">value</span>
+                <span class="p">})</span>
+                <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;feedback&quot;</span><span class="p">:</span> <span class="s2">&quot;好的，已为您在副驾屏播放。&quot;</span><span class="p">})</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># 只有中控屏，拒绝请求</span>
+                <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;feedback&quot;</span><span class="p">:</span> <span class="s2">&quot;为了安全，行驶中无法播放视频，我可以为您播放音频。&quot;</span><span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># P档停车状态，可以抢占中控屏，但需询问主驾</span>
+            <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;feedback&quot;</span><span class="p">:</span> <span class="s2">&quot;现在是停车状态，要在主屏播放吗？这会覆盖导航画面。&quot;</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">actions</span>
+</code></pre></div>
+
+</details>
+<p><strong>Q3. 离线意图表设计</strong></p>
+<blockquote>
+<p><strong>背景</strong>：为了保证离线可用性，端侧 NLU 通常使用基于规则或轻量级 Slot-Filling 模型。
+<strong>题目</strong>：列出 5 个必须在<strong>断网</strong>情况下依然能完美工作的指令类别（Domain）。</p>
+</blockquote>
+<details>
+<summary>点击查看参考答案</summary>
+<ol>
+<li><strong>车控 (Vehicle Control)</strong>：打开/关闭车窗、空调、座椅加热、后备箱、灯光。</li>
+<li><strong>多媒体控制 (Media Control)</strong>：上一首、下一首、暂停、播放、音量调节（针对本地/蓝牙音乐）。</li>
+<li><strong>系统设置 (System Settings)</strong>：调节屏幕亮度、连接蓝牙、切换驾驶模式（运动/舒适）。</li>
+<li><strong>拨打电话 (Phone)</strong>：呼叫通讯录中的联系人（通过蓝牙连接手机）。</li>
+<li><strong>导航基础操作 (Navi Basic)</strong>：取消导航、查看全览、回家/回公司（本存储的常用点）。
+* <em>注：搜索新地点通常需要网络，但基础指令必须离线支持。</em></li>
+</ol>
+</details>
+<hr />
+<h3 id="50_1">挑战题 (50%)：架构与系统设计</h3>
+<p><strong>Q4. "所见即所说" (Visible-to-Speak) 的实现方案</strong></p>
+<blockquote>
+<p><strong>背景</strong>：用户希望不通过复杂的指令，直接读出屏幕上的按钮文字来触发点击。例如屏幕上有一个弹窗 "[同意] [拒绝]"，用户直接说“同意”。
+<strong>题目</strong>：这涉及到 GUI 树与 NLU 的实时同步。请设计一个简要的数据流，说明当 UI 发生变化时，ASR/NLU 如何知道现在的热词是什么？</p>
+</blockquote>
+<details>
+<summary>点击查看参考答案</summary>
+<p><strong>Hint</strong>: 动态热词（Dynamic Hotwords）与 Accessibility 接口。</p>
+<p><strong>参考架构流程</strong>：</p>
+<ol>
+<li><strong>UI 渲染层 (Android Framework)</strong>：每当界面刷新（Activity/Fragment 变化），通过 Accessibility API 或自定义钩子，遍历当前的 View Tree。</li>
+<li><strong>文本提取 (Text Extraction)</strong>：提取所有 <code>clickable=true</code> 的控件的 <code>text</code> 或 <code>contentDescription</code> 属性（例如：“确认”、“取消”、“路线偏好”）。</li>
+<li><strong>热词注册 (Hotword Registration)</strong>：将提取到的文本列表（Context List）通过 IPC 推送给端侧的 ASR 引擎。</li>
+<li><strong>ASR 偏好偏置 (Biasing)</strong>：ASR 引擎动态提升这些词汇的识别权重。即使发音模糊，也优先匹配屏幕上的词。</li>
+<li><strong>意图匹配</strong>：当识别结果命中列表中的词时，NLU 输出特定的意图 <code>CLICK_ELEMENT</code>，携带参数 <code>target_text="确认"</code>。</li>
+<li><strong>模拟点击</strong>：系统层根据文字反查 View 坐标或 ID，执行模拟点击事件。</li>
+</ol>
+</details>
+<p><strong>Q5. 多模态拒识 (Multimodal Rejection)</strong></p>
+<blockquote>
+<p><strong>背景</strong>：车内有 4 个人在聊天，Agent 频繁被误唤醒（False Trigger）。
+<strong>题目</strong>：利用视觉（摄像头）和声纹信息，设计一套严格的“唤醒校验”逻辑，以将误唤醒率降到最低。
+<strong>要求</strong>：使用流程图逻辑描述。</p>
+</blockquote>
+<details>
+<summary>点击查看参考答案</summary>
+<p><strong>逻辑程</strong>：</p>
+<ol>
+<li><strong>Stage 1: 音频唤醒 (KWS)</strong> -&gt; 检测到关键词 "Hey Agent"。</li>
+<li><strong>Stage 2: 声源定位 (DOA)</strong> -&gt; 确定声音来自 <code>Zone_2</code> (副驾)。</li>
+<li>
+<p><strong>Stage 3: 视觉校验 (Visual Verification)</strong>：
+* 调用副驾摄像头。
+* 检测副驾乘客是否有 <strong>开口动作 (Lip Activity)</strong>？
+* 检测副驾乘客视线是否 <strong>注视屏幕或仪表 (Gaze)</strong>？（可选，视策略而定）。
+* <em>Decision</em>：如果 KWS 触发但嘴巴没动（可能是广播声音），<strong>立即丢弃</strong>。</p>
+</li>
+<li>
+<p><strong>Stage 4: 声纹校验 (VoicePrint)</strong>（可选）：
+* 提取声纹特征。
+* 匹配是否为注册用户？或者是否为“非人类声音”（如合成语音）？</p>
+</li>
+<li>
+<p><strong>Result</strong>：只有通过所有校验，才点亮光圈，开始录音。</p>
+</li>
+</ol>
+</details>
+<p><strong>Q6. 极端场景下的 Handoff 设计</strong></p>
+<blockquote>
+<p><strong>场景</strong>：车辆在高速公路上发生碰撞，气囊弹出。此时用户处于恐慌状态，语无伦次。
+<strong>题目</strong>：设计此时 Agent 的行为模式（Emergency Mode）。它应该做么？不应该做什么？</p>
+</blockquote>
+<details>
+<summary>点击查看参考答案</summary>
+<p><strong>策略设计</strong>：</p>
+<ol>
+<li><strong>触发条件</strong>：从 CAN 总线接收到 <code>Airbag_Deployed</code> 信号 或 <code>G-Sensor</code> 剧烈碰撞信号。</li>
+<li>
+<p><strong>音频策略</strong>：
+* <strong>立即静音</strong>：关闭所有音乐、媒体播放。
+* <strong>最大音量</strong>：将 TTS 音量调至最大（确保用户耳鸣时也能听见）。
+* <strong>全双工关闭</strong>：此时不需要复杂的唤醒，直接进入监听模式或单向广播模式。</p>
+</li>
+<li>
+<p><strong>主动行为</strong>：
+* <strong>E-Call 自动触发</strong>：倒计时 10 秒自动拨打救援电话（如果用户未取消）。
+* <strong>安抚交互</strong>：TTS 播报：“检测到碰撞，正在为您连接救援中心。请保持冷静，报告车内人员受伤情况。”
+* <strong>解锁</strong>：自动解锁车门，打开双闪，关闭高压电（EV车型）。</p>
+</li>
+<li>
+<p><strong>禁忌 (Don'ts)</strong>：
+* 绝对禁止进行无关的对话（如“你需要听首歌放松一下吗？”）。
+* 绝对禁止要求用户进行复杂的操作（如“请输入密码确认报警”）。</p>
+</li>
+</ol>
+</details>
+<hr />
+<h2 id="5-gotchas">5. 常见陷阱与调试技巧 (Gotchas)</h2>
+<h3 id="51">5.1 "幽灵刹车" 般的 "幽灵唤醒"</h3>
+<ul>
+<li><strong>现象</strong>：车主在听广播，广播里的人说了一句类似唤醒词的话，或者歌词里有类似发音，Agent 突然跳出来说话，甚至执行指令。</li>
+<li><strong>调试技巧</strong>：</li>
+<li><strong>AEC (回声消除) 穿透测试</strong>：播放高音量的 heavy metal 音乐，同时测试唤醒。AEC 必须能滤除 99% 的车机自身发出的声音。</li>
+<li><strong>置信度阈值动态调整</strong>：当车内分贝（dB）升高时，自动提高唤醒模型的置信度阈值（Threshold）。宁可拒识，不可误唤醒。</li>
+</ul>
+<h3 id="52">5.2 蓝牙连接后的“失语症”</h3>
+<ul>
+<li><strong>现象</strong>：用户连接了手机蓝牙播放音乐。此时用户对车机说话，车机没反应，或者声音从手机听筒出来。</li>
+<li><strong>原因</strong>：音频通道（Audio Focus）被手机抢占，或者麦克风输入被路由到了 HFP (Hands-Free Profile) 用于通话，导致本地 ASR 拿不到数据。</li>
+<li><strong>Fix</strong>：明确音频策略管理（Audio Policy Manager）。确保“语音助手”拥有最高的麦克风独占权或混音权，无论蓝牙状态如何。</li>
+</ul>
+<h3 id="53">5.3 隐私与数据合规的雷区</h3>
+<ul>
+<li><strong>陷阱</strong>：为了调试方便，开发者记录了车内所有的原始音频和视频并在云端回放。</li>
+<li><strong>风险</strong>：这违反了 GDPR 和中国汽车数据安全法规（如《汽车数据安全管理若干规定》）。车内是私密空间。</li>
+<li><strong>Rule of Thumb</strong>：</li>
+<li><strong>脱敏</strong>：上传云端的只能是提取后的特征（Features）或文本（Text），绝不能是原始人脸图像或原始音频（除非用户签署了极高等级的数据采集协议，通常仅限于测试车）。</li>
+<li><strong>座舱数据不出车</strong>：人脸识别、指纹识别必须在 TEE (可信执行环境) 中完成，只输出 Pass/Fail 结果。</li>
+</ul>
+<h3 id="54">5.4 延迟的“恐怖谷”</h3>
+<ul>
+<li><strong>现象</strong>：用户说“打开车窗”，过了 3 秒窗户才动。用户会在这 3 秒内不仅感到困惑，还会重复指令，甚至手动去按按钮，导致系统随后执行多次。</li>
+<li><strong>标准</strong>：车控类指令的端到端延迟（TTS开始前或动作开始前）应控制在 <strong>800ms - 1s</strong> 以内。超过这个时间，用户体验将呈指数级下降。</li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter13.html" class="nav-link prev">← 第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</a><a href="chapter15.html" class="nav-link next">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第 7 章 OpenAI Harmony 格式与多模态消息协议</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 16 章 机器人操作与具身 VLA Agent](https://www.google.com/search?q=chapter16.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="7-openai-harmony">第 7 章 OpenAI Harmony 格式与多模态消息协议</h1>
+<blockquote>
+<p><strong>开篇段落</strong>
+在单体 LLM 时代，Prompt 是艺术；在多模态 Agent 系统时代，协议（Protocol）是法律。
+随着模型从单一的文本输入进化为视觉、音频、工具调用混合的复杂系统，仅仅通过字符串拼接来管理上下文已经难以为继。<strong>OpenAI Harmony 格式</strong>（即 ChatML 及其衍生标准）已成为业界事实上的标准接口。它不仅仅是 API 的参数规范，更是智能体<strong>思维流（Stream of Thought）</strong>、<strong>行动链（Action Chain）</strong>和<strong>感知数据（Perception Data）</strong>的标准化容器。
+本章将深入解剖这一协议的每一个字节。我们将超越基础的 JSON 结构，探讨如何优雅地封装多模态切片、如何通过 ID 严格锚定工具执行流、以及如何在这一协议之上构建支持多智能体协作（Multi-Agent）的高级通信标准。掌握这一章，你就掌握了智能体系统各组件间对话的“通用语”。</p>
+</blockquote>
+<hr />
+<h2 id="71">7.1 为什么需要统一协议：从“文本”到“结构化流”</h2>
+<p>在构建复杂的 Agent 系统时，我们面临着“格式的巴别塔”：</p>
+<ol>
+<li><strong>多模态异构性</strong>：如何在一个数组中同时表达“用户的文字”、“PDF 的第 3 页截图”和“上一轮工具返回的 JSON 报错”？</li>
+<li><strong>执行的可追溯性</strong>：当智能体并行调用了 3 个工具，如何知道哪个结果对应哪个请求？</li>
+<li><strong>微调与评估</strong>：如果你的 Trace 日志没有标准格式，未来就无法利用这些数据进行 SFT（监督微调）或 DPO（偏好优化）。</li>
+</ol>
+<p>Harmony 格式的核心哲学是：<strong>一切皆消息（Message），消息皆有角色（Role），内容皆为数组（Array）。</strong></p>
+<hr />
+<h2 id="72">7.2 消息解剖学：角色与多模态图文流</h2>
+<p>一个标准的 Context 是一个有序的 <code>List[Message]</code>。</p>
+<h3 id="721-the-standard-roles">7.2.1 角色定义（The Standard Roles）</h3>
+<p>| 角色 (Role) | 核心职责 | 工程隐喻 |</p>
+<table>
+<thead>
+<tr>
+<th>角色 (Role)</th>
+<th>核心职责</th>
+<th>工程隐喻</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>System</strong></td>
+<td>世界设定、规则边界、输出格式约定。</td>
+<td><code>Root User / Kernel</code></td>
+</tr>
+<tr>
+<td><strong>User</strong></td>
+<td>任务发起者、外部环境信号、多模态输入源。</td>
+<td><code>Stdin / Event Trigger</code></td>
+</tr>
+<tr>
+<td><strong>Assistant</strong></td>
+<td>智能体的大脑。输出思考（Text）或行动请求（Tool Calls）。</td>
+<td><code>Process / Logic</code></td>
+</tr>
+<tr>
+<td><strong>Tool</strong></td>
+<td>环境反馈。只负责执行指令并返回客观结果（或报错）。</td>
+<td><code>Stdout / System Call Return</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="722-content-parts">7.2.2 内容块（Content Parts）：多模态的原子单位</h3>
+<p>为了处理图文混排，<code>content</code> 字段不再是字符串，而是对象数组。</p>
+<div class="codehilite"><pre><span></span><code>[ASCII: 多模态消息的内存布局]
+
+Message (Role: User)
++------------------------------------------------------------+
+| content: [                                                 |
+|   { type: &quot;text&quot;, text: &quot;这是现场拍摄的仪表盘照片：&quot; },    |
+|   {                                                        |
+|     type: &quot;image_url&quot;,                                     |
+|     image_url: {                                           |
+|       url: &quot;s3://bucket/img_001.jpg&quot;,                      |
+|       detail: &quot;high&quot;  &lt;-- 触发切片机制                     |
+|     }                                                      |
+|   },                                                       |
+|   { type: &quot;text&quot;, text: &quot;请读数并判断是否异常。&quot; }         |
+| ]                                                          |
++------------------------------------------------------------+
+</code></pre></div>
+
+<h3 id="723-rule-of-thumb">7.2.3 图像处理的 Rule of Thumb</h3>
+<ul>
+<li><strong>Detail Parameter</strong>: 务必显式指定 <code>detail</code>。</li>
+<li><code>low</code>: 模型仅看到缩略图（512x512），消耗 tokens 少（约 85 tokens），适合概览。</li>
+<li>
+<p><code>high</code>: 模型会将图片切分为多个 512x512 的 tiles 加上一张缩略图。适合 OCR、图表分析。</p>
+</li>
+<li>
+<p><strong>Base64 vs URL</strong>:</p>
+</li>
+<li><strong>开发/测试</strong>：使用 Base64，方便快捷，无鉴权烦恼。</li>
+<li><strong>生产环境</strong>：使用 URL（通常是预签名 URL）。Base64 会极大地增加网络 Payload 大小，增加延迟和序列化开销。</li>
+</ul>
+<hr />
+<h2 id="73-tool-call">7.3 Tool Call：严格的闭环协议</h2>
+<p>这是 Agent 区别于 Chatbot 的分水岭。协议要求<strong>请求与响应必须通过 ID 严格配对</strong>。</p>
+<h3 id="731">7.3.1 完整的工具调用生命周期</h3>
+<p>一个交互回合（Turn）通常包含 4 个步骤：</p>
+<div class="codehilite"><pre><span></span><code>[ASCII: 工具调用时序图]
+
+1. USER
+   Content: &quot;查一下北京天气&quot;
+       |
+       v
+
+2. ASSISTANT (生成)
+   Content: null (或 &quot;好的，我来查询...&quot;)
+   Tool_Calls: [
+     { id: &quot;call_abc123&quot;, type: &quot;function&quot;, function: {name: &quot;get_weather&quot;, arguments: &quot;{&#39;city&#39;:&#39;bj&#39;}&quot;} }
+   ]
+       |
+       v (系统拦截，执行函数，获得结果 &quot;22C&quot;)
+       |
+
+3. TOOL (提交结果)
+   Role: &quot;tool&quot;
+   Tool_Call_Id: &quot;call_abc123&quot;  &lt;-- 必须匹配!
+   Content: &quot;Temperature: 22C, Sunny&quot;
+       |
+       v
+
+4. ASSISTANT (最终响应)
+   Content: &quot;北京今天晴天，气温 22 度。&quot;
+</code></pre></div>
+
+<h3 id="732-parallel-tool-calls">7.3.2 并行调用（Parallel Tool Calls）与错误处理</h3>
+<p>现在的模型（如 GPT-4o）倾向于一次性发出多个工具调用。</p>
+<ul>
+<li><strong>场景</strong>：用户问“对比 Amazon 和 Google 的股价”。</li>
+<li><strong>Assistant 输出</strong>：<code>Tool_Calls: [ {id:1, name: get_stock, args: AMZN}, {id:2, name: get_stock, args: GOOG} ]</code></li>
+<li><strong>规则</strong>：
+1. <strong>全量返回</strong>：下一轮必须包含 2 条 Tool 消息。
+2. <strong>ID 对应</strong>：顺序不重要，但 <code>tool_call_id</code> 必须存在。
+3. <strong>部分失败</strong>：如果 Google 接口超时，<strong>不要</strong>抛出异常中断 Agent。必须构建一条 <code>tool</code> 消息，内容为 <code>Error: Timeout fetching data for GOOG</code>。让模型自己决定是重试还是报告部分结果。</li>
+</ul>
+<hr />
+<h2 id="74-harmony-multi-agent">7.4 Harmony 与多智能体（Multi-Agent）协作</h2>
+<p>当系统中有多个 Agent（如“研究员”和“写作者”）时，我们需要扩展协议来标识身份。</p>
+<h3 id="741-name">7.4.1 <code>name</code> 字段的战略用法</h3>
+<p>标准协议支持可选的 <code>name</code> 字段（正则约束 <code>^[a-zA-Z0-9_-]+$</code>）。</p>
+<ul>
+<li><strong>区分不同专家</strong>：</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Reviewer_Agent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;这段代码有安全漏洞...&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Coder_Agent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;收到，我正在修复...&quot;</span><span class="p">}</span>
+</code></pre></div>
+
+<p><em>注意：并非所有模型都完美遵循 <code>name</code> 字段的注意力机制，有时需要在 content 中再次强调身份。</em></p>
+<h3 id="742-handoff-packet">7.4.2 Handoff Packet（移交数据包）</h3>
+<p>不要依赖自然语言说“现在转交给写作者”。应定义一个<strong>隐式工具</strong>来完成移交。</p>
+<ul>
+<li><strong>Handoff Tool Schema</strong>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;transfer_to_writer&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;当研究资料收集完毕后，将任务移交给写作 Agent。&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;research_summary&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;source_file_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;array&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">}},</span>
+<span class="w">      </span><span class="nt">&quot;instruction_for_writer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;research_summary&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="75-gotchas">7.5 常见陷阱与错误 (Gotchas)</h2>
+<h3 id="1-id-the-phantom-id">🔴 1. 幽灵 ID (The Phantom ID)</h3>
+<ul>
+<li><strong>错误</strong>：开发者在重试或手动构建历史时，随手编造了一个 <code>tool_call_id</code>，或者在 Tool 消息中丢失了 ID。</li>
+<li><strong>后果</strong>：模型抛出 <code>BadRequest</code> 或 <code>Unmatched Tool Call</code> 错误。现代 API 对此校验极其严格。</li>
+<li><strong>对策</strong>：将 Tool Call 对象视为不可变的（Immutable）。一旦生成，必须原样保存并在 Tool 消息中引用。</li>
+</ul>
+<h3 id="2-base64-payload-explosion">🔴 2. Base64 爆炸 (Payload Explosion)</h3>
+<ul>
+<li><strong>错误</strong>：在长对话中，保留了所有历史图片的 Base64 编码。</li>
+<li><strong>后果</strong>：Context 迅速爆满，网络传输超时，API 费用激增。</li>
+<li><strong>对策</strong>：在内存中维护对话时，如果图片超过 N 轮（如 5 轮）未被引用，应将其替换为 <code>(Image placeholder: omitted to save context)</code>，或者仅保留文本摘要。</li>
+</ul>
+<h3 id="3-system-prompt">🔴 3. System Prompt 的“越权”</h3>
+<ul>
+<li><strong>错误</strong>：将动态的业务数据（如搜索结果）放入 System Prompt。</li>
+<li><strong>后果</strong>：随着上下文变长，System Prompt 的权重在某些模型中会衰减。且 System Prompt 通常用于定义行为，而非输入数据。</li>
+<li><strong>对策</strong>：System 只放“人设”和“规则”。业务数据全部通过 User 消息或 Tool Output 注入。</li>
+</ul>
+<h3 id="4-xml-json">🔴 4. XML 标签与 JSON 的混战</h3>
+<ul>
+<li><strong>错误</strong>：提示词要求模型“先思考（用XML），再行动（用JSON）”，导致模型输出 <code>&lt;think&gt;...&lt;/think&gt; {tool_call...}</code>。</li>
+<li><strong>后果</strong>：标准 API 解析器无法识别混合在文本中的 JSON，导致工具调用失败。</li>
+<li><strong>对策</strong>：
+1. 强制模型将思考过程也作为参数的一部分（如 <code>explanation</code> 字段）。
+2. 或者在接收端编写鲁棒的解析层，剥离 XML 后再手动构造 Tool Call 对象（适用于非 Function Calling 模型）。</li>
+</ul>
+<hr />
+<h2 id="76">7.6 本章小结</h2>
+<ol>
+<li><strong>协议即法律</strong>：Harmony 格式（User/Assistant/Tool/System）是构建稳定 Agent 的基石，任何对格式的随意修改都会导致不可预测的“智商下降”。</li>
+<li><strong>多模态是对象流</strong>：停止将图片视为附件，它们是与文本平级的 <code>content_part</code>。</li>
+<li><strong>闭环至上</strong>：工具调用必须有始有终（Call -&gt; Result），ID 是贯穿始终的唯一线索。</li>
+<li><strong>显式协作</strong>：在多智能体场景下，利用 <code>name</code> 字段和显式的 <code>handoff</code> 工具来管理控制流，优于隐式的自然语言指令。</li>
+</ol>
+<hr />
+<h2 id="77">7.7 练习题</h2>
+<h3 id="schema">基础题（熟悉 Schema）</h3>
+<details>
+<summary><strong>练习 1：构建图文混合消息 Payload</strong>（点击展开）</summary>
+<p><strong>题目</strong>：
+你需要向模型发送一条 User 消息，内容包含：</p>
+<ol>
+<li>文本：“请分析这张发票的抬头和金额。”</li>
+<li>一张 URL 图片（<code>https://example.com/invoice.jpg</code>），要求高精度模式。</li>
+<li>一张本地 Base64 图片（缩略图，假设数据为 <code>...</code>），要求自动精度模式。</li>
+</ol>
+<p>请写出该消息的 JSON 结构。</p>
+<p><strong>提示</strong>：注意 <code>content</code> 数组的顺序和每个对象的 <code>type</code>。</p>
+<p><strong>参考答案</strong>：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;请分析这张发票的抬头和金额。&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;image_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/invoice.jpg&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;image_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data:image/jpeg;base64,...&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;auto&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</details>
+<details>
+<summary><strong>练习 2：多智能体对话历史构建</strong>（点击展开）</summary>
+<p><strong>题目</strong>：
+你需要模拟一个对话历史，其中：</p>
+<ol>
+<li>System 设定：“你是一个圆桌会议记录员。”</li>
+<li>User (主持人)：“开始讨论。”</li>
+<li>Assistant (专家 A，名字叫 "Physics_Expert")：“主要是引力问题。”</li>
+<li>Assistant (专家 B，名字叫 "Math_Expert")：“我同意，但公式需要修正。”</li>
+</ol>
+<p>请写出第 3、4 条消息的 JSON 结构。</p>
+<p><strong>提示</strong>：使用 <code>name</code> 字段。</p>
+<p><strong>参考答案</strong>：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Physics_Expert&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;主要是引力问题。&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Math_Expert&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;我同意，但公式需要修正。&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+</details>
+<details>
+<summary><strong>练习 3：工具调用的配对逻辑</strong>（点击展开）</summary>
+<p><strong>题目</strong>：
+模型发出了一个工具调用 <code>id: "call_999"</code>, 函数名 <code>search_google</code>.
+随后，程序抓取到了结果 "No results found".
+请写出反馈给模型的下一条消息。</p>
+<p><strong>参考答案</strong>：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tool&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tool_call_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;call_999&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search_google&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;No results found&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><em>注意：<code>name</code> 字段在某些 API 实现中是可选的，但 <code>tool_call_id</code> 是必须的。</em></p>
+</details>
+<h3 id="_1">挑战题（工程实战与边缘情况）</h3>
+<details>
+<summary><strong>练习 4：并行工具调用的异常修复</strong>（点击展开）</summary>
+<p><strong>题目</strong>：
+模型一次性输出了 3 个工具调用：</p>
+<ol>
+<li><code>read_file("A.txt")</code> (ID: 101)</li>
+<li><code>read_file("B.txt")</code> (ID: 102)</li>
+<li><code>read_file("C.txt")</code> (ID: 103)</li>
+</ol>
+<p>在后端执行时，文件 A 和 C 读取成功，但文件 B 不存在（抛出 FileNotFoundError）。
+如果你的代码直接抛出异常并停止处理，Agent 就会崩溃。
+请设计一个正确的 <code>List[Message]</code> 返回给模型，使对话能继续。</p>
+<p><strong>提示</strong>：你必须返回 3 条 Tool 消息，不能少。</p>
+<p><strong>参考答案</strong>：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tool&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;tool_call_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;101&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Content of A...&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tool&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;tool_call_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;102&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Error: FileNotFoundError: &#39;B.txt&#39; does not exist.&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tool&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;tool_call_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;103&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Content of C...&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p><strong>关键点</strong>：将系统异常转化为协议内的 Error Message。模型看到这个错误后，可能会在下一轮尝试 <code>list_dir</code> 或者询问用户。</p>
+</details>
+<details>
+<summary><strong>练习 5：长文档的 Token 预算管理</strong>（点击展开）</summary>
+<p><strong>题目</strong>：
+你的 Agent 正在阅读一本 100 页的 PDF。用户问了关于第 50 页的一个图表的问题。
+目前的 Context 策略是：将每一页都转为图片传入。
+但这会迅速耗尽 Token。请设计一个基于 Harmony 协议的“滑动窗口”或“引用”策略。</p>
+<p><strong>提示</strong>：不要真的把 100 张图放进 <code>content</code>。使用 Tool 来按需加载。</p>
+<p><strong>参考答案</strong>：
+<strong>策略</strong>：</p>
+<ol>
+<li>System Prompt 中告知模型：“你可以通过 <code>view_page(page_number)</code> 工具查看文档的特定页面。”</li>
+<li>User 传入 PDF 的文本摘要或目录结构。</li>
+<li>模型决定调用 <code>view_page(50)</code>。</li>
+<li>Tool 返回第 50 页的图片数据（高精度）。</li>
+<li><strong>核心技巧</strong>：在第 3 轮对话后，如果模型不再关注第 50 页，应在历史记录中将该 Tool Result 的图片数据替换为 <code>(Image data cleared to save context)</code>，仅保留纯文本描述。</li>
+</ol>
+</details>
+<details>
+<summary><strong>练习 6：设计通用的 Handoff 协议</strong>（点击展开）</summary>
+<p><strong>题目</strong>：
+你需要设计一个通用的 <code>handoff</code> 工具 Schema，用于在三个不同能力的 Agent（检索、代码、写作）之间流转任务。
+要求该工具能传递：</p>
+<ol>
+<li>目标 Agent 的名称。</li>
+<li>任务的上下文（Payload）。</li>
+<li>已有的“资产”（如已下载的文件路径列表）。</li>
+</ol>
+<p><strong>参考答案</strong>：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;handoff_task&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Transfer the current task to a specialized agent.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;target_agent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;enum&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;search_agent&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;coding_agent&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;writer_agent&quot;</span><span class="p">]</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;handoff_context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Summary of what has been done and what needs to be done next.&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;assets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;array&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;asset_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;enum&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;file_path&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;memory_key&quot;</span><span class="p">]},</span>
+<span class="w">            </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;List of file paths or memory keys to pass along.&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;target_agent&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;handoff_context&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</details>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter6.html" class="nav-link prev">← 第 6 章 Agent Handoff：任务移交与协作协议</a><a href="chapter8.html" class="nav-link next">第 8 章 Multi-Agent：从单体到群体协作 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第 8 章 Multi-Agent：从单体到群体协作</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 16 章 机器人操作与具身 VLA Agent](https://www.google.com/search?q=chapter16.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="8-multi-agent">第 8 章 Multi-Agent：从单体到群体协作</h1>
+<h2 id="1">1. 开篇段落</h2>
+<p>在前面的章节中，我们构建的智能体大多是“单兵作战”：一个大模型核心，配备多个工具（Tools）和一块记忆（Memory）。这种 <strong>单体智能体（Monolithic Agent）</strong> 在处理线性任务（如“查询天气并穿衣建议”）时表现出色。然而，当我们面对真实世界的复杂性——例如“撰写一份包含市场调研、竞品图片分析和财务预测的商业计划书”时，单体智能体往往会撞上“能力墙”。</p>
+<p>它会面临上下文窗口的拥挤（Context Crowding）、指令遵循能力的退化（Instruction Dilution），以及“全能悖”（要求一个模型同时具备顶级程序员、顶尖会计和顶级作家的微操能力）。</p>
+<p>本章我们将视角升级，从“个体微观”转向“组织宏观”。我们将探讨 <strong>多智能体系统（Multi-Agent Systems, MAS）</strong> 的设计哲学。你将不再仅仅是一个 Prompt 工程师，而是一个<strong>组织架构师</strong>。我们需要学习如何根据任务形态选择 <strong>层级（Hierarchy）、群组（Swarm）或流水线（Pipeline）</strong> 结构，并制定严谨的 <strong>通信协议（SOP）</strong>，让多个专家模型像一支训练有素的足球队一样协作，而不是一群争抢球权的幼儿园小朋友。</p>
+<hr />
+<h2 id="2">2. 文字论述</h2>
+<h3 id="21-multi-agentthe-trade-off">2.1 为什么要使用 Multi-Agent？(The Trade-off)</h3>
+<p>在工程实践中，盲目引入多智能体是初学者常犯的错误。MAS 本质上是一场 <strong>“计算成本（Cost）与延迟（Latency）”换取“质量（Quality）与鲁棒性（Robustness）”</strong> 的交易。</p>
+<ul>
+<li><strong>单体智能体 (Single Agent)</strong>：</li>
+<li><em>优势</em>：全上下可见（Global Context），低延迟，一次推理完成，调试路径单一。</li>
+<li>
+<p><em>劣势</em>：随着 System Prompt 变长，模型对尾部指令的遵循度下降；容易在长链条推理中“迷失”初始目标。</p>
+</li>
+<li>
+<p><strong>多智能体系统 (MAS)</strong>：</p>
+</li>
+<li><em>优势</em>：</li>
+<li><strong>关注点分离 (Separation of Concerns)</strong>：每个 Agent 的 System Prompt 极短且聚焦（例如“你只负责审查 Python 代码安全性”），性能达到局部最优。</li>
+<li><strong>模块化迭代</strong>：可以单独升级“视觉专家”的模型版本，而不影响“文案专家”。</li>
+<li>
+<p><strong>上下文隔离</strong>：避免了无关信息干扰推理（代码专家不需要知道用户的情绪发泄）。</p>
+</li>
+<li>
+<p><em>劣势</em>：系统复杂度指数级上升；通信开销巨大（JSON 序列化/反序列化）；可能陷入死循环。</p>
+</li>
+</ul>
+<p><strong>Rule of Thumb（经验法则）：</strong> 仅当任务复杂度导致单体模型的 Prompt 超过 2k token 仍无法稳定遵循指令，或者任务明显需要两种互斥的思维模式（如“发散创意的作家”与“严谨刻板的审计员”）时，才引入 Multi-Agent。</p>
+<h3 id="22-organizational-patterns">2.2 核心组织架构图谱 (Organizational Patterns)</h3>
+<p>我们将多智能体架构归纳为四种经典拓扑结构。</p>
+<h4 id="221-manager-worker-hierarchical">2.2.1 经理-工人模式 (Manager-Worker / Hierarchical)</h4>
+<p>这是最符合人类公司制度的结构。一个高智商的“大脑”负责规划，多个专用“手脚”负责执行。</p>
+<div class="codehilite"><pre><span></span><code>                  +---------------------+
+                  |     User Query      |
+                  +----------+----------+
+                             |
+                             v
+                  +---------------------+
+                  |    Manager Agent    |  &lt;-- (Planner / Orchestrator)
+                  |  &quot;The Boss / PM&quot;    |
+                  +----------+----------+
+                             | 1. Decompose
+        +--------------------+---------------------+
+        | 2. Assign          |                     |
+        v                    v                     v
++----------------+   +----------------+    +----------------+
+| Research Agent |   |  Coding Agent  |    | Review Agent   |
+| (Web/Doc Tool) |   | (Python Tool)  |    | (Policy Check) |
++-------+--------+   +--------+-------+    +--------+-------+
+        |                    |                      |
+        +--------------------+----------------------+
+                             | 3. Aggregate
+                             v
+                      [ Final Output ]
+</code></pre></div>
+
+<ul>
+<li><strong>工作流</strong>：Manager 接收任务 -&gt; 拆解为子任务 (Sub-goals) -&gt; 顺序或并行分发 -&gt; Worker 执行并返回 -&gt; Manager 汇总。</li>
+<li><strong>多模态应用</strong>：Manager 决定这张图片是发给 <code>OCR Agent</code> 提取文字，还是发给 <code>Vision Agent</code> 描述场景。</li>
+</ul>
+<h4 id="222-router-classifier">2.2.2 路由器模式 (Router / Classifier)</h4>
+<p>主要用于意图识别和分流。与 Manager 不同，Router 往往不参与后续的汇总，它只是一个“前台导购”。</p>
+<div class="codehilite"><pre><span></span><code>User Input --&gt; [ Router / Intent Classifier ]
+                       |
+           +-----------+-----------+
+           |           |           |
+           v           v           v
+      [Refund      [Tech       [Sales
+       Agent]       Support]    Agent]
+         |             |           |
+         +-------------+-----------+---&gt; User
+</code></pre></div>
+
+<ul>
+<li><strong>关键点</strong>：Router 应该非常轻量（甚至可以是微调过的小模型或 BERT），它的目标是<strong>快速</strong>将上下文甩给正确的专家。</li>
+</ul>
+<h4 id="223-debate-critic-reflection">2.2.3 辩论与自我修正模式 (Debate / Critic / Reflection)</h4>
+<p>为了解决 LLM 的幻觉（Hallucination）和逻辑漏洞，引入对抗性角色。这是一种“左脚踩右脚上天”的质量提升手段。</p>
+<div class="codehilite"><pre><span></span><code>      Phase 1: Draft              Phase 2: Critique            Phase 3: Refine
++---------------------+       +----------------------+       +---------------------+
+|    Solver Agent     | ----&gt; |     Critic Agent     | ----&gt; |    Solver Agent     |
+| (Generates Answer)  |       | (Finds flaws/bugs)   |       | (Fixes issues)      |
++---------------------+       +----------------------+       +---------------------+
+           ^                                                            |
+           |____________________(Loop if needed)________________________|
+</code></pre></div>
+
+<ul>
+<li><strong>适用场景</strong>：复杂数学推理、代码生成、高风险合规检查。</li>
+<li><strong>变体</strong>：<strong>多方辩论 (Multi-party Debate)</strong>，引入三个不同观点的 Agent 互相打分，取加权一致性结果。</li>
+</ul>
+<h4 id="224-blackboard-shared-state">2.2.4 黑板模式 (Blackboard / Shared State)</h4>
+<p>这是最复杂但也最强大的模式，源自传统人工智能。Agent 之间不直接对话，而是读写一个<strong>共享的、结构化的状态池（Blackboard）</strong>。</p>
+<div class="codehilite"><pre><span></span><code>       +-----------------------------------------------+
+       |             SHARED BLACKBOARD                 |
+       |  {                                            |
+       |    &quot;user_intent&quot;: &quot;drive_home&quot;,               |
+       |    &quot;obstacles&quot;: [{&quot;type&quot;: &quot;car&quot;, &quot;pos&quot;:...}], | &lt;--- Updated by Perception
+       |    &quot;path_plan&quot;: [ ... ],                      | &lt;--- Updated by Planner
+       |    &quot;status&quot;: &quot;waiting_traffic_light&quot;          |
+       |  }                                            |
+       +-----------------------------------------------+
+           ^           ^             ^            ^
+           |           |             |            |
+     [Perception]  [Planner]     [Control]    [Safety]
+       Agent         Agent         Agent       Monitor
+</code></pre></div>
+
+<ul>
+<li><strong>机制</strong>：发布-订阅（Pub/Sub）。Agent 监控黑板上的特定字段，一旦满足触发条件（Pre-condition），就执行操作并更新黑板。</li>
+<li><strong>适用场景</strong>：非线性任务、异步协作、具身智能（VLA）、复杂的侦探推理游戏。</li>
+</ul>
+<h3 id="23-protocols-data-flow">2.3 协作协议与多模态数据流 (Protocols &amp; Data Flow)</h3>
+<p>架构定了，Agent 之间怎么“说话”？这决定了系统的稳定性。</p>
+<ol>
+<li><strong>Handoff Protocol (移交协议)</strong>：
+* <strong>热移交 (Full Context)</strong>：将整个对话历史 <code>messages[]</code> 传给下一个 Agent。
+* <em>优点</em>：无信息损失。
+* <em>缺点</em>：Token 爆炸，后面的 Agent 容易被前面的废话干扰。</li>
+</ol>
+<ul>
+<li><strong>冷移交 (Summary Handoff)</strong>：上游 Agent 必须在结束前生成一个结构化的 <code>Handoff Packet</code>。</li>
+<li>
+<p><em>Packets 示例</em>：<code>{"goal": "...", "completed_steps": [...], "key_evidence": "...", "pending_questions": [...]}</code>。</p>
+</li>
+<li>
+<p><strong>多模态引用传递</strong>：不要传递图片的 Base64！<strong>只传递图片的 ID 或 URI</strong>。所有 Agent 共享一个 <code>Media Service</code>，只有在需要看图时才去加载。</p>
+</li>
+</ul>
+<ol start="2">
+<li><strong>仲裁协议 (Arbitration)</strong>：
+* 当两个 Agent 意见不一致（如辩论模式），谁说了算？
+* <strong>Supervisor Strategy</strong>：设置一个拥有最高权限的 Supervisor，它不生成内容，只负责打分和叫停。
+* <strong>Voting Strategy</strong>：少数服从多数（需 3+ Agent）。</li>
+</ol>
+<h3 id="24-resource-scheduling">2.4 资源调度 (Resource Scheduling)</h3>
+<p>多智能体不仅仅是软件逻辑，也是分布式系统。</p>
+<ul>
+<li><strong>并行度 (Parallelism)</strong>：Manager 可以同时调用 <code>Search_Agent</code> 和 <code>Doc_Reading_Agent</code>。这需要你的框架支持 <code>async/await</code> 并发控制。</li>
+<li><strong>优先级 (Priority)</strong>：在资源（如 API Rate Limit）受限时，优先保障 <code>Safety_Agent</code>（安全守门员）的运行，其次才是 <code>Creative_Agent</code>。</li>
+</ul>
+<hr />
+<h2 id="3">3. 本章小结</h2>
+<ol>
+<li><strong>架构即智能</strong>：当单体模型智力封顶时，合理的组织架构（Manager-Worker, Debate, Blackboard）可以涌现出更高的系统智能。</li>
+<li><strong>专业分工</strong>：Prompt Engineering 的终极形态是给每个 Agent 写一份极简、极专的 Job Description（职位描述）。</li>
+<li><strong>协议重于模型</strong>：定义清晰的输入输出 Schema（JSON）、移交数据包（Packet）和终止条件（Termination），比单纯调优模型参数更重要。</li>
+<li><strong>多模态通信</strong>：在 Agent 间传递多模态内容时，使用“引用（Reference）”而非“值（Value）”，避免上下文爆炸。</li>
+</ol>
+<hr />
+<h2 id="4">4. 练习题</h2>
+<h3 id="_1">基础题（帮助熟悉材料）</h3>
+<h4 id="81">练习 8.1：架构匹配</h4>
+<p><strong>题目</strong>：请为以下三个场景分别推荐最合适的 Multi-Agent 架构，并简理由。</p>
+<ol>
+<li><strong>场景 A</strong>：一个智能客服，需要根据用户是询问“退货政策”、“技术故障”还是“VIP服务”来转接不同的知识库。</li>
+<li><strong>场景 B</strong>：一个自动驾驶系统的决策层，感知模块实时更新路况，导航模块规划路线，控制模块调整方向盘，它们需要异步协作。</li>
+<li><strong>场景 C</strong>：一个辅助编程工具，用户输入需求，系统先写代码，然后运行单元测试，如果报错则根据报错信息修改代码，直到测试通过。</li>
+</ol>
+<details>
+<summary>点击查看参考答案</summary>
+<ul>
+<li><strong>场景 A：路由器模式 (Router)</strong>。理由：任务之间是正交的（互斥），只需一次分类即可分流，无需后续汇总。</li>
+<li><strong>场景 B：黑板模式 (Blackboard)</strong>。理由：模块间存在复杂的依赖和异步更新（感知变了，规划就得变），共享状态池是最优解。</li>
+<li><strong>场景 C：循环式的经理-工人模式 或 辩论/自修模式</strong>。理由：这是一个典型的 <code>Generate -&gt; Test -&gt; Fix</code> 闭环，需要迭代直到满足终止条件（测试通过）。</li>
+</ul>
+</details>
+<h4 id="82handoff-packet">练习 8.2：Handoff Packet 设计</h4>
+<p><strong>题目</strong>：你有一个负责“深度网页搜索”的 Agent A，通过搜索找到了关于“2024年东京奥运会收视率”的 5 个关键事实。现在要移交给负责“撰写新闻稿”的 Agent B。
+请设计一个 JSON 格式的 <code>Handoff Packet</code>，既能包含必要信息，又避免把成百上千行的搜索原始 HTML 扔给 Agent B。</p>
+<details>
+<summary>点击查看提示与答案</summary>
+<p><strong>提示</strong>：Agent B 不需要知道你是怎么搜的（搜索过程），只需要知道你搜到了什么（结论）以及来源（用于引用）。</p>
+<p><strong>参考 Schema</strong>：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;handoff_reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Search complete, ready for drafting.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;task_context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Write a news brief about 2024 Tokyo Olympics viewership.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;findings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;fact&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Global viewership dropped by 15% compared to Rio.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://news.com/report1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;confidence&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;High&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;fact&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Streaming minutes increased by 300%.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://official.olympics/stats&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;confidence&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Medium&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;image_candidates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;img_ref_001&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;img_ref_002&quot;</span><span class="p">],</span><span class="w"> </span><span class="c1">// 图片引用ID</span>
+<span class="w">  </span><span class="nt">&quot;constraints&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Keep it under 200 words.&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</details>
+<h3 id="_2">挑战题（包括开放性思考题）</h3>
+<h4 id="83-breaking-the-loop">练习 8.3：死锁破解 (Breaking the Loop)</h4>
+<p><strong>题目</strong>：在“代码编写 (Coder)”和“代码审查 (Reviewer)”的二人协作中，经常出现如下死锁：</p>
+<ul>
+<li>Coder: "这是修改后的代码 V5。"</li>
+<li>Reviewer: "变量命名风格还是不完美，请修改。"</li>
+<li>Coder: "修改了，这是 V6。"</li>
+<li>Reviewer: "这个函数的注释不够详细，请修改。"
+...（无限循环，由于 Reviewer 过于吹毛求疵，导致任务无法收敛）</li>
+</ul>
+<p>请设计一种<strong>基于协议的机制</strong>来打破这种死锁，不仅仅是限制最大轮次。</p>
+<details>
+<summary>点击查看参考答案</summary>
+<p><strong>解题思路</strong>：</p>
+<ol>
+<li><strong>预算衰减 (Budget Decay)</strong>：给 Reviewer 一个“挑刺预算”。每提出一个 issue，扣除一点预算。预算耗尽后，只能强制通过（PASS）。</li>
+<li><strong>分级验收 (Tiered Acceptance)</strong>：定义 <code>Critical</code> (必须修) 和 <code>Nice-to-have</code> (建议修) 错误。如果在 N 轮后仍未通过，Manager 介入，强制 Reviewer 忽略所有 <code>Nice-to-have</code> 问题，只检查 <code>Critical</code>。</li>
+<li><strong>仲裁者引入 (Supervisor)</strong>：当循环超过 3 次，引入第三个 Agent（Supervisor），让它评估 Reviewer 的修改意见是否“微不足道（trivial）”。如果是，Supervisor 强行终止循环并采纳当前版本。</li>
+</ol>
+</details>
+<h4 id="84">练习 8.4：多模态“传话筒”游戏</h4>
+<p><strong>题目</strong>：设计一个系统，用户上传一张复杂的UI设计图。</p>
+<ul>
+<li>Agent A (Vision Expert) 负责看图并描述布局。</li>
+<li>Agent B (Frontend Expert) 负责根据描述写 HTML/CSS。</li>
+<li><strong>挑战</strong>：Agent A 的文字描述往往不够精确（例如“左边有个按钮” vs “左上角 20px 处有一个 100x50 的蓝色主按钮”）。
+请设计一个<strong>基于反馈的协作流程</strong>，让 Agent B 能主动向 Agent A 提问，从而提高还原度。</li>
+</ul>
+<details>
+<summary>点击查看参考答案</summary>
+<p><strong>流程设计</strong>：</p>
+<ol>
+<li><strong>Initial Pass</strong>: A 生成初步描述 -&gt; B 生成 v1 代码。</li>
+<li><strong>Rendering</strong>: 系统将 B 的 v1 代码渲染为截图 (Screenshot_v1)。</li>
+<li>
+<p><strong>Visual Comparison (关键步骤)</strong>:
+* 将 <code>Original_Image</code> 和 <code>Screenshot_v1</code> 并排发给一个 <strong>Visual Critic Agent</strong> (或复用 Agent A)。
+* Critic 比较两图差异，输出结构化差异报告：<code>{"diff_area": "top-left", "issue": "Button color is red, expected blue"}</code>。</p>
+</li>
+<li>
+<p><strong>Refinement</strong>: B 接收差异报告，修改代码生成 v2。</p>
+</li>
+<li><strong>Loop</strong>: 重复直到差异低于阈值。
+<em>核心在于引入了“渲染+视觉比对”闭环，而不是单纯依赖语言描述。</em></li>
+</ol>
+</details>
+<hr />
+<h2 id="5-gotchas">5. 常见陷阱与错误 (Gotchas)</h2>
+<h3 id="51-the-politeness-loop">5.1 "The Politeness Loop" (礼貌死循环)</h3>
+<ul>
+<li><strong>现象</strong>：两个 Agent 在任务完成后始互相感谢。</li>
+<li>
+<p>A: "Here is the data." -&gt; B: "Thanks!" -&gt; A: "You're welcome!" -&gt; B: "Have a nice day!"</p>
+</li>
+<li>
+<p><strong>后果</strong>：浪费 Token，甚至导致流程挂起（如果是基于关键词终止的）。</p>
+</li>
+<li><strong>调试技巧</strong>：在 System Prompt 中加入强指令：“<strong>禁止闲聊。禁止礼貌用语。任务完成后仅输出 <code>&lt;TERMINATE&gt;</code>。</strong>”</li>
+</ul>
+<h3 id="52-herding">5.2 羊群效应 (Herding)</h3>
+<ul>
+<li><strong>现象</strong>：在多方辩论或投票中，如果 Agent B 看到了 Agent A 的回答，它倾向于附和 A，而不是独立思考。</li>
+<li><strong>调试技巧</strong>：<strong>盲测 (Blind Box)</strong>。在第一轮投票时，不要让 Agent 看到彼此的回答，只给它们看原始问题。收集完所有人的独立回答后，再进行第二轮“公开讨论”。</li>
+</ul>
+<h3 id="53-format-war">5.3 格式战争 (Format War)</h3>
+<ul>
+<li><strong>现象</strong>：Agent A 输出 Markdown 表格，Agent B 期待 CSV，Agent C 期待 JSON。解析器在中间频繁报错。</li>
+<li><strong>调试技巧</strong>：</li>
+<li><strong>统一 Schema</strong>：在 System Prompt 中强制定义交互格式（推荐 JSON）。</li>
+<li><strong>容错解析</strong>：使用 <code>json_repair</code> 等库处理 LLM 输出的非标准 JSON。</li>
+<li><strong>格式转换器</strong>：在 Agent 之间加一层轻量的 Middleware 负责格式清洗。</li>
+</ul>
+<h3 id="54-phantom-tool-calls">5.4 幽灵调用 (Phantom Tool Calls)</h3>
+<ul>
+<li><strong>现象</strong>：Manager 以为 Worker 已经执行了工具（因为 Worker 回复说“我做完了”），但实际上 Worker 只是产生了幻觉，根本没调 API。</li>
+<li><strong>调试技巧</strong>：Manager 不应只听 Worker 的<strong>自然语言回复</strong>，必须检查 Worker 的 <strong>Tool Execution Trace</strong> 或要求 Worker 返回具体的 <strong>Evidence ID</strong>。不要相信“I have checked the database”，要相信 <code>{"tool": "db_query", "status": "success", "result_count": 5}</code>。</li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter7.html" class="nav-link prev">← 第 7 章 OpenAI Harmony 格式与多模态消息协议</a><a href="chapter9.html" class="nav-link next">第 9 章 与仿真系统互动：闭环、采样与安全 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>[第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 16 章 机器人操作与具身 VLA Agent](https://www.google.com/search?q=chapter16.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="3-tool-call"><a href="https://www.google.com/search?q=chapter3.html">第 3 章 Tool Call：工具调用设计与编排</a></h1>
+<h2 id="31">3.1 开篇：从“大脑”到“手脚”</h2>
+<p>如果说大模型（LLM/VLM）是 Agent 的大脑，那么<strong>工具（Tools）</strong> 就是它的手、脚、眼睛和耳朵。没有工具，模型只是一个被困在 GPU 显存里的、知识渊博但行动瘫痪的哲学家。</p>
+<p><strong>Tool Call（工具调用）</strong>，在某些框架中也被称为 Function Calling，是 Agent 跨越“语义世界”与“物理/数字世界”鸿沟的唯一桥梁。它不仅仅是简单的 API 调用，而是一套完整的<strong>协议</strong>：模型根据上下文判断意图，生成符合规范的结构化指令，宿主系统执行指令，并将结果（无论是文本、图片还错误堆栈）回传给模型，从而形成闭环。</p>
+<h3 id="_1">本章学习目标</h3>
+<ol>
+<li><strong>掌握 Schema Engineering</strong>：如何通过精准的接口定义（JSON Schema）控制模型的行为，减少幻觉。</li>
+<li><strong>精通编排模式</strong>：理解串行（Chain）、并行（Fan-out）、以及异步轮询等复杂的调用拓扑。</li>
+<li><strong>多模态工具设计</strong>：学会如何在工具调用中传递“非文本”信息（如图片引用、音频片段）。</li>
+<li><strong>生产级鲁棒性</strong>：处理超时、脏数据、上下文溢出以及死循环的工程策略。</li>
+</ol>
+<hr />
+<h2 id="32">3.2 工具调用的核心机制</h2>
+<h3 id="321">3.2.1 交互协议解构</h3>
+<p>一个标准的 Tool Call 并不是“模型直接运行代码”，而是“模型生成文本 -&gt; 系统解析并运行 -&gt; 系统注入结果”的三明治结构。</p>
+<p><strong>ASCII 流程图：工具调用的生命周期</strong></p>
+<div class="codehilite"><pre><span></span><code>       [Context / History]
+               |
++--------------v--------------+
+|   LLM / VLM (Reasoning)     | &lt;--- &quot;这个用户想查库存，我需要调用 inventory_tool&quot;
++--------------+--------------+
+               |
+      (Output: Structured Intent)
+               v
++--------------+--------------+
+|   Orchestrator (System)     | &lt;--- 1. 拦截模型输出
+|   - Parse &amp; Validate JSON   | &lt;--- 2. 校验参数类型 (Schema Validation)
+|   - Check Permissions       | &lt;--- 3. 权限风控
++--------------+--------------+
+               |
+      (Execute: API / DB / Code)
+               v
++--------------+--------------+
+|    Real World / Environment | &lt;--- 执行动作 (副作用发生处)
++--------------+--------------+
+               |
+       (Result: &quot;Count: 42&quot;)
+               v
++--------------+--------------+
+|   Orchestrator (System)     | &lt;--- 4. 格式化结果 (截断、清洗)
+|   - Format as ToolMessage   |
++--------------+--------------+
+               |
+      (Input: Append to History)
+               v
++--------------v--------------+
+|   LLM / VLM (Synthesis)     | &lt;--- &quot;根据库存数据，我们可以...&quot;
++-----------------------------+
+</code></pre></div>
+
+<h3 id="322-schema-prompt-schema-engineering">3.2.2 Schema 即 Prompt (Schema Engineering)</h3>
+<p>在 Agent 开发中，<strong>接口定义（Function Signature）就是 Prompt 的一部分</strong>。模型读不懂 Python 代码逻辑，它读的是你提供的 JSON Schema 描述。</p>
+<p>一个高质量的 Schema 包含三个维度：</p>
+<ol>
+<li>
+<p><strong>语义描述 (Description)</strong>：不仅要写“这个工具做什么”，还要写“<strong>何时使用</strong>”、“<strong>典型用例</strong>”以及“<strong>返回什么</strong>”。
+* <em>Bad</em>: <code>search_web: 搜索网络</code>
+* <em>Good</em>: <code>search_web: 当用户询问 2023 年之后发生的实时事件、新闻或具体事实（如股价、天气）时使用。返回结果包含标题、URL 和页面摘要。不要用于回答通用常识。</code></p>
+</li>
+<li>
+<p><strong>参数约束 (Constraints)</strong>：利用 JSON Schema 的 <code>enum</code>（枚举）和 <code>pattern</code>（正则）来物理限制模型的发挥空间。
+* <em>Rule of Thumb</em>: 能用 <code>enum</code> 的地方绝不让模型填空。能用 <code>number</code> 的地方绝不让模型填 <code>string</code>。</p>
+</li>
+<li>
+<p><strong>示例注入 (Few-shot in Docstring)</strong>：对于复杂参数（如 SQL 语句或 Pandas 查询），在 description 中直接给出 valid/invalid 的 example 是最有效的。</p>
+</li>
+</ol>
+<hr />
+<h2 id="33">3.3 编排模式：串行、并行与动态规划</h2>
+<p>随着任务复杂度提升，单一的工具调用不再够用。我们需要设计不同的编排模式。</p>
+<h3 id="331-sequential-chain">3.3.1 串行链 (Sequential Chain)</h3>
+<p>这是最自然的“思考-行动-观察”循环。</p>
+<ul>
+<li><strong>模式</strong>：<code>Step 1 (Find ID) -&gt; Step 2 (Get Details) -&gt; Step 3 (Process)</code></li>
+<li><strong>适用</strong>：后一个工具的输入强依赖前一个工具的输出。</li>
+<li><strong>瓶颈</strong>：延迟高，每一步都需要一轮完整的 LLM 推理。</li>
+</ul>
+<h3 id="332-parallel-tool-use-fan-out">3.3.2 并行扇出 (Parallel Tool Use / Fan-out)</h3>
+<p>现代模型（如 GPT-4, Claude 3.5）支持一次输出多个工具调用。</p>
+<ul>
+<li><strong>场景</strong>：用户问“比较特斯拉和比亚迪的财报”。</li>
+<li><strong>行为</strong>：</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 模型一次性输出：</span>
+<span class="p">[</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;get_report&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;company&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tesla&quot;</span><span class="p">}},</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;get_report&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;company&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BYD&quot;</span><span class="p">}}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<ul>
+<li><strong>工程实现</strong>：宿主程序使 <code>asyncio</code> 或线程池并发执行这两个请求，收集所有结果后，拼接成一个包含两个 ToolMessage 的列表返回给模型。</li>
+<li><strong>收益</strong>：将 <code>N</code> 次网络延迟压缩为 <code>1</code> 次。</li>
+</ul>
+<h3 id="333-async-long-running">3.3.3 异步与长任务 (Async / Long-running)</h3>
+<p>有些工具执行很慢（如“训练一个模型”或“深度扫描 PDF”），不能让 HTTP 连接挂起等待。</p>
+<ul>
+<li><strong>模式</strong>：<strong>提交-轮询（Submit-Poll）</strong> 或 <strong>回调（Callback）</strong>。</li>
+<li>
+<p><strong>工具设计</strong>：
+1. <code>start_task(...)</code> -&gt; 返回 <code>task_id</code>，立即结束本次 Tool Call。
+2. <code>check_status(task_id)</code> -&gt; 模型在数轮对话后，或者通过系统定时的“唤醒机制”去查询状态。</p>
+</li>
+<li>
+<p><strong>Rule of Thumb</strong>：对于超过 30 秒的任务，必须设计成异步模式，否则 HTTP 超时会导致模型以为任务失败并触发无限重试。</p>
+</li>
+</ul>
+<hr />
+<h2 id="34-multimodal-tools">3.4 多模态工具设计 (Multimodal Tools)</h2>
+<p>在多模态 Agent 中，工具的输入输出不再局限于文本。</p>
+<h3 id="341-image-in">3.4.1 图像作为输入 (Image-in)</h3>
+<p>当模型要“看”图并操作时（例如：<code>crop_image(bbox)</code> 或 <code>verify_signature(image)</code>）。</p>
+<ul>
+<li><strong>引用传递 (Pass by Reference)</strong>：<strong>永远不要</strong>把 Base64 编码的图片在 Prompt 和工具参数间来回传递。这会瞬间耗尽 Token 预算并增加延迟。</li>
+<li><strong>最佳实践</strong>：</li>
+<li>模型上下文中：图片以 <code>image_id</code> 或 <code>url</code> 的形式存在。</li>
+<li>工具调用时：模型输出 <code>{"tool": "crop", "args": {"image_id": "img_123", "bbox": [0,0,100,100]}}</code>。</li>
+<li>执行层：根据 <code>image_id</code> 从内存/缓存中提取实际像素数据传给 OpenCV/PIL。</li>
+</ul>
+<h3 id="342-image-out">3.4.2 图像作为输出 (Image-out)</h3>
+<p>当工具生成了图表、渲染了 PDF 或修改了图片。</p>
+<ul>
+<li><strong>视觉占位符</strong>：工具返回结果不应是二进制流，而是一个描述性结构：</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;generated_image_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;img_new_456&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A line chart showing revenue growth...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;preview_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li><strong>多模态闭环</strong>：宿主系统检测到工具返回了 <code>image_id</code>，自动将其渲染到用户的 UI 上，同时将该图片作为<strong>新的多模态消息</strong>注入到模型的下一轮对话历史中，让模型“看到”自己的工作成果。</li>
+</ul>
+<hr />
+<h2 id="35-engineering-reliability">3.5 鲁棒性与错误处理 (Engineering Reliability)</h2>
+<h3 id="351-self-correction">3.5.1 容错与自修复 (Self-Correction)</h3>
+<p>模型生成的参数经常会出错（格式错误、幻觉参数）。</p>
+<ul>
+<li><strong>策略</strong>：把错误当成反馈。</li>
+<li><strong>流程</strong>：
+1. 工具执行抛出 Python Exception（如 <code>ValueError: 'aple' is not a valid stock symbol</code>）。
+2. 系统捕获异常，不要崩溃。
+3. 系统将异常信息作为 <code>ToolMessage</code> (Role: Tool) 返回给模型。
+4. 模型看到错误信息，进行“反思”，并在下一轮输出修正后的调用 <code>{"symbol": "AAPL"}</code>。</li>
+</ul>
+<h3 id="352-truncation-summary">3.5.2 结果截断与摘要 (Truncation &amp; Summary)</h3>
+<p>工具（如 <code>cat file.txt</code>）可能返回 10MB 的文本。</p>
+<ul>
+<li><strong>硬截断</strong>：设置阈值（如 2000 tokens）。超过部分显示 <code>...[content truncated, total length 50000 chars]</code>。</li>
+<li><strong>智能摘</strong>：如果超长，系统自动调用一个小模型（如 GPT-3.5-Turbo 或 Haiku）对工具输出进行摘要，再返回给主模型。</li>
+<li><strong>文件句柄</strong>：如果内容过长，工具应返回 <code>File saved to context memory (id: doc_1). Use 'read_chunk(doc_1, start_line)' to read details.</code></li>
+</ul>
+<h3 id="353-idempotency">3.5.3 幂等性与副作用 (Idempotency)</h3>
+<ul>
+<li><strong>风险</strong>：网络超时导致模型重试，结果用户被扣了两次款。</li>
+<li><strong>设计</strong>：对于有副作用的工具（Create, Update, Delete, Pay），必须强制要求 <code>idempotency_key</code> 参数，或在系统层通过 <code>trace_id</code> 进行去重拦截。</li>
+</ul>
+<hr />
+<h2 id="36-gotchas">3.6 常见陷阱与错误 (Gotchas)</h2>
+<p>| 陷阱 (Gotcha) | 典型症状 | 解决方案 (Rule of Thumb) |</p>
+<table>
+<thead>
+<tr>
+<th>陷阱 (Gotcha)</th>
+<th>典型症状</th>
+<th>解决方案 (Rule of Thumb)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>工具争抢 (Tool Confusion)</strong></td>
+<td>有两个相似工具（如 <code>search_google</code> 和 <code>search_wiki</code>），模型随机乱用或犹豫不决。</td>
+<td><strong>合并同类项</strong>。做一个通用的 <code>search(query, source="auto")</code>，让代码内部去路由，而不是让模型纠结。或者在 description 中明确界定边界。</td>
+</tr>
+<tr>
+<td><strong>参数依赖丢失</strong></td>
+<td>模型想调用 <code>summarize(text)</code>，但直接把上一轮对话里 5000 字的内容塞进参数，导致输入 Token 爆炸。</td>
+<td><strong>强制引用</strong>。Schema 中要求 <code>document_id</code> 而不是 <code>content</code>。强迫模型先调用 <code>upload</code> 或从上下文引用 ID。</td>
+</tr>
+<tr>
+<td><strong>无限循环 (The Loop of Death)</strong></td>
+<td>模型调用工具 -&gt; 报错 -&gt; 重试 -&gt; 报错 -&gt; 重试... 耗尽额度。</td>
+<td><strong>熔断机制</strong>。系统层记录连续错误次数。如果同一个工具连续失败 3 次，强制插入 System Prompt：“该工具已损坏，请停止尝试并告知用户失败原因”。</td>
+</tr>
+<tr>
+<td><strong>JSON 格式灾难</strong></td>
+<td>模型输出的 JSON 包含单引号、未转义的换行符，或者 Python 风格的 <code>True</code> (而不是 <code>true</code>)。</td>
+<td>1. 使用容错性强的解析库（如 <code>json5</code> 或 <code>dirty-json</code>）。<br></td>
+</tr>
+</tbody>
+</table>
+<p><br>2. 在 System Prompt 中强调“Strict JSON”。<br></p>
+<p><br>3. 使用 Pydantic 的 Validator 做清洗。 |
+| <strong>幽灵工具调用</strong> | 模型在没注册任何工具的情况下，依然幻觉出 <code>&lt;tool_code&gt;...</code>。 | 这是训练数据的残留。在 Prompt 中明确“如果不需要使用工具，直接回答”。 |</p>
+<hr />
+<h2 id="37">3.7 练习题</h2>
+<h3 id="50">基础题 (50%)</h3>
+<details>
+<summary><strong>练习 1：精确的 Schema 定义</strong></summary>
+<p><strong>题目</strong>：为一个 <code>get_customer_info</code> 工具编写 JSON Schema。
+要求：</p>
+<ol>
+<li>用户可以通过 <code>id</code> (int) 或 <code>email</code> (string) 查询。</li>
+<li>必须且只能提供其中一个。</li>
+<li><code>email</code> 必须符合邮箱格式。</li>
+</ol>
+<p><strong>提示</strong>：</p>
+<ul>
+<li>思考 JSON Schema 的 <code>oneOf</code> 属性。</li>
+<li>如何用 <code>pattern</code> (正则) 约束 email？</li>
+</ul>
+<p><strong>参考答案思路</strong>：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;get_customer_info&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;根据 ID 或 Email 获取客户详情。ID 和 Email 必须二选一。&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integer&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;客户的唯一数字 ID&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;email&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;客户注册邮箱&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;oneOf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;email&quot;</span><span class="p">]}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+</details>
+<details>
+<summary><strong>练习 2：解释并发调用的优势</strong></summary>
+<p><strong>题目</strong>：假设你有两个工具 <code>tool_A</code> (耗时 2s) 和 <code>tool_B</code> (耗时 3s)。</p>
+<ol>
+<li>如果串行执行，模型获得结果需要多久？</li>
+<li>如果并行执行，模型获得结果需要多久？</li>
+<li>在什么场景下，你<strong>不能</strong>使用并行调用？</li>
+</ol>
+<p><strong>提示</strong>：</p>
+<ul>
+<li>关键路径分析。</li>
+<li>数据依赖性。</li>
+</ul>
+<p><strong>参考答案思路</strong>：</p>
+<ol>
+<li>串行：约 5s + 两次模型推理时间。</li>
+<li>并行：约 3s (取最大值) + 一次模型推理时间。</li>
+<li>当 <code>tool_B</code> 的输入参数依赖于 <code>tool_A</code> 的输出结果时（例如：A 查 ID，B 用 ID 查详情），绝对不能并行。</li>
+</ol>
+</details>
+<details>
+<summary><strong>练习 3：错误处理模拟</strong></summary>
+<p><strong>题目</strong>：用户问“把这个文件发给 jack”。模型调用 <code>send_file(user="jack")</code>。工具返回错误 <code>404 User 'jack' not found. Did you mean 'jack@company.com'?</code>。
+请描述接下来 Agent 内部会发生什么？</p>
+<p><strong>提示</strong>：Context 此时变成了什么样？模型看到了什么？</p>
+<p><strong>参考答案思路</strong>：</p>
+<ol>
+<li>系统将错误信息封装为 <code>ToolMessage(content="Error: 404...", status="error")</code> 存入历史。</li>
+<li>LLM 读取历史，看到自己的调用和对应的错误提示。</li>
+<li>LLM 进行推理：“我应该使用完整邮箱”。</li>
+<li>LLM 生成新的调用 <code>send_file(user="jack@company.com")</code>。</li>
+</ol>
+</details>
+<hr />
+<h3 id="50_1">挑战题 (50%)</h3>
+<details>
+<summary><strong>练习 4：设计“人类确认 (Human-in-the-loop)”工具模式</strong></summary>
+<p><strong>题目</strong>：你的 Agent 有一个 <code>delete_database</code> 的高危工具。
+请设计一套“工具+流程”的组合，使得模型在调用该工具时，必须先获得用户的显式批准。要求模型能感知到“正在等待审批”和“审批通过/拒绝”的状态。</p>
+<p><strong>提示</strong>：</p>
+<ul>
+<li>工具可以立即执行吗？</li>
+<li>是否需要拆分成 <code>propose_deletion</code> 和 <code>execute_deletion</code>？或者利用回调？</li>
+</ul>
+<p><strong>参考答案思路</strong>：</p>
+<ul>
+<li><strong>方案</strong>：工具本身并不删除数据，而是发起申请。</li>
+<li><strong>执行流</strong>：
+1. 模型调用 <code>request_delete_db(reason="...")</code>。
+2. 工具返回：<code>"Request submitted. Confirmation ID: 888. Waiting for user approval..."</code>。
+3. 系统此时在 UI 上弹出“允许删除吗？[Yes/No]”。
+4. <strong>中断</strong>：Agent 暂停，等待。
+5. 用户点击 Yes。系统构建一个特殊的 ToolOutput：<code>"User approved request 888."</code> 发回给模型。
+6. 模型收到批准，再次调用 <code>perform_delete_db(confirmation_id=888)</code>（此工具会校验 ID 是否已授权）。</li>
+</ul>
+</details>
+<details>
+<summary><strong>练习 5：多模态截图工具的坐标系对齐</strong></summary>
+<p><strong>题目</strong>：Agent 正在操作一个网页。它调用 <code>get_screenshot()</code> 拿到了一张 1920x1080 的图。模型觉得按钮在右上角，于是输出 <code>click(x=1800, y=100)</code>。
+但是，由于 Image Token 压缩或 Resize，模型“看”到的图片实际上被缩放到了 512x512。
+这会导致什么后果？如何从工程上解决这个问题？</p>
+<p><strong>提示</strong>：</p>
+<ul>
+<li>坐标空间变换。</li>
+<li>Set-of-Mark (SoM) 提示法。</li>
+</ul>
+<p><strong>参考答案思路</strong>：</p>
+<ul>
+<li><strong>后果</strong>：点击位置严重偏移，点到了错误的地方。</li>
+<li><strong>解决方案 1（归一化）</strong>：要求模型总是输出 0.0-1.0 的相对坐标（如 <code>x=0.93, y=0.09</code>），执行层再根据真实分辨率（1920x1080）还原。</li>
+<li><strong>解决方案 2（视觉标记 SoM）</strong>：不在像素级操作。先运行一个 OCR/检测模型，在按钮上打上标签（1, 2, 3...），把带标签的图给模型看。模型只需输出 <code>click(element_id=2)</code>。</li>
+</ul>
+</details>
+<details>
+<summary><strong>练习 6：工具调用的上下文污染与清洗</strong></summary>
+<p><strong>题目</strong>：你有一个 <code>search_internal_docs</code> 工具，它会返回相关文档的全文。有时这会返回 50,000 tokens 的乱码或无关数据，直接把 Context Window 撑爆，导致模型忘记了 System Prompt 中指令（例如“不要撒谎”）。
+请设计一个“中间件（Middleware）”策略来保护 Context。</p>
+<p><strong>提示</strong>：</p>
+<ul>
+<li>谁来决定保留什么？是规则还是另一个模型？</li>
+<li>压缩率 vs 信息丢失率。</li>
+</ul>
+<p><strong>参考答案思路</strong>：</p>
+<ul>
+<li><strong>策略</strong>：在 Tool Output 进入 LLM 之前增加一个 <strong>Sanitizer Layer</strong>。</li>
+<li><strong>步骤</strong>：
+1. <strong>长度检查</strong>：如果 <code>len(output) &gt; 2000 tokens</code>，触发压缩流程。
+2. <strong>格式清洗</strong>：移除 HTML 标签、Base64 字符串、重复的换行。
+3. <strong>重排序/截断</strong>：仅保留最相关的 Top-K 片段（如果工具本身支持检索打分）。
+4. <strong>摘要模型</strong>：（可选）调用一个廉价模型（如 GPT-3.5）执行：“Extract key facts relevant to user's question: [User Query]”。
+5. <strong>注入提示</strong>：在返回给主模型时加上标记：<code>[System Note: Output was summarized due to length.]</code></li>
+</ul>
+</details>
+<hr />
+<h2 id="38">3.8 本章小结</h2>
+<ul>
+<li><strong>Schema 是契约</strong>：写好 JSON Schema 是让 Agent 变聪明的最廉价方式。</li>
+<li><strong>闭环是核心</strong>：Agent 不只是生成调用，它是“生成-执行-观察-修正”的无限循环。</li>
+<li><strong>并发是常态</strong>：利用并行调用（Parallel Tool Use）来掩盖网络延迟，提升用户体验。</li>
+<li><strong>错误是朋友</strong>：不要向模型隐藏工具的报错，合理的错误信息能引导模型自我纠正。</li>
+<li><strong>多模态需引用</strong>：图片、音频、大文件在工具间传递时，传 ID 而不是传值。</li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter2.html" class="nav-link prev">← 第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</a><a href="chapter4.html" class="nav-link next">第 4 章 Agent Loop：规划-执行-反思的闭环 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

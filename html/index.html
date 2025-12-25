@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>基于多模态理解生成模型的智能体构建教程（目录）</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item active" >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 16 章 机器人操作与具身 VLA Agent](https://www.google.com/search?q=chapter16.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <div class="codehilite"><pre><span></span><code><span class="gh"># 基于多模态理解生成模型的智能体构建教程（目录）</span>
+
+<span class="k">&gt; </span><span class="ge">目标：从“多模态模型 + 工具调用 + 协作协议 + 评测与蒸馏”出发，系统讲清楚如何设计、实现、评估并部署可落地的多模态智能体（Multi-modal Agent）。</span>
+<span class="k">&gt;</span>
+<span class="ge">&gt; 文件组织：`index.md` + `chapter1.md` + `chapter2.md` + ...（每章独立可阅读；案例章可选读）</span>
+
+---
+
+<span class="gu">## 项目结构建议</span>
+
+```text
+.
+├── index.md
+├── chapter1.md
+├── chapter2.md
+├── ...
+├── appendixA.md
+├── appendixB.md
+├── assets/
+│   ├── images/
+│   ├── pdf_samples/
+│   ├── traces/
+│   └── schemas/
+└── examples/
+    ├── deep_research/
+    ├── coding_agent/
+    ├── vla_driving/
+    ├── in_cabin_assistant/
+    ├── geoguessr/
+    └── eval/
+</code></pre></div>
+
+<hr />
+<h2 id="_1">阅读路线</h2>
+<ul>
+<li><strong>快速入门（2~3 小时）</strong>：第 1、3、4、7、10、11 章</li>
+<li><strong>工程落地（1~2 周）</strong>：第 1~10 章 + 你最相关的案例章（第 11~17）</li>
+<li><strong>研究/训练/蒸馏（2~4 周）</strong>：第 8~10 章 + 第 18 章 + 附录 C/D</li>
+</ul>
+<hr />
+<h1 id="agent-ch1ch10">第一部分：多模态 Agent 通用方法论（Ch1–Ch10）</h1>
+<h2 id="1"><a href="chapter1.html">第 1 章 多模态智能体概览</a></h2>
+<ul>
+<li>1.1 什么是多模态 Agent：从“模型”到“系统”</li>
+<li>1.2 典型能力边界：看懂/听懂/读懂 vs 真的“会做”</li>
+<li>1.3 参考架构总览：LLM/VLM + Tools + Memory + Policy</li>
+<li>
+<p>1.4 常见应用形态</p>
+</li>
+<li>
+<p>1.4.1 文档理解（PDF/截图/表格）</p>
+</li>
+<li>1.4.2 代码与软件工程</li>
+<li>1.4.3 具身与自动驾驶（VLA）</li>
+<li>1.4.4 多模对话与人机协作</li>
+<li>1.5 关键工程挑战：可靠性、成本、延迟、可控性、评测</li>
+<li>1.6 “智能体能力”拆解：感知 → 推理 → 决策 → 执行 → 反馈</li>
+<li>1.7 本教程的统一术语与符号约定（含多模内容表示）</li>
+<li>1.8 本章练习：用最小闭环搭一个“看图+查资料+写总结”微型 Agent</li>
+</ul>
+<hr />
+<h2 id="2"><a href="chapter2.html">第 2 章 多模态输入输出与上下文管理</a></h2>
+<ul>
+<li>
+<p>2.1 多模态数据形态与难点</p>
+</li>
+<li>
+<p>2.1.1 图像：分辨率、裁剪、patch/token 成本</p>
+</li>
+<li>2.1.2 音频：ASR、端点检测、说话人分离（可选）</li>
+<li>2.1.3 视频：采样策略、关键帧、时间对齐</li>
+<li>2.1.4 文档：PDF 版面、表格、公式、图注、页码引用</li>
+<li>2.2 上下文窗口与预算：token/latency/cost 三角</li>
+<li>
+<p>2.3 多模态“可读化”：从原始输入到可推理表示</p>
+</li>
+<li>
+<p>2.3.1 视觉摘要（caption/region notes）</p>
+</li>
+<li>2.3.2 版面结构（layout tree）</li>
+<li>2.3.3 表格结构化（rows/cols/cells）</li>
+<li>2.4 片段化与分层：Chunk / Section / Document / Corpus</li>
+<li>2.5 长文档策略：Map-Reduce、Refine、Query-focused reading</li>
+<li>2.6 引用与可追溯：页码、段落、坐标、证据片段</li>
+<li>2.7 常见坑位清单：丢图/错表/断章取义/引用漂移</li>
+<li>2.8 本章练习：同一 PDF 用三种读取策略对比质量与成本</li>
+</ul>
+<hr />
+<h2 id="3-tool-call"><a href="chapter3.html">第 3 章 Tool Call：工具调用设计与编排</a></h2>
+<ul>
+<li>3.1 为什么需要 Tool：从“回答”到“行动”</li>
+<li>
+<p>3.2 Tool Call 基础模式</p>
+</li>
+<li>
+<p>3.2.1 函数签名（schema）与参数校验</p>
+</li>
+<li>3.2.2 工具输出注入（tool result）与上下文污染</li>
+<li>3.2.3 同步/流式/并行调用（工程视角）</li>
+<li>
+<p>3.3 工具路由（Tool Routing）</p>
+</li>
+<li>
+<p>3.3.1 规则路由 vs 模型路由 vs 混合路由</p>
+</li>
+<li>3.3.2 工具选择的可解释性与可控性</li>
+<li>
+<p>3.4 失败恢复与重试策略</p>
+</li>
+<li>
+<p>3.4.1 幂等（idempotency）与副作用管理</p>
+</li>
+<li>3.4.2 超时、限流、降级、熔断</li>
+<li>3.5 工具安全：最小权限、沙箱、输入净化、输出过滤</li>
+<li>
+<p>3.6 常见工具族谱（按能力分层）</p>
+</li>
+<li>
+<p>3.6.1 浏览器/检索</p>
+</li>
+<li>3.6.2 代码执行/Notebook</li>
+<li>3.6.3 文件系统/对象存储</li>
+<li>3.6.4 数据库/向量检索</li>
+<li>3.6.5 多模态工具（PDF 渲染、表格抽取、图表解析）</li>
+<li>3.7 本章练习：为“研究 Agent”设计一组可扩展工具 schema</li>
+</ul>
+<hr />
+<h2 id="4-agent-loop-"><a href="chapter4.html">第 4 章 Agent Loop：规划-执行-反思的闭环</a></h2>
+<ul>
+<li>4.1 智能体控制循环：Observe → Think → Act  Reflect</li>
+<li>
+<p>4.2 典型范式</p>
+</li>
+<li>
+<p>4.2.1 ReAct（推理-行动交织）</p>
+</li>
+<li>4.2.2 Plan-and-Execute（计划与执行解耦）</li>
+<li>4.2.3 Reflexion（自我反思与修复）</li>
+<li>4.2.4 Tree/Graph of Thoughts（分支搜索）</li>
+<li>4.3 任务分解：子任务、依赖、里程碑、验收标准</li>
+<li>4.4 预算感知（Budget-aware）：成本/时间/工具配额</li>
+<li>4.5 终止条件：何时停、何时求助人类、何时 handoff</li>
+<li>4.6 结构化输出：报告、代码补丁、行动计划、工单</li>
+<li>4.7 本章练习：给同一任务实现两种 loop 并对比指标</li>
+</ul>
+<hr />
+<h2 id="5-rag"><a href="chapter5.html">第 5 章 记忆与知识：RAG、多模态检索与状态管理</a></h2>
+<ul>
+<li>5.1 记忆类型：短期/长期/会话外存储</li>
+<li>
+<p>5.2 RAG 的正确打开方式（尤其在多模态场景）</p>
+</li>
+<li>
+<p>5.2.1 文本检索 vs 图文检索 vs 结构化检索</p>
+</li>
+<li>5.2.2 查询改写（Query rewriting）</li>
+<li>5.2.3 证据融合与冲突处理</li>
+<li>5.3 状态机与工作记忆：任务状态、工具状态、用户偏好</li>
+<li>5.4 个性化与隐私：该记什、不该记什么</li>
+<li>5.5 “遗忘/更新”策略：过期知识、版本控制、回滚</li>
+<li>5.6 本章练习：为座舱机器人设计“可审计的个性化记忆”</li>
+</ul>
+<hr />
+<h2 id="6-agent-handoff"><a href="chapter6.html">第 6 章 Agent Handoff：任务移交与协作协议</a></h2>
+<ul>
+<li>6.1 Handoff 的动机：能力边界、责任边界、产品边界</li>
+<li>
+<p>6.2 Handoff 的类型</p>
+</li>
+<li>
+<p>6.2.1 同构移交（同类 Agent 间）</p>
+</li>
+<li>6.2.2 异构移交（研究→执行、对话→检索、感知→控制）</li>
+<li>6.2.3 人类移交（Human-in-the-loop）</li>
+<li>
+<p>6.3 上下文打包：handoff packet 设计</p>
+</li>
+<li>
+<p>6.3.1 目标、约束、已完成工作</p>
+</li>
+<li>6.3.2 证据与引用（可验证）</li>
+<li>6.3.3 风险与不确定性声明</li>
+<li>6.4 协作中的冲突：版本、事实、权限、优先级</li>
+<li>6.5 评估 handoff：成功率、时延、信息损失、用户体验</li>
+<li>6.6 本章练习：把“DeepResearch 结论”移交给“写作 Agent”生成报告</li>
+</ul>
+<hr />
+<h2 id="7-openai-harmony"><a href="chapter7.html">第 7 章 OpenAI Harmony 格式与多模态消息协议</a></h2>
+<ul>
+<li>7.1 为什么需要统一协：可移植、可观测、可评测</li>
+<li>
+<p>7.2 消息结构（概念层）</p>
+</li>
+<li>
+<p>7.2.1 role / content parts（text/image/audio）</p>
+</li>
+<li>7.2.2 tool call / tool result 的边界</li>
+<li>7.2.3 系统提示、开发提示、用户提示的职责划分</li>
+<li>
+<p>7.3 多模态 payload 的组织</p>
+</li>
+<li>
+<p>7.3.1 图片引用、分辨率策略、局部标注</p>
+</li>
+<li>7.3.2 文档页引用（page index / bbox）</li>
+<li>7.4 Harmony 与多智能体：如何表达“转交/协作/仲裁”</li>
+<li>7.5 协议兼容性：日志、trace、训练数据的可复用</li>
+<li>7.6 本章练习：把一段多轮对话+工具调用导出成标准化 trace</li>
+</ul>
+<hr />
+<h2 id="8-multi-agent"><a href="chapter8.html">第 8 章 Multi-Agent：从单体到群体协作</a></h2>
+<ul>
+<li>8.1 多智能体的收益与成本：质量、鲁棒性、费用、延迟</li>
+<li>
+<p>8.2 常见组织结构</p>
+</li>
+<li>
+<p>8.2.1 Manager–Worker（经理-工人）</p>
+</li>
+<li>8.2.2 Specialist Swarm（专家群）</li>
+<li>8.2.3 Debate / Critic（辩论-审稿）</li>
+<li>8.2.4 Blackboard（共享黑板）</li>
+<li>8.3 协作协议设计：任务分配、接口、验收、仲裁</li>
+<li>8.4 多态协作：视觉专家、文档专家、代码专家、控制专家</li>
+<li>8.5 资源调度：并行、优先级、动态扩缩容</li>
+<li>8.6 本章练习：用“三专家 + 审稿人”提升 PDF 研究任务正确性</li>
+</ul>
+<hr />
+<h2 id="9"><a href="chapter9.html">第 9 章 与仿真系统互动：闭环、采样与安全</a></h2>
+<ul>
+<li>9.1 仿真环境的价值：可控、可重复、可规模化</li>
+<li>9.2 环境接口设计：Observation / Action / Reward / Done</li>
+<li>9.3 部分可观测与不确定性：belief state 与信息收集动作</li>
+<li>9.4 多模态观测：相机、地图、日志、传感器、HUD/仪表</li>
+<li>9.5 安全护栏：动作约束、规则引擎、紧急刹车、回放审计</li>
+<li>9.6 数据采集：轨迹、失败案例、边界条件</li>
+<li>9.7 本章练习：用“仿真回放 + 工具调用”构建可复现 bug case</li>
+</ul>
+<hr />
+<h2 id="10-trace-benchmark"><a href="chapter10.html">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</a></h2>
+<ul>
+<li>10.1 为什么要 trace：调试、回归、训练数据、合规审计</li>
+<li>
+<p>10.2 Trace 的最小字段集（建议 schema）</p>
+</li>
+<li>
+<p>10.2.1 观测动作、工具输入输出、时间戳、版本号</p>
+</li>
+<li>10.2.2 证据片段与引用（用于可验证回答）</li>
+<li>
+<p>10.3 用于蒸馏的 trace：从“过程数据”到“训练样本”</p>
+</li>
+<li>
+<p>10.3.1 行为克隆（imitation）</p>
+</li>
+<li>10.3.2 偏好数据（pairwise / rubric）</li>
+<li>10.3.3 自监督/合成数据（self-play / critique）</li>
+<li>
+<p>10.4 常见 Benchmark 版图（按能力分层）</p>
+</li>
+<li>
+<p>10.4.1 工具使用与 Web 交互类</p>
+</li>
+<li>10.4.2 代码修复与软件工程类</li>
+<li>10.4.3 多模态理解（文档/图表/图像问答）类</li>
+<li>10.4.4 具身/驾驶/控制类</li>
+<li>10.5 评测方法学：离线评测、在线 A/B、红队、回归测试</li>
+<li>10.6 指标设计：成功率、成本、时延、稳定性、可解释性</li>
+<li>10.7 本章练习：搭建一个“可回放、可打分、可回归”的评测管线</li>
+</ul>
+<hr />
+<h1 id="ch11ch17">第二部分：典型多模态智能体案例（Ch11–Ch17）</h1>
+<blockquote>
+<p>每个案例章遵循统一模板：<strong>目标与边界 → 架构 → 工具与数据 → 关键算法/策略 → 评测 → 工程化 → 展练习</strong></p>
+</blockquote>
+<h2 id="11-deepresearch-pdf"><a href="chapter11.html">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</a></h2>
+<ul>
+<li>11.1 任务定义：从问题到“可引用的结论”</li>
+<li>11.2 文献/网页/内部资料的统一采集层</li>
+<li>
+<p>11.3 多模态 PDF 处理流水线</p>
+</li>
+<li>
+<p>11.3.1 页渲染、版面解析、图表与表格抽取</p>
+</li>
+<li>11.3.2 图注/表注对齐与跨页引用</li>
+<li>11.3.3 结构化索引：章节树 + 证据库</li>
+<li>11.4 研究策略：检索计划、证据竞争、冲突消解</li>
+<li>11.5 引用系统：可点击证据、页码定位、引用去重</li>
+<li>11.6 多智能体协作：检索员/阅读员/审稿员/写作员</li>
+<li>11.7 失败模式：幻觉引用、断章取义、过度概括</li>
+<li>11.8 扩展练习：把研究结果导出为报告/PPT/知识图谱</li>
+</ul>
+<hr />
+<h2 id="12-coding-agent-pr"><a href="chapter12.html">第 12 章 Coding Agent：从仓库理解到可合并 PR</a></h2>
+<ul>
+<li>12.1 任务类型：Bug 修复、功能实现、重构、性能优化</li>
+<li>12.2 工具链：git、测试框架、静态分析、CI、制品构建</li>
+<li>12.3 代码库理解：入口定位、依赖图变更影响面</li>
+<li>
+<p>12.4 生成补丁的策略</p>
+</li>
+<li>
+<p>12.4.1 最小改动原则与回归风险控制</p>
+</li>
+<li>12.4.2 单测驱动与“失败→修复→验证”循环</li>
+<li>12.5 代码审查与安全：依赖投毒、密钥泄露、越权操作</li>
+<li>12.6 Benchmark 与评测：离线集、回归集、真实工单集</li>
+<li>12.7 扩展练习：多 Agent（实现者+审稿人+测试员）协作</li>
+</ul>
+<hr />
+<h2 id="13-vla-agent"><a href="chapter13.html">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</a></h2>
+<ul>
+<li>13.1 任务定义：导航指令、规则约束、舒适性、安全性</li>
+<li>13.2 多模态观测：多摄像头、地图、轨迹、车身状态</li>
+<li>13.3 行为层级：策略（policy）/ 规划（planner）/ 控制（controller）</li>
+<li>13.4 与仿真系统的闭环：场景生成、回放、边界条件挖掘</li>
+<li>13.5 安全护栏：规则约束、不可行动作过滤、紧急接管</li>
+<li>13.6 数据与训练：模仿学习、偏好学习、反事实数据</li>
+<li>13.7 评测：场景覆盖、碰撞率、违规率、舒适度、鲁棒性</li>
+<li>13.8 扩展练习：把语言指令”加入到行为决策接口中</li>
+</ul>
+<hr />
+<h2 id="14"><a href="chapter14.html">第 14 章 座舱多模对话机器人：可控、可靠、可解释</a></h2>
+<ul>
+<li>14.1 交互形态：语音 + 视觉（车内/车外）+ 触控/手势</li>
+<li>14.2 语音链路：唤醒、ASR、端点检测、TTS（工程要点）</li>
+<li>14.3 多轮对话状态：意图、槽位、上下文、用户偏好</li>
+<li>14.4 工具与车控：导航、媒体、空调、电话、日程（权限模型）</li>
+<li>14.5 车内视觉：驾驶员注意力、手势、乘员识别（可选）</li>
+<li>14.6 安全与合规：分心驾驶、敏感信息、未成年人、日志留存</li>
+<li>14.7 体验指标：首轮解决率、澄清率、打断恢复、延迟</li>
+<li>14.8 扩展练习：把“handoff 到人工客服/4S 店”纳入协议</li>
+</ul>
+<hr />
+<h2 id="15-geoguessr-agent"><a href="chapter15.html">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</a></h2>
+<ul>
+<li>15.1 任务定义：定位、置信度、解释与验证</li>
+<li>15.2 视觉线索工程：文字、路牌、车道线、植被、建筑风格</li>
+<li>15.3 地图工具调用候选检索、区域缩小、反证策略</li>
+<li>15.4 多策略融合：粗定位→细定位→验证</li>
+<li>15.5 失败模式：误导线索、相似地貌、过拟合国家刻板印象</li>
+<li>15.6 评测：距离误差分布、Top-K 命中、解释一致性</li>
+<li>15.7 扩展练习：加入“时间/天气/太阳方位”辅助推断（可选）</li>
+</ul>
+<hr />
+<h2 id="16-vla-agent"><a href="chapter16.html">第 16 章 机器人操作与具身 VLA Agent：从语言到动作原语</a></h2>
+<ul>
+<li>16.1 任务定义：抓取、放置、整理、开关、避障</li>
+<li>16.2 动作空间设计：高层指令 vs 低层控制</li>
+<li>16.3 视觉-语言-动作对齐：可解释中间表示（affordance）</li>
+<li>16.4 仿真到现实（Sim2Real）：域随机化、校准、回放对齐</li>
+<li>16.5 安全护栏：力控阈值、禁区、碰撞检测、紧急停止</li>
+<li>16.6 评测：成功率、路径效率、损坏率、恢复能力</li>
+<li>16.7 扩展练习：用 trace 蒸馏一个“更快更稳”的策略头</li>
+</ul>
+<hr />
+<h2 id="17-rpa-agent"><a href="chapter17.html">第 17 章 文档/票据/表格多模 RPA Agent：企业流程自动化</a></h2>
+<ul>
+<li>17.1 任务定义：发票、合同、报销、对账、质检表</li>
+<li>17.2 多模态文档解析：扫描件、拍照件、版式多样性</li>
+<li>17.3 字段抽取与校验：规则 + 模型 + 人工复核闭环</li>
+<li>17.4 工作流编排：工单系统、数据库、审批流、通知</li>
+<li>17.5 风险控制：错付、重复、异常值检测、审计追踪</li>
+<li>17.6 评测：字段准确率、端到端通过率、平均处理时长</li>
+<li>17.7 扩展练习：把“异常 case”自动汇总成训练/改进清单</li>
+</ul>
+<hr />
+<h1 id="ch18ch19">第三部分：落地与进阶（Ch18–Ch19）</h1>
+<h2 id="18"><a href="chapter18.html">第 18 章 生产级工程化：可观测、可回归、可运营</a></h2>
+<ul>
+<li>18.1 可观测性三件套：日志、指标、Trace（端到端）</li>
+<li>18.2 缓存与复用：检索缓存、工具结果缓存、分层摘要缓存</li>
+<li>18.3 成本治理：预算、限额、降级策略、模型路由</li>
+<li>18.4 质量治理：回归集、灰度、A/B、在线学习（谨慎）</li>
+<li>18.5 事故处理：回放、定位、热修、复盘与改进闭环</li>
+<li>18.6 本章练：为一个 Agent 系统设计“上线清单 + 回滚预案”</li>
+</ul>
+<hr />
+<h2 id="19"><a href="chapter19.html">第 19 章 安全、对齐与红队：把风险变成可测试项</a></h2>
+<ul>
+<li>19.1 工具安全：越权、数据外泄、注入攻击、供应链风险</li>
+<li>19.2 多模态特有风险：截图泄密、文档隐私、语音伪造（概念层）</li>
+<li>19.3 安全策略落点：最小权限、隔离、审计、策略引擎、人工审批</li>
+<li>19.4 红队方法：用例库、自动化对抗、覆盖度指标</li>
+<li>19.5 合规与隐私：数据留存、脱敏、访问控制、可删除</li>
+<li>19.6 本章练习：把 10 类风险写成自动化测试用例</li>
+</ul>
+<hr />
+<h1 id="_2">附录（可直接复制使用的模板与清单）</h1>
+<h2 id="a-harmony"><a href="chapter20.html">附录 A Harmony/消息协议模板速查</a></h2>
+<ul>
+<li>A.1 多模态消息模板（text/image/audio）</li>
+<li>A.2 tool call / tool result 模板</li>
+<li>A.3 handoff packet 模板</li>
+<li>A.4 多智能体协作模板（manager-worker / debate / blackboard）</li>
+<li>A.5 引用与证据字段模板（页码/段落/bbox）</li>
+</ul>
+<hr />
+<h2 id="b-tool-schema-cookbook"><a href="chapter21.html">附录 B Tool Schema Cookbook</a></h2>
+<ul>
+<li>B.1 浏览器/检索工具 schema 示例</li>
+<li>B.2 PDF 渲染/页截图/表格抽取 schema 示例</li>
+<li>B.3 代码执行/测试/补丁 schema 示例</li>
+<li>B.4 仿真环境 step/reset schema 示例</li>
+<li>B.5 安全包装：权限、白名单、速率限制、幂等键</li>
+</ul>
+<hr />
+<h2 id="c-trace-schema"><a href="chapter22.html">附录 C Trace Schema 与蒸馏数据构建</a></h2>
+<ul>
+<li>C.1 Trace 最小字段集（建议 JSON schema）</li>
+<li>C.2 证据对齐：回答句子 ↔ 引用片段</li>
+<li>C.3 偏好数据构造：pairwise、rubric、审稿人协议</li>
+<li>C.4 质量过滤：去重、泄密检测、异常轨迹剔除</li>
+<li>C.5 蒸馏配方：监督微调/偏好优化/离线强化（概念层）</li>
+</ul>
+<hr />
+<h2 id="d-benchmark"><a href="chapter23.html">附录 D Benchmark 清单与自建评测指南</a></h2>
+<ul>
+<li>D.1 Benchmark 类型地图（工具/代码/文档/具身/驾驶）</li>
+<li>D.2 自建评测集：抽样、标注、难度分层、覆盖度</li>
+<li>D.3 自动评分：可执行验证、引用验证、对抗测试</li>
+<li>D.4 回归策略：版本化、阈值、阻断上线</li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter1.html" class="nav-link next">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents) →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

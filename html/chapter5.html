@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第 5 章 记忆与知识：RAG、多模态检索与状态管理</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 16 章 机器人操作与具身 VLA Agent](https://www.google.com/search?q=chapter16.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="5-rag">第 5 章 记忆与知识：RAG、多模态检索与状态管理</h1>
+<blockquote>
+<p><strong>本章摘要</strong>：
+只有“当前上下文（Context）”的智能体就像只有“金鱼记忆”的实习生，无论能力多强，都无法胜任长周期、复杂背景的任务。
+本章将构建智能体的<strong>认知纵深</strong>。我们将突破单纯的“文本 RAG”，深入探讨<strong>多模态混合检索</strong>——即如何让智能体在海量的 PDF、图表、照片和日志中，像人类一样“联想”和“查阅”。同时，我们将引入<strong>有限状态机（FSM）</strong>来约束大模型的发散性，确保任务流程严丝合缝。
+<strong>核心概念</strong>：
+<code>Multi-modal Embedding</code>、<code>Hybrid Search</code>、<code>Query Rewriting</code>、<code>Slot Filling</code>、<code>Memory Lifecycle</code></p>
+</blockquote>
+<hr />
+<h2 id="51">5.1 记忆架构：从海马体到大脑皮层</h2>
+<p>如果不进分层设计，随着对话变长，Token 成本将呈指数级增长，而检索准确率却会因“大海捞针”效应而下降。我们需要构建一个仿生的记忆金字塔。</p>
+<h3 id="511-the-3-level-memory-model">5.1.1 三级记忆模型 (The 3-Level Memory Model)</h3>
+<p>请参考以下架构图，理解不同层级的存储介质、读写速度与用途：</p>
+<div class="codehilite"><pre><span></span><code>                  [ 智能体 &quot;大脑&quot; (CPU/GPU) ]
+                              ^
+                              | (Attention)
++-----------------------------+-----------------------------+
+|  L1: 工作记忆 (Working Memory / Hot Context)              |
+
+|  L1: 工作记忆 (Working Memory / Hot Context)              |
+|  -------------------------------------------------------  |
+|  * 介质: LLM Context Window (RAM)                         |
+|  * 内容: 系统提示词 + 当前轮次对话 + 工具实时返回结果     |
+|  * 策略: FIFO (先进先出), 滑动窗口                        |
+|  * 成本: $$$ (每次推理都计费)                             |
+
++-----------------------------------------------------------+
+              ^                           | (写入摘要)
+              | (注入)                    v
++-----------------------------------------+-----------------+
+|  L2: 情景记忆 (Episodic Memory / Session State)           |
+
+|  L2: 情景记忆 (Episodic Memory / Session State)           |
+|  -------------------------------------------------------  |
+|  * 介质: NoSQL / Redis / JSON                             |
+|  * 内容: 对话历史摘要, 用户当前意图, 槽位状态(Slots)      |
+|  * 策略: 读写频繁, 随会话结束而归档                       |
+
++-----------------------------------------+-----------------+
+              ^                           | (沉淀/归档)
+              | (检索/Recall)             v
++-----------------------------------------+-----------------+
+|  L3: 语义记忆 (Semantic Memory / Long-term Knowledge)     |
+
+|  L3: 语义记忆 (Semantic Memory / Long-term Knowledge)     |
+|  -------------------------------------------------------  |
+|  * 介质: Vector DB + 搜索引擎 (ElasticSearch)             |
+|  * 内容: 公司文档, 维修手册(PDF), 历史工单库, 知识图谱    |
+|  * 策: 静态为主, 周期性更新, 混合检索                   |
+
++-----------------------------------------------------------+
+</code></pre></div>
+
+<h3 id="512-rule-of-thumb">5.1.2 Rule of Thumb (经验法则)</h3>
+<ol>
+<li><strong>Context 预算控制</strong>：始终假设你只有 8k token 的预算，即使模型支持 128k。精简的 Context 能带来更高的指令遵循能力（Instruction Following）。</li>
+<li><strong>L2 是“压缩机”</strong>：不要把 50 轮对话原样塞给 L1。每隔 5-10 轮，触发一个后台的小模型（如 GPT-3.5-Turbo 或 Claude-Haiku）对历史进行摘要：“用户之前询问了 X，尝试了方案 A 失败，现在正在尝试方案 B。”</li>
+<li><strong>L3 的“真相源”原则</strong>：L3 存储的数据必须包含<strong>原文引用（Raw Content Ref）</strong>。Embedding 只是索引，不是真相。生成答案时必须基于原文，而不是基于向量。</li>
+</ol>
+<hr />
+<h2 id="52-rag">5.2 多模态 RAG：超越文本匹配</h2>
+<p>在多模态场景下，用户的问题往往是隐晦的。比如用户拍了一张红灯闪烁的照片问：“这怎么修？”
+如果你只检索文本“这怎么修”，结果将是灾难性的。</p>
+<h3 id="521">5.2.1 三种多模态索引策略</h3>
+<p>我们如何把 PDF 中的图文存入数据库？</p>
+<p>| 策略 | 描述 | 优点 | 缺点 | 适用场景 |</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>描述</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A. Image-to-Text (Captioning)</strong></td>
+<td>用 VLM 把图变成文字描述，存入文本向量库。</td>
+<td>兼容现有纯文本 RAG 架构。</td>
+<td>丢失细节（颜色深浅、微小划痕、空间关系）。</td>
+<td>通用文档检索。</td>
+</tr>
+<tr>
+<td><strong>B. Cross-Modal Embedding</strong></td>
+<td>使用 CLIP/SigLIP 等模型，将 Text 和 Image 映射到同一向量空间。</td>
+<td>支持“以文搜图”和“以图搜图”。</td>
+<td>需要专门的向量库支持；难以处理含大量文字的图。</td>
+<td>电商搜图、场景匹配。</td>
+</tr>
+<tr>
+<td><strong>C. ColPali / Late Interaction</strong></td>
+<td>保留图像的 Patch Embedding，与文本 Token 直接进行交互（前沿技术）。</td>
+<td>极高的多模态理解力，无需 OCR 中间层。</td>
+<td>计算开销大，存储成本高。</td>
+<td>复杂图表、技术图纸解析。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="522-query-rewriting-multi-route-retrieval">5.2.2 查询改写与多路召回 (Query Rewriting &amp; Multi-Route Retrieval)</h3>
+<p>这是 RAG 成功的关键。用户输入通常是<strong>不完整</strong>且<strong>多模态</strong>的。</p>
+<p><strong>架构流程图</strong>：</p>
+<div class="codehilite"><pre><span></span><code>用户输入: [Image: 仪表盘亮灯] + &quot;这个灯亮了，怎么关掉？&quot;
+       |
+       v
+[ 1. 理解与改写 (Rewriter Agent) ]
+       |-- 分析图片 --&gt; 识别出物体: &quot;Honda CR-V 2023&quot;, 识别文字: &quot;Check Engine&quot;
+       |-- 补全指代 --&gt; 将&quot;这个灯&quot;替换为&quot;Engine Warning Light&quot;
+       |-- 意图扩展 --&gt; 增加同义词: &quot;Turn off&quot;, &quot;Reset&quot;, &quot;Troubleshoot&quot;
+       |
+       v (生成多路 Query)
+       |
++------+--------------------------+-------------------------+
+| Route A: 关键词检索 (BM25)      | Route B: 向量检索 (Dense) | Route C: 视觉相似度 (Visual)
+| &quot;Honda CR-V Check Engine Reset&quot; | Embedding(语义描述)      | Embedding(用户原图)
+| (擅长专有名词匹配)               | (擅长概念匹配)            | (擅长外观匹配)
++------+--------------------------+-------------------------+
+       |                          |                         |
+       v                          v                         v
+[ 2. 混合重排序 (Hybrid Rerank) ]
+       |-- 统一分数 = w1*BM25 + w2*Vector + w3*Visual
+       |-- 剔除相似度 &lt; 0.6 的噪声
+       |
+       v
+[ Top-K 结果注入 Context ]
+</code></pre></div>
+
+<h3 id="523">5.2.3 冲突消解：当图文不一致时</h3>
+<p>知识库中的文档可能过时，或者图片与文字有冲突。
+<strong>策略</strong>：</p>
+<ul>
+<li><strong>模态加权</strong>：对于外观问题（颜色、形状），视觉模态权重 &gt; 文本模态。</li>
+<li><strong>来源权威性</strong>：官方手册 &gt; 社区论坛帖子。</li>
+<li><strong>不确定性输出</strong>：如果检索到的图文严重冲突，Agent 应输出：“资料 A 说是 X，但资料 B 说是 Y，鉴于风险，请人工确认。”</li>
+</ul>
+<hr />
+<h2 id="53-agent">5.3 状态管理：让 Agent 拥有“定力”</h2>
+<p>简单的 Chain-of-Thought (CoT) 不足以支撑长流程任务。我们需要<strong>有限状态机 (FSM)</strong> 来管理任务进度。</p>
+<h3 id="531">5.3.1 状态机模型</h3>
+<p>以“设备报修”为例，Agent 的行为应由当前 State 决定。</p>
+<div class="codehilite"><pre><span></span><code>State: [ INITIAL ]
+  |-- Event: 用户打招呼 --&gt; Action: 问候, 转 [ CLARIFY_INTENT ]
+  |
+State: [ CLARIFY_INTENT ]
+  |-- Event: 用户说&quot;修电脑&quot; --&gt; Action: 询问设备型号, 转 [ COLLECT_INFO ]
+  |-- Event: 用户说&quot;查询进度&quot; --&gt; Action: 调用查询工具, 转 [ CHECK_STATUS ]
+  |
+State: [ COLLECT_INFO ] (关键: 槽位填充)
+  |-- Check: 缺少 Serial_Number? --&gt; Action: 追问序列号
+  |-- Check: 缺少 Error_Photo? --&gt; Action: 追问故障截图
+  |-- Check: 全部收集完毕? --&gt; Action: 生成工单, 转 [ SUBMIT ]
+  |
+State: [ SUBMIT ]
+  |-- Action: 调用 API 提交, 返回结果, 转 [ END ]
+</code></pre></div>
+
+<h3 id="532-slot-filling-working-memory">5.3.2 槽位填充 (Slot Filling) 与 Working Memory</h3>
+<p>在 <code>COLLECT_INFO</code> 状态下，Agent 的核心目标不是聊天，而是填满 JSON Schema。</p>
+<p><strong>System Prompt 示例</strong>：</p>
+<blockquote>
+<p>"你现在的任务是收集故障信息。你需要填满以下字段：<code>[device_model, error_code, user_location]</code>当前已知：<code>device_model='Printer X'</code>。请<strong>只</strong>询问缺失的字段，不要闲聊。"</p>
+</blockquote>
+<hr />
+<h2 id="54">5.4 记忆的更新、遗忘与隐私</h2>
+<h3 id="541-rag">5.4.1 RAG 的“时间旅行”问题</h3>
+<p>如果知识库里有 2021 年的手册和 2024 年的手册，Embedding 很接近，Agent 很容易混淆。
+<strong>解决方案</strong>：</p>
+<ol>
+<li><strong>元数据过滤 (Metadata Filtering)</strong>：在检索前，先进行 SQL 过滤 <code>WHERE year = 2024</code>。</li>
+<li><strong>时间衰减 (Time Decay)</strong>：在 Rerank 阶段，给最新的文档加分。Score = Similarity * (1 / (1 + age_in_years))。</li>
+</ol>
+<h3 id="542-pii-redaction">5.4.2 隐私清洗 (PII Redaction)</h3>
+<p>用户上传的图片可能包含人脸、车牌或密码贴纸。</p>
+<ul>
+<li><strong>入口清洗</strong>：在存入 L2/L3 之前，先运行一个轻量级的 PII 检测模型（如 Presidio 或专用 YOLO），对敏感区域打码。</li>
+<li><strong>生命周期 (TTL)</strong>：用户上传的会话文件（Images/PDFs）应设置 TTL (Time To Live)，例如 7 天后自动物理删除，只保留提取出的结构化文本摘要。</li>
+</ul>
+<hr />
+<h2 id="55">5.5 本章小</h2>
+<ol>
+<li><strong>记忆分层是刚需</strong>：L1 贵且短，L2 维持会话，L3 存储知识。分工明确，互不越界。</li>
+<li><strong>RAG 必须“改写”</strong>：用户的原始 Query 往往是垃圾，经过 LLM 改写和扩展后的 Query 才是黄金。</li>
+<li><strong>多模态检索是混合的</strong>：结合文本关键词（精确匹配）和视觉向量（模糊匹配），再通过 Rerank 统一。</li>
+<li><strong>状态机约束行为</strong>：对于非闲聊型 Agent，显式的 State 和 Slot 定义是稳定性的基石。</li>
+</ol>
+<hr />
+<h2 id="56">5.6 练习题</h2>
+<blockquote>
+<p><strong>说明</strong>：思考后点击箭头查看参考思路。</p>
+</blockquote>
+<h3 id="50">基础题 (50%)</h3>
+<h4 id="q1">Q1: 上下文预算管理</h4>
+<p><strong>场景</strong>：你的 Agent 接入了一个上下文限制为 8k 的模型。系统提示词占用了 1k。此时用户上传了一个 50 页的 PDF（提取文字后约 20k token）并询问全文总结。
+<strong>问题</strong>：你不能直接把全文塞进去。请提出两种低成本的处理策略。</p>
+<details>
+<summary><b>显示提示与答案</b></summary>
+<ul>
+<li><strong>Hint</strong>: Map-Reduce 思想或 RAG 思想。</li>
+<li><strong>Answer</strong>:
+1. <strong>Map-Reduce (分块摘要)</strong>:</li>
+<li>将 20k token 切分为 5 个 4k 的块。</li>
+<li>分别让 LLM 对每个块生成 500 字摘要。</li>
+<li>将 5 个摘要合并（2.5k token），再次输入 LLM 生成最终总结。</li>
+</ul>
+<ol start="2">
+<li><strong>Query-Based RAG (如果是特定问题)</strong>:
+* 如果用户问特定点，切片存入向量库，只检索相关的 Top-5 chunks。
+* <em>注意</em>：如果是求“全文总结”，RAG 效果通常不好，Map-Reduce 是更优解。</li>
+</ol>
+</details>
+<h4 id="q2">Q2: 槽位填充设计</h4>
+<p><strong>场景</strong>：设计一个“会议室预定助手”。
+<strong>问题</strong>：定义一个 JSON Schema，包含预定所需的必要槽位。并写出一个 System Prompt 的片段，指导 Agent 当用户只说“我要定明天的会”时该怎么做。</p>
+<details>
+<summary><b>显示提示与答案</b></summary>
+<ul>
+<li><strong>Hint</strong>: 只有日期是不够的，还需要时间、人数、甚至设备需求。</li>
+<li><strong>Answer</strong>:</li>
+<li><strong>Schema</strong>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tomorrow&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;start_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;attendee_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li><strong>Prompt</strong>:<blockquote>
+<p>"当前状态: [Collecting_Requirements]。已知信息: 日期=明天。缺失信息: 开始时间, 时长, 人数。请礼貌地追问用户具体的开始时间和预计参会人数，以便推荐合适的会议室。"</p>
+</blockquote>
+</li>
+</ul>
+</details>
+<h4 id="q3">Q3: 多模态索引选择</h4>
+<p><strong>场景</strong>：你需要建立一个“服装设计灵感库”，设计师会输入“这种波西米亚风格的领口”并上传一张草图，希望找到历史上相似的衣服。
+<strong>问题</strong>：你应该选择 Captioning + Text Search 还是 Visual Embedding Search？为什么？</p>
+<details>
+<summary><b>显示提示与答案</b></summary>
+<ul>
+<li><strong>Hint</strong>: 语言能描述“风格”，但很难描述具体的“曲线”或“纹理”。</li>
+<li><strong>Answer</strong>:</li>
+<li><strong>选择</strong>: <strong>Visual Embedding Search (如 CLIP/SigLIP)</strong>。</li>
+<li><strong>理由</strong>: “波西米亚风格的领口”这种视觉特征很难用简短的文字精准描述（Lossy compression）。直接用图像向量匹配图像向量，能更好地捉形状、纹理和风格上的相似性。Captioning 可能会漏掉“领口微小的褶皱”这种关键细节。</li>
+</ul>
+</details>
+<h3 id="50_1">挑战题 (50%)</h3>
+<h4 id="q4-rag-open-question">Q4: RAG 的“小白鼠”陷阱 (Open Question)</h4>
+<p><strong>场景</strong>：你正在做一个医疗建议 Agent。数据库里有一篇医学论文，里面提到了“某种草药在<strong>小白鼠</strong>身上实验有效，但<strong>人类</strong>服用有剧毒”。
+<strong>问题</strong>：用户问：“这种草药人能吃吗？”。普通的 RAG 可能会检索到“有效”这个词，导致 Agent 回答“有效”。如何从<strong>数据处理</strong>或<strong>检索策略</strong>上避免这种致命错误？</p>
+<details>
+<summary><b>显示提示与答案</b></summary>
+<ul>
+<li><strong>Hint</strong>: 上下文完整性与否定词检测。</li>
+<li><strong>Answer</strong>:
+1. <strong>大块切片 (Larger Context Chunks)</strong>: 避免把“有效”和“小白鼠/剧毒”切分到不同的 chunk 里。确保上下文完整，让 LLM 看到“有效”是有前提条件的。
+2. <strong>假设性/否定性问题检测</strong>: 在重排序（Rerank）阶段训练模型识别“禁忌症”或“副作用”相关的语境，提高警示性内容的权重。
+3. <strong>引用强制验证</strong>: 强制 Agent 输出引用原文。并在 System Prompt 强调：“如果原文包含实验对象差异（动物 vs 人）或副作用警告，必须作为首要结论展示。”</li>
+</ul>
+</details>
+<h4 id="q5">Q5: 长短期记忆的协同</h4>
+<p><strong>场景</strong>：用户正在组装一台复杂的机器（耗时 3 天）。</p>
+<ul>
+<li>Day 1: 用户发照片，Agent 识别出零件 A，指导安装。</li>
+<li>Day 2: 用户问“昨天那个零件 A 的螺丝扭矩是多少？”（此时 L1 已经清空，只有 L2 的摘要）。</li>
+<li>Day 3: 用户问“我这台机器总共需要多少润滑油？”（这需要查阅 L3 的说明书）。
+<strong>问题</strong>：请描述当 Day 2 用户提问时，Agent 内部的数据流转过程。</li>
+</ul>
+<details>
+<summary><b>显示提示与答案</b></summary>
+<ul>
+<li><strong>Hint</strong>: 怎么把 L2 的摘要变成 L3 的检索 Query？</li>
+<li><strong>Answer</strong>:
+1. <strong>意图识别</strong>: 用户指代“昨天那个零件 A”。
+2. <strong>查阅 L2</strong>: Agent 读取 Session Summary（情景记忆），找到 "Day 1: User installed Part A (Model: Gearbox-X1)"。
+3. <strong>实体解析</strong>: 将“零件 A”解析为 "Gearbox-X1"。
+4. <strong>构建 L3 Query</strong>: 生成检索词 "Gearbox-X1 screw torque specifications"。
+5. <strong>RAG 检索</strong>: 在 L3（说明书库）中检索扭矩数据。
+6. <strong>生成回答</strong>: "根据记录，您昨天安装的是 Gearbox-X1。根据手册，其螺丝扭矩应为 50Nm。"</li>
+</ul>
+</details>
+<hr />
+<h2 id="57-gotchas">5.7 常见陷阱与错误 (Gotchas)</h2>
+<h3 id="1-the-broken-table">1. 表格崩坏 (The Broken Table)</h3>
+<ul>
+<li><strong>现象</strong>：PDF 里的表格很规范，但提取成 Text 后变成了乱码字符串。RAG 检索到后，LLM 根本看不懂哪行对哪列。</li>
+<li><strong>调试</strong>：不要用简单的 <code>pdf_to_text</code>。</li>
+<li><strong>解决</strong>：</li>
+<li><strong>Markdown 转换</strong>：使用专门的工具（如 LlamaParse, Azure Document Intelligence）将表格转为 Markdown 格式。</li>
+<li><strong>JSON 结构化</strong>：对于关键数据表，提取为 JSON 对象存入 NoSQL，而非作为文本切片</li>
+</ul>
+<h3 id="2-the-lost-reference">2. “图片在第几页？” (The Lost Reference)</h3>
+<ul>
+<li><strong>现象</strong>：Agent 说“如图所示”，但没把图展示出来，或者展示了错误的图。</li>
+<li><strong>原因</strong>：切片（Chunking）时，图片和其上下文文字分离了。</li>
+<li><strong>解决</strong>：<strong>多模态切片 (Multi-modal Chunking)</strong>。将图片作为一个特殊的 Token 嵌入在文本 Chunk 中，或者在元数据中强绑定 <code>{"text_chunk_id": "101", "linked_image_ids": ["img_03", "img_04"]}</code>。检索到文字时，连带把关联图片一起召回。</li>
+</ul>
+<h3 id="3-retrieval-loop">3. 过度检索 (Retrieval Loop)</h3>
+<ul>
+<li><strong>现象</strong>：Agent 陷入“检索-没找到-换词检索-还是没找到”的死循环，导致响应延迟极高。</li>
+<li><strong>解决</strong>：设置 <strong>Max Retry</strong> (最大重试次数) = 2。如果两次检索都失败，直接求助用户：“我无法在知识库中找到相关信息，能否提供更多关键词？”</li>
+</ul>
+<h3 id="4-garbage-in-garbage-out">4. 脏数据污染 (Garbage In, Garbage Out)</h3>
+<ul>
+<li><strong>现象</strong>：知识库里混入了 OCR 识别错误的乱码，导致检索匹配异常。</li>
+<li><strong>解决</strong>：在写入 L3 之前，必须有一个 <strong>Data Cleaning Pipeline</strong>。剔除短文本、乱码率高的文本、无意义的页眉页脚。</li>
+</ul>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter4.html" class="nav-link prev">← 第 4 章 Agent Loop：规划-执行-反思的闭环</a><a href="chapter6.html" class="nav-link next">第 6 章 Agent Handoff：任务移交与协作协议 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

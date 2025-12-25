@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 16 章 机器人操作与具身 VLA Agent](https://www.google.com/search?q=chapter16.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="11-deepresearch-pdf">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</h1>
+<blockquote>
+<p><strong>本章摘要</strong>
+构建一个能够进行“深度研究”的智能体，远比搭建一个简单的问答机器人复杂。它需要处理长达数百页的非结构化 PDF（包含双栏排版、跨页表格、复杂图表），需要在海量噪声中提取“原子级证据”，更需要像人类分析师一样处理相互冲突的信息，并生成带有精确引用的专业报告。
+<strong>核心差异</strong>：</p>
+<ul>
+<li><strong>Search (搜索)</strong>：找到包含关键词的片段。</li>
+<li><strong>Research (研究)</strong>：阅读  理解  关联  验证  综合  撰写。</li>
+</ul>
+<p><strong>学习目标</strong></p>
+<ol>
+<li>构建一套<strong>视觉优先（Vision-First）</strong>的多模态文档解析流水线，解决 PDF “解析即损失”的难题。</li>
+<li>掌握<strong>分层索引（Hierarchical Indexing）</strong>与<strong>假设性问题（Hypothetical Questions）</strong>嵌入策略。</li>
+<li>设计<strong>多智能体协作流</strong>：规划员（Planner）、搜集员（Collector）与主笔者（Writer）。</li>
+<li>实现<strong>零幻觉引用系统</strong>：确保生成的每一句话都能通过超链接回溯到原始 PDF 的具体坐标。</li>
+</ol>
+</blockquote>
+<hr />
+<h2 id="111">11.1 任务定义：从“模糊需求”到“结构化洞察”</h2>
+<p>DeepResearch 任务通常始于一个宏大的、非结构化的问题，终于一份结构化的、可验证的交付物。</p>
+<p>| 维度 | 普通 RAG (Q&amp;A) | DeepResearch Agent |</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>普通 RAG (Q&amp;A)</th>
+<th>DeepResearch Agent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>输入</strong></td>
+<td>"Model Y 的续航是多少？"</td>
+<td>"分析 2024 年固态电池技术突破及其对电动车成本结构的影响。"</td>
+</tr>
+<tr>
+<td><strong>数据源</strong></td>
+<td>单一文档或短文本</td>
+<td>20+ 份 PDF（财报、白皮书、论文），混合图与数据表。</td>
+</tr>
+<tr>
+<td><strong>推理深度</strong></td>
+<td>单步检索（Single-hop）</td>
+<td>多步推理（Multi-hop）、跨文档比较、时序分析。</td>
+</tr>
+<tr>
+<td><strong>输出</strong></td>
+<td>一段话答案</td>
+<td>包含摘要、目录、数据图表、带有精确引用的 3000 字报告。</td>
+</tr>
+<tr>
+<td><strong>容错率</strong></td>
+<td>容忍少量概括</td>
+<td><strong>零容忍</strong>：数据必须与原始报表一致，引用不可造假。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1111">11.1.1 核心挑战：非结构化数据的熵</h3>
+<p>PDF 是为打印而生的格式，不是为机器阅读而生的。</p>
+<ul>
+<li><strong>视觉语义丢失</strong>：双栏排版被错误合并、页眉页脚切断正文、表格变成乱码字符。</li>
+<li><strong>图表黑箱</strong>：关键趋势数据往往在折线图中，普通 OCR 无法提取。</li>
+<li><strong>上下文碎片化</strong>：答案的“主语”在第 1 页，而“谓语”和“宾语”可能跨越到了第 2 页。</li>
+</ul>
+<hr />
+<h2 id="112-the-vision-first-pipeline">11.2 多模态文档解析流水线 (The "Vision-First" Pipeline)</h2>
+<p>为了解决上述挑战，不能仅依赖 PyPDF2 或 LangChain 的默认 Loader。我们需要构建一个<strong>像人类一样“看文档</strong>的流水线。</p>
+<h3 id="1121">11.2.1 架构总览</h3>
+<div class="codehilite"><pre><span></span><code><span class="nf">graph</span><span class="w"> </span><span class="n">TD</span><span class="p">;</span>
+<span class="w">    </span><span class="n">A</span><span class="p">[</span><span class="err">原始</span><span class="w"> </span><span class="n">PDF</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">{</span><span class="err">视觉版面分析</span><span class="w"> </span><span class="n">VLA</span><span class="p">};</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="err">文本区域</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="n">OCR</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="err">文本提取</span><span class="p">];</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="err">表格区域</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D</span><span class="p">[</span><span class="err">表格结构化处理</span><span class="p">];</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="err">图表区域</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span><span class="p">[</span><span class="err">多模态图表摘要</span><span class="p">];</span>
+<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="err">标题</span><span class="o">/</span><span class="err">页码</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span><span class="p">[</span><span class="err">元数据过滤</span><span class="p">];</span>
+<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">G</span><span class="p">[</span><span class="err">逻辑重组器</span><span class="p">];</span>
+<span class="w">    </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span><span class="p">[</span><span class="err">多模态分块</span><span class="w"> </span><span class="p">(</span><span class="n">Chunks</span><span class="p">)];</span>
+</code></pre></div>
+
+<p><em>(注：此处使用文字描述逻辑，实际文档中可使用上述逻辑)</em></p>
+<p><strong>处理流程详解：</strong></p>
+<ol>
+<li><strong>光栅化 (Rasterization)</strong>：将 PDF 每一页渲染为高分辨率图像（建议 300 DPI）。</li>
+<li>
+<p><strong>版面分析 (Layout Analysis)</strong>：
+* 使用目标检测模型（如 YOLO, LayoutLM）识别区块：<code>Header</code>, <code>Footer</code>, <code>Text</code>, <code>Title</code>, <code>Table</code>, <code>Figure</code>, <code>Caption</code>。
+* <strong>Rule of Thumb</strong>: 必须将 <code>Caption</code>（图注）与对应的 <code>Figure</code>（图片）绑定，否则图片将失去语境。</p>
+</li>
+<li>
+<p><strong>分流处理 (Router)</strong>：
+* <strong>纯文本</strong>：使用 OCR 或 PDF 文本层提取。
+* <strong>表格 (Tables)</strong>：<strong>这是最难的部分</strong>。不要试图用 OCR 直接读。
+* <em>策略</em>：将表格截图送入 VLM（如 GPT-4o, Claude 3.5 Sonnet），Prompt 要求输出为 Markdown 或 HTML 格式。
+* <em>Prompt 技巧</em>："Transcribe this table to Markdown. Preserve all headers. If a cell is merged, repeat the value."</p>
+</li>
+</ol>
+<ul>
+<li><strong>图表 (Charts)</strong>：</li>
+<li><em>策略</em>：<strong>密集描述 (Dense Captioning)</strong>。</li>
+<li><em>Prompt</em>："分析这张图表。1. 读取标题。2. 提取 X 轴和 Y 轴的单位与范围。3. 描述数据的趋势（上升/下降）。4. 提取关键数据点（如峰值、拐点）。"</li>
+</ul>
+<ol start="4">
+<li><strong>逻辑重组 (Logical Reconstruction)</strong>：
+* 基于版面坐标，将双栏文本按阅读顺序排序（左栏  右栏）。
+* 将表格和图表的描述文本插入到原文中原本出现的位置。</li>
+</ol>
+<blockquote>
+<p><strong>工程陷阱 (Gotcha)</strong>：
+<strong>页眉页脚的干扰</strong>。每一页重复出现的 "Confidential - Project X" 会严重干扰向量检索（Retriever 认为所有页面都高度相关）。
+<strong>解决方案</strong>：用版面分析的 BBox 坐标，物理剔除页面顶部和底部的 10% 区域，或通过正则去重。</p>
+</blockquote>
+<hr />
+<h2 id="113">11.3 索引与检索策略：为“研究”而生</h2>
+<p>简单的 <code>Chunk size = 500</code> 切分策略在 DeepResearch 中是灾难性的。我们需要<strong>保留语境</strong>。</p>
+<h3 id="1131-hybrid-indexing">11.3.1 混合索引结构 (Hybrid Indexing)</h3>
+<p>我们需要建立三层索引：</p>
+<ol>
+<li>
+<p><strong>父文档索引 (Parent Document Index)</strong>：
+* 对象：整份 PDF 的摘要。
+* 用途：路由。当用户问“CATL 的产能”时，只去查 CATL 的财报，不查 Tesla 的手册。</p>
+</li>
+<li>
+<p><strong>语义块索引 (Semantic Chunk Index)</strong>：
+* 对象：按章节或语义边界切分的文本块（Chunk）。
+* 内容：<code>Original Text</code> + <code>Augmented Data</code>。
+* <strong>增强数据 (Augmentation)</strong>：这是关键。
+* <strong>Q-to-P (Question-to-Passage)</strong>：让 LLM 为这个 Chunk 生成 3 个它能回答的“假设性问题”。将这些问题向量化，而非仅向量化原文。这能显著提升召回率。</p>
+</li>
+<li>
+<p><strong>图像/表格索引 (Visual Index)</strong>：
+* 对象：图表和表格的“密集描述”。
+* 用途：回答“销量趋势如何”这类需要视觉聚合的问题。</p>
+</li>
+</ol>
+<h3 id="1132-the-evidence-atom">11.3.2 证据原子 (The Evidence Atom)</h3>
+<p>在 Agent 的工作记忆中，不要存储大段文本，而是存储标准化的“证据原子”。</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;evidence_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ev_8a7b2c&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023年Q4，公司毛利率下降至18.5%，主要受锂价波动影响。&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;source_doc&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;financial_report_2023.pdf&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;page_num&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;bbox&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w"> </span><span class="mi">300</span><span class="p">],</span><span class="w"> </span><span class="c1">// 在原图上的坐标，用于高亮显示</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-12-31&quot;</span><span class="p">,</span><span class="w">    </span><span class="c1">// 用于时序冲突仲裁</span>
+<span class="w">  </span><span class="nt">&quot;confidence&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="w">          </span><span class="c1">// 来源于官方财报 vs 第三方博客</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="114-the-researcher-writer-pattern">11.4 多智能体协作架构 (The Researcher-Writer Pattern)</h2>
+<p>DeepResearch 任务过于复杂，单一 Prompt 容易导致上下文溢出或逻辑混乱。推荐采用 <strong>Map-Reduce</strong> 变体架构。</p>
+<h3 id="1141">11.4.1 角色定义</h3>
+<ol>
+<li>
+<p><strong>Planner (主编)</strong>：
+* 输入：用户模糊需求。
+* 职责：需求澄清拆解子任务（Sub-questions）、生成大纲。
+* 输出：一个 DAG（有向无环图）任务列表。</p>
+</li>
+<li>
+<p><strong>Collector (搜集员 - 可并行实例)</strong>：
+* 输入：一个具体的子问题（如“查询 BYD 2023 销量”）。
+* 工具：<code>vector_search</code>, <code>keyword_search</code>, <code>read_full_page</code>。
+* 职责：在文档海中打捞“证据原子”。它<strong>不负责写</strong>，只负责<strong>找</strong>。</p>
+</li>
+<li>
+<p><strong>Analyst (分析师)</strong>：
+* 输入：多个搜集员找回的证据堆（Pile of Evidence）。
+* 职责：<strong>冲突消解 (De-confliction)</strong>。
+* <em>场景</em>：搜集员 A 找到“销量 300万”，搜集员 B 找到“销量 302万”。分析师需对比证据的 <code>timestamp</code> 和 <code>source_reliability</code>，决定采信哪一个，或在报告中注明差异。</p>
+</li>
+<li>
+<p><strong>Writer (主笔)</strong>：
+* 输入：大纲 + 经过清洗的证据链。
+* 职责：将证据转化为流畅的文本，并<strong>强制植入引用 ID</strong>。</p>
+</li>
+</ol>
+<hr />
+<h2 id="115">11.5 核心算法：引用与冲突处理</h2>
+<h3 id="1151-zero-hallucination-citations">11.5.1 零幻觉引用 (Zero-Hallucination Citations)</h3>
+<p>如何保证 <code>[1]</code> 真的对应那一句话？</p>
+<ul>
+<li><strong>错误做法</strong>：让模型先写完全文，再通过相似度搜索去匹配引用。这会导致“张冠李戴”。</li>
+<li><strong>正确做法</strong>：<strong>In-context Citation (上下文中引用)</strong>。</li>
+<li>
+<p>在 Prompt 中，将检索到的证据标记为：
+<code>[ID: doc1_p5] content...</code>
+<code>[ID: doc2_p8] content...</code></p>
+</li>
+<li>
+<p>强制模型在生成结论时，必须携带 ID：
+<code>Generated: 2023年销量创新高 [doc1_p5]，但利润率有所下滑 [doc2_p8]。</code></p>
+</li>
+<li>
+<p><strong>后处理</strong>：在渲染给用户前，将 <code>[doc1_p5]</code> 替换为可点击的数字 <code>[1]</code>，并生成对应的悬浮窗或侧边栏链接。</p>
+</li>
+</ul>
+<h3 id="1152-temporal-arbitration">11.5.2 时序冲突仲裁 (Temporal Arbitration)</h3>
+<p>DeepResearch 经常遇到新旧数据打架的问题。</p>
+<ul>
+<li><strong>Rule of Thumb</strong>: "Recency Bias" (近因效应) 策略。</li>
+<li>如果问题涉及“当前状态（Current Status）”，按 <code>Data_Timestamp</code> 排序，取最新。</li>
+<li>如果问题涉及“历史演变（Evolution）”，保留所有数据点，绘制趋势。</li>
+<li><strong>实现</strong>：在 Metadata 中必须提取 <code>Date</code>。如果 PDF 没有明确日期，尝试从文件名或第一页提取。</li>
+</ul>
+<hr />
+<h2 id="116">11.6 练习题</h2>
+<h3 id="50">基础题 (50%)</h3>
+<p><strong>Q1. 版面感知的 Token 优化</strong></p>
+<blockquote>
+<p><strong>场景</strong>：你有 100 份 PDF，全部转图片喂给 GPT-4o 极其昂贵。但是你又不想放弃图表信息。
+<strong>问题</strong>：设计一个具体的过滤算法，在进入 VLM 之前，筛选出真正“值得看”的页面或区域。
+<details markdown="1"><summary><strong>点击查看提示</strong></summary></p>
+<p>提示：大多数 PDF 页面是纯文字。纯文字用 OCR 就够了，不需要 VLM。你需要一个轻量级分类器。
+</details>
+<details markdown="1"><summary><strong>点击查看参考答案</strong></summary></p>
+<p><strong>策略：分级漏斗 (Tiered Funnel)</strong></p>
+<ol>
+<li><strong>L0 (Layout Detection)</strong>: 使用轻量级模型 (如 YOLOv8-nano, CPU 可运行) 扫描页面。</li>
+<li>
+<p><strong>判别逻辑</strong>：
+* 如果页面只包含 <code>Text</code> 类：走 OCR 通道（成本  0）。
+* 如果页面包含 <code>Chart</code>, <code>Table</code> 类将该区域（BBox）裁剪出来。</p>
+</li>
+<li>
+<p><strong>L1 (Vision Processing)</strong>: 仅将裁剪下来的 <code>Chart/Table</code> 图片发送给 VLM。</p>
+</li>
+<li><strong>效益</strong>：通常 PDF 中图表区域仅占总面积的 5%-10%，此法可节省 90% 的 Vision Token 成本。</li>
+</ol>
+</details>
+</blockquote>
+<p><strong>Q2. 表格的 Markdown 还原</strong></p>
+<blockquote>
+<p><strong>场景</strong>：OCR 提取的表格变成了乱序的字符串。
+<strong>问题</strong>：请写出一段 Prompt，指导 VLM 将一张表格截图转换为结构完美的 Markdown，并处理“合并单元格”这一棘手情况。
+<details markdown="1"><summary><strong>点击查看提示</strong></summary></p>
+<p>提示：你需要显式地告诉模型如何处理空缺值，以及当一个单元格跨越多行时该怎么做。
+</details>
+<details markdown="1"><summary><strong>点击查看参考答案</strong></summary></p>
+<p><strong>Prompt 示例</strong>：
+"You are a data entry expert. Convert the provided table image into a Markdown table.
+Rules:</p>
+<ol>
+<li>Preserve all headers exactly as shown.</li>
+<li><strong>Handling Merged Cells</strong>: If a cell spans multiple rows (vertically merged), repeat the value in each row. Do not leave it empty.</li>
+<li>If a cell is visually empty but implies a value from above (ditto), fill it.</li>
+<li>If the image is blurry, output <code>[UNREADABLE]</code> for that cell.</li>
+<li>Output ONLY the markdown text."</li>
+</ol>
+</details>
+</blockquote>
+<p><strong>Q3. 引用 ID 的持久化</strong></p>
+<blockquote>
+<p><strong>场景</strong>：Writer Agent 生成了初稿，包含 <code>[doc_id_123]</code>。然后 Editor Agent 进行了润色，删减了一些段落。
+<strong>问题</strong>：如何确保最终输出的参考文献列表（Bibliography）只包含正文中实际保留下来的那些引用？
+<details markdown="1"><summary><strong>点击查看提示</strong></summary></p>
+<p>提示：这类似于编程中的“垃圾回收（GC）”机制。
+</details>
+<details markdown="1"><summary><strong>点击查看参考答案</strong></summary></p>
+<p><strong>流程</strong>：</p>
+<ol>
+<li><strong>全集维护</strong>：在 Context 中维护一个字典 <code>Reference_Dict = {id: metadata}</code>，包含所有检索到的证据。</li>
+<li><strong>正则扫描</strong>：在 Editor Agent 输出最终文本后运行正则匹配 <code>\[doc_id_([a-z0-9]+)\]</code>。</li>
+<li><strong>重构列表</strong>：提取所有<strong>命中</strong>的 ID，从 <code>Reference_Dict</code> 中取出对应条目，生成最终的参考文献列表。</li>
+<li><strong>重编号</strong>：将正文中的 UUID <code>[doc_id_123]</code> 替换为阅读顺序的 <code>[1]</code>, <code>[2]</code>...，同时更新底部的列表。</li>
+</ol>
+</details>
+</blockquote>
+<h3 id="50_1">挑战题 (50%)</h3>
+<p><strong>Q4. 跨页表格的“缝合手术”</strong></p>
+<blockquote>
+<p><strong>场景</strong>：一个长表格从第 10 页底部延伸到第 11 页顶部。第 11 页的部分没有表头（Headers），只有数据。单独看第 11 页无法理解每一列的含义。
+<strong>问题</strong>：设计一个算法逻辑，自动检测并修复这种跨页表格。
+<details markdown="1"><summary><strong>点击查看提示</strong></summary></p>
+<p>提示：你需要关注页面底部的 Layout 元素和下一页顶部的 Layout 元素。
+</details>
+<details markdown="1"><summary><strong>点击查看参考答案</strong></summary></p>
+<p><strong>逻辑流程</strong>：</p>
+<ol>
+<li><strong>检测断裂</strong>：若 Page N 的最后一个元素是 <code>Table</code> 且未合（没有底部边框或 Footer 阻隔），且 Page N+1 的第一个元素是 <code>Table</code> 且没有 <code>Header</code>。</li>
+<li>
+<p><strong>上下文注入 (Context Injection)</strong>：
+* 提取 Page N 表格的 Header 区域图片。
+* 在处理 Page N+1 的表格截图时，将 Page N 的 Header 图片拼接在顶部（Vision 层面拼接），或者在 Prompt 中输入提取出的 Header 文本。</p>
+</li>
+<li>
+<p><strong>合并输出</strong>：告诉模型“这是上一页表格的延续，请使用相同的列结构解析数据”。</p>
+</li>
+</ol>
+</details>
+</blockquote>
+<p><strong>Q5. “幻觉引用”的红队测试 (Red Teaming)</strong></p>
+<blockquote>
+<p><strong>场景</strong>：你需要构建一个自动评测脚本，专门抓包 Agent 瞎编引用的情况。
+<strong>问题</strong>：给定 (生成的句子 S, 引用来源原文 P)，如何判断 S 是否忠实于 P？请描述这个验证器的逻辑。
+<details markdown="1"><summary><strong>点击查看提示</strong></summary></p>
+<p>提示：这本质上是一个自然语言推理（NLI）任务。
+</details>
+<details markdown="1"><summary><strong>点击查看参考答</strong></summary></p>
+<p><strong>验证器设计 (Verifier)</strong>：</p>
+<ol>
+<li><strong>原子化</strong>：提取句子 S 中的核心主张 (Claim)。</li>
+<li><strong>召回原文</strong>：根据引用 ID 获取原始片段 P (Ground Truth)。</li>
+<li>
+<p><strong>NLI 判别</strong>：调用一个小模型（如 GPT-4o-mini），Prompt 为：
+"Premise: {P}
+Hypothesis: {S}
+Does the premise entail the hypothesis?
+Options: [Entailment (支持), Contradiction (矛盾), Neutral (无关)]"</p>
+</li>
+<li>
+<p><strong>判定</strong>：
+* <strong>Entailment</strong>: 通过。
+* <strong>Contradiction</strong>: 严重错误（篡改数据）。
+* <strong>Neutral</strong>: 幻觉（原文没提这事）。</p>
+</li>
+</ol>
+</details>
+</blockquote>
+<p><strong>Q6. 开放思考：多模态“大海捞针”</strong></p>
+<blockquote>
+<p><strong>场景</strong>：用户问：“这款发动机的扭矩曲线在多少转达到峰值？” 答案不在文字里，而在第 50 页的一张无标题的图片曲线图中。
+<strong>问题</strong>：普通的 RAG 根本检索不到这张图（因为没有文本匹配）。如何设计索引让 Agent 能找到它？
+<details markdown="1"><summary><strong>点击查看提示</strong></summary></p>
+<p>提示：你不能检索像素。你必须把“视觉特征”翻译成“可检索的文本”。
+</details>
+<details markdown="1"><summary><strong>点击查看参考答案</strong></summary></p>
+<p><strong>方案：Dense Captioning + Hypothetical Questions</strong></p>
+<ol>
+<li><strong>预处理</strong>：对文档中所有 Chart 运行 VLM。</li>
+<li>
+<p><strong>提取内容</strong>：不仅生成 Caption，还要提取数据特征。
+* <em>Caption</em>: "Engine torque vs RPM curve chart."
+* <em>Data Features</em>: "Peak torque approx 400Nm at 3500 RPM. Drops to 300Nm at 6000 RPM."</p>
+</li>
+<li>
+<p><strong>假设性提问</strong>：让 LLM 基于图表内容生成问题："What is the peak torque RPM?"</p>
+</li>
+<li><strong>索引</strong>：将 "Peak torque 3500 RPM" 和生成的“问题”存入向量库。</li>
+<li><strong>检索</strong>：用户的提问将直接匹配到这些隐式生成的文本，从而“捞”出这张图。</li>
+</ol>
+</details>
+</blockquote>
+<hr />
+<h2 id="117-gotchas">11.7 常见陷阱与错误 (Gotchas)</h2>
+<ol>
+<li>
+<p><strong>OCR 的 "l" 与 "1" 之殇</strong>：
+* <strong>现象</strong>：财务报表中的 <code>1,000</code> 经常被 OCR 识别为 <code>l,000</code> 或 <code>I,000</code>。
+* <strong>Fix</strong>：在写入数据库前，对纯数字列进行正则清洗，或者使用专门针对数字优化的 OCR 引擎。</p>
+</li>
+<li>
+<p><strong>丢失的上下文 (Context Fragmentation)</strong>：
+* <strong>现象</strong>：Chunk 切分切断了代词。Chunk 2 开头是“它增长了 20%”。检索时根本不知道“它”是谁。
+* <strong>Fix</strong>：<strong>Window Overlap (重叠窗口)</strong> 是必须的。或者使用 <strong>Document Summary Context</strong>，即在每个 Chunk 前面强行拼上“本文档是关于 Tesla 2023 财报的”。</p>
+</li>
+<li>
+<p><strong>过度自信的“无中生有”</strong>：
+* <strong>现象</strong>：当文档里找不到答案时，模型倾向于用它预训练的知识回答（可能是 2 年前的过时数据）。
+* <strong>Fix</strong>：System Prompt 必须包含：“Strictly answer based ONLY on the provided context. If not found, state 'Evidence missing in documents'.”</p>
+</li>
+<li>
+<p><strong>引用漂移 (Reference Drift)</strong>：
+* <strong>现象</strong>：模型在总结时，把 [1] 的结论安到了 [2] 的头上。
+* <strong>Fix</strong>：降低 Temperature（至 0.1-0.2），并在 Prompt 中强调引用的原子性绑定。</p>
+</li>
+</ol>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter10.html" class="nav-link prev">← 第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</a><a href="chapter12.html" class="nav-link next">第 12 章 Coding Agent：从仓库理解到可合并 PR →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

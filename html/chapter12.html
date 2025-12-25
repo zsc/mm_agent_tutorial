@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>第 12 章 Coding Agent：从仓库理解到可合并 PR</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 3 章 Tool Call：工具调用设计与编排](https://www.google.com/search?q=chapter3.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">[第 16 章 机器人操作与具身 VLA Agent](https://www.google.com/search?q=chapter16.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="12-coding-agent-pr">第 12 章 Coding Agent：从仓库理解到可合并 PR</h1>
+<blockquote>
+<p><strong>本章摘要</strong>
+编写一个能写出 <code>Hello World</code> 的脚本很容易，但构建一个能在一个百万行代码库中修复竞态条件（Race Condition）Bug 的 Agent 却极具挑战。
+本章将从“软件工程”而非单纯“代码生成”的视角，系统拆解 Coding Agent 的架构。我们将深入探讨如何利用 <strong>Repo Map</strong> 解决上下文限制，如何设计<strong>非破坏性的文件修改协议</strong>，以及如何构建 <strong>TDD（测试驱动开发）</strong> 闭环来确保代码不仅能运行，而且是正确的。
+<strong>学习目标</strong></p>
+<ol>
+<li><strong>架构认知</strong>：理解 Coding Agent 的核心不是 LLM，而是“境交互循环”（Environment Interaction Loop）。</li>
+<li><strong>上下文工程</strong>：掌握利用 AST（抽象语法树）和 Call Graph（调用图）压缩代码库的方法。</li>
+<li><strong>工具设计</strong>：学会设计 <code>search_and_replace</code> 等鲁棒的编辑工具，而非脆弱的行号编辑。</li>
+<li><strong>闭环验证</strong>：建立“复现-修复-回归”的自动化测试策略。</li>
+</ol>
+</blockquote>
+<hr />
+<h2 id="121-coding">12.1 任务定义：软件工程不仅仅是 Coding</h2>
+<p>在多模态 Agent 的语境下，Coding Agent 的输入往往是一个含糊的 Issue（可能包含报错截图、日志片段、用户描述），输出则是一个经过验证的 Pull Request (PR)。</p>
+<h3 id="1211-the-hierarchy-of-competence">12.1.1 典型能力层级 (The Hierarchy of Competence)</h3>
+<p>我们将 Coding Agent 的能力划分为 L1~L4 四个层级：</p>
+<ul>
+<li><strong>L1 - Snippet Generator (代码片段生成)</strong>：用户给函数名，Agent 补全函数体。这是 Copilot 的模式，不属于 Agent。</li>
+<li><strong>L2 - File-Level Editor (单文件编辑)</strong>：用户提供文件，Agent 进行重构或 Debug。下文完全包含在 Prompt 中。</li>
+<li><strong>L3 - Repository-Level Navigator (仓库级导航)</strong>：Agent 需要自己去 <code>ls</code>, <code>grep</code>, <code>find</code>，理解跨文件依赖，定位问题所在，并处理多个文件的修改。</li>
+<li><strong>L4 - Visual-Augmented Engineer (视觉增强工程师)</strong>：结合前端渲染截图、UI 布局树、控制台报错截图，修复 CSS 错位或前端逻辑。</li>
+</ul>
+<p>本章重点关注 <strong>L3</strong> 和 <strong>L4</strong>。</p>
+<h3 id="1212-swe-agent">12.1.2 SWE-Agent 工作流参考模型</h3>
+<p>一个成熟的 Coding Agent 工作流是一个有状态的决策图：</p>
+<div class="codehilite"><pre><span></span><code>[Start: GitHub Issue]
+      |
+      v
+[Phase 1: Exploration &amp; Context] &lt;-----------------------+
+|  1. Read Issue Description                             |
+|  2. List Files (Repo Tree)                             |
+|  3. Search Keywords (Grep/Symbol Search)               |
+|  4. Build &quot;Mental Model&quot; of relevant code              |
++-----+--------------------------------------------------+
+      |
+      v
+[Phase 2: Reproduction (The &quot;Red&quot; State)] &lt;-------------+
+|  1. Create reproduction_script.py                      |
+|  2. Run script -&gt; Capture STDOUT/STDERR                |
+|  3. ANALYZE: Does it fail as expected?                 |
+|     (No -&gt; Go back to Exploration)                     |
++-----+--------------------------------------------------+
+      |
+      v
+[Phase 3: Coding &amp; Patching (The &quot;Fix&quot; State)] &lt;--------+
+|  1. Read Implementation Details (Source Code)         |
+|  2. Plan Modification (Think Step)                    |
+|  3. Apply Edit (Tool Call)                            |
+|  4. Handle Edit Errors (e.g., Linter/Syntax)          |
++-----+-------------------------------------------------+
+      |
+      v
+[Phase 4: Validation (The &quot;Green&quot; State)]
+|  1. Run reproduction_script.py (Expect Pass)          |
+|  2. Run Existing Tests (Regression Check)             |
+|  3. Visual Verification (If UI related)               |
++-----+-------------------------------------------------+
+      |
+      +---&gt; [Success] ---&gt; Submit PR
+      |
+      +---&gt; [Fail] ------&gt; Return to Phase 3 (Refine)
+</code></pre></div>
+
+<hr />
+<h2 id="122-prompt-linux">12.2 上下文经济学：如何在 Prompt 中装下 Linux 内核？</h2>
+<p>最大的工程挑战在于 Token 预算。直接把所有文件塞进 context window 是不可行的（既贵又会降低模型注意力）。我们需要一种<strong>有损压缩</strong>但保留<strong>语义结构</strong>的表示方法。</p>
+<h3 id="1221-repo-map-ast">12.2.1 策略一：Repo Map (基于 AST 的骨架图)</h3>
+<p>Repo Map 是一种通过静态分析生成的代码摘要。它只保留“路标”，隐去“风景”。</p>
+<p><strong>压缩规则 (Rule of Thumb)</strong>：</p>
+<ol>
+<li>保留所有 <code>class</code> 和 <code>def</code> 定义行。</li>
+<li>保留 Docstring（如果 Token 允许，或只保留第一行）。</li>
+<li><strong>核心技巧</strong>：保留函数签名（Signature）和类型注解（Type Hints）。</li>
+<li>将函数体替换为 <code>...</code> 或 <code>pass</code>。</li>
+<li>根据 PageRank 或引用次数，标记“重要文件”与“边缘文件”。</li>
+</ol>
+<p><strong>ASCII 示意图：原始代码 vs. Repo Map</strong></p>
+<div class="codehilite"><pre><span></span><code>[原始代码 main.py (100行)]          [Repo Map 表示 (5行)]
+import utils                        
+class Server:                       class Server:
+    def __init__(self, port):           def __init__(self, port): ...
+        self.port = port                def start(self): ...
+        self.log = []               
+        # ... 20 lines ...          def helper_func(x: int) -&gt; bool: ...
+    def start(self):
+        print(&quot;Starting...&quot;)
+        # ... 50 lines logic ...
+</code></pre></div>
+
+<h3 id="1222-just-in-time-context">12.2.2 策略二：动态展开 (Just-In-Time Context)</h3>
+<p>不要预加载。Agent 应该像人类在 IDE 中一样，点击哪个文件，才加载哪个文件的内容。</p>
+<ul>
+<li><strong>初始状态</strong>：只给出根目录的文件树列表。</li>
+<li><strong>按需读取</strong>：Agent 调用 <code>read_file(path)</code>。</li>
+<li><strong>滑动窗口</strong>：对于超大文件（如 5000 行的遗留代码），强制要求 Agent 使用 <code>read_file(path, start_line, end_line)</code>，禁止全量读取。</li>
+</ul>
+<h3 id="1223-rag-for-code">12.2.3 策略三：基于检索的增强 (RAG for Code)</h3>
+<p>对于未知的库或巨大的项目，使用 embedding 检索：</p>
+<ul>
+<li><strong>Query</strong>: "Where is the authentication logic handled?"</li>
+<li><strong>Retrieval</strong>: 返回相关性最高的 5 个代码片段（chunk）。</li>
+<li><strong>注意</strong>：代码 RAG 的 chunking 必须尊重语法边界（不能把一个函数切成两半）。通常按 Function 或 Class 为单位切分。</li>
+</ul>
+<hr />
+<h2 id="123">12.3 工具链深度解析：手术刀而非大铁锤</h2>
+<p>工具的设计直接决定了 Agent 的修改成功率。最糟糕的设计是 <code>overwrite_file</code>（重写整个文件），最好的设计是基于上下文的 <code>patch</code>。</p>
+<h3 id="1231-schema">12.3.1 核心工具 Schema 清单</h3>
+<p>| 工具名 | 关键参数 | 设计意图与工程细节 |</p>
+<table>
+<thead>
+<tr>
+<th>工具名</th>
+<th>关键参数</th>
+<th>设计意图与工程细节</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ls</code> / <code>list_files</code></td>
+<td><code>path</code></td>
+<td>探索目录结构。<strong>Gotcha</strong>: 必须限制递归深度，防止打印出 <code>node_modules</code> 的几万个文件。</td>
+</tr>
+<tr>
+<td><code>search</code></td>
+<td><code>query</code>, <code>file_pattern</code></td>
+<td>类似 <code>grep -n</code>。让 Agent 找到关键词所在的行号。</td>
+</tr>
+<tr>
+<td><code>read</code></td>
+<td><code>path</code>, <code>start_line</code>, <code>end_line</code></td>
+<td><strong>关键特性</strong>: 输出必须带行号（Line Numbers），方便后续引用。</td>
+</tr>
+<tr>
+<td><code>edit_replace</code></td>
+<td><code>path</code>, <code>search_block</code>, <code>replace_block</code></td>
+<td><strong>推荐</strong>: 类似 <code>sed</code> 但更智能。Agent 提供“要查找的几行代码（作为锚点）”和“替换后的代码”。系统自动匹配锚点并替换。</td>
+</tr>
+<tr>
+<td><code>run_cmd</code></td>
+<td><code>command</code>, <code>timeout</code></td>
+<td>执行 Shell 命令。<strong>安全限制</strong>: 只能在沙箱内运行，禁止网络请求（除非是白名单）。</td>
+</tr>
+<tr>
+<td><code>create_file</code></td>
+<td><code>path</code>, <code>content</code></td>
+<td>用于创建新的测试脚本或新模块。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1232">12.3.2 为什么“基于行号的编辑”是陷阱？</h3>
+<p>初学者常设计 <code>edit_line(file, line_number, new_content)</code>。</p>
+<ul>
+<li><strong>问题</strong>：LLM 对数字非常不敏感（Hallucination）。且在多轮对话中，Agent 脑海中的行号可能因为之前的修改而过时（Off-by-one errors）。</li>
+<li><strong>解决方案</strong>：使用 <strong>Search-and-Replace</strong> 范式。</li>
+<li>Agent 必须引用原文件中<strong>独一无二</strong>的 3-5 行代码作为 <code>context</code>。</li>
+<li>系统在文件中查找这个块。</li>
+<li>如果找到多处或找不到，工具返回 Error，强迫 Agent 重新阅读文件。</li>
+</ul>
+<h3 id="1233">12.3.3 多模态特有工具</h3>
+<p>对于前端或 GUI 任务，需要增加：</p>
+<ul>
+<li><code>capture_screenshot(url/path)</code>: 返回图片的 base64。</li>
+<li><code>get_render_tree()</code>: 返回简化版的 DOM 树或 Accessibility Tree。</li>
+<li><code>visual_diff(img1, img2)</code>: 辅助工具，返回两张图的差异热力图（虽然 VLM 可以自己看，但工具辅助更精确）。</li>
+</ul>
+<hr />
+<h2 id="124-tdd">12.4 决策大脑：TDD 与反思机制</h2>
+<p>Agent 极其容易产生幻觉——它以为代码是对的，但实际上跑不通。必须用解释器作为“物理定律”来约束它。</p>
+<h3 id="1241-reproduction-first">12.4.1 “复现优先”原则 (Reproduction First)</h3>
+<p>在修改任何业务代码前，强制 Agent 必须先写一个 <strong>Test Case</strong>。</p>
+<ol>
+<li><strong>Agent 思考</strong>：根据 Issue 描述，这个 Bug 应该在输入 X 时产生输出 Y，但实际输出了 Z。</li>
+<li><strong>Agent 行动</strong>：创建一个 <code>reproduce_issue.py</code>。</li>
+<li><strong>Agent 验证</strong>：运行该脚本。
+* 如果脚本<strong>成功报错</strong>：太好了，我们复现了 Bug。
+* 如果脚本<strong>运行通过</strong>：说明 Agent 没理解对 Bug，或者环境不对。<strong>禁止进入修复阶段</strong>。</li>
+</ol>
+<h3 id="1242-error-recovery">12.4.2 错误恢复与自愈 (Error Recovery)</h3>
+<p>当 <code>edit</code> 工具调用失败，或测试运行报错时，Agent 需要进入 ReAct 循环：</p>
+<ul>
+<li><strong>Syntax Error</strong>: 将 traceback 喂回给 Agent。Agent 通常能自我修正拼写错误。</li>
+<li><strong>Linter Error</strong>: 比如 Python 的缩进错误或未使用的 import。</li>
+<li><strong>Timeout</strong>: 可能是死循环。系统强制 kill 并告知 Agent。</li>
+</ul>
+<hr />
+<h2 id="125-pr">12.5 关键算法与策略：如何生成可合并的 PR</h2>
+<h3 id="1251-dependency-aware-editing">12.5.1 依赖感知修改 (Dependency-Aware Editing)</h3>
+<p>修改代码最怕“破坏了其他地方”。</p>
+<ul>
+<li><strong>策略</strong>：在修改 <code>function_A</code> 后，Agent 应该主动调用 <code>search("function_A")</code> 查找所有调用方。</li>
+<li><strong>LSP 集成</strong>：如果基础设施允许，集成 Language Server Protocol，提供 <code>find_references</code> 工具。</li>
+</ul>
+<h3 id="1252">12.5.2 提交信息的规范化</h3>
+<p>PR 不仅仅是代码，还有描述。</p>
+<ul>
+<li><strong>自动生成 PR Description</strong>：让 Agent 总结它的修改：</li>
+<li><em>What</em>: 修改了哪个文件？</li>
+<li><em>Why</em>: 解决了什么 Issue？</li>
+<li><em>Risk</em>: 有什么潜在风险？</li>
+<li><em>Verification</em>: 用什么测试验证的？</li>
+</ul>
+<hr />
+<h2 id="126">12.6 本章小结</h2>
+<ul>
+<li><strong>从代码到工程</strong>：Coding Agent 的核心难点不在于写出正确的语法，而在于理解庞大的上下文和复杂的依赖关系。</li>
+<li><strong>地图优于全景</strong>：使用 Repo Map 和 AST 摘要来对抗 Token 限制。</li>
+<li><strong>锚点优于坐标</strong>：使用基于内容的 Search-Replace 修改策略，避免行号幻觉。</li>
+<li><strong>测试即真理</strong>：没有复现脚本的修复是不可信的。强制执行“复现 -&gt; 修复 -&gt; 回归”的 TDD 流程。</li>
+</ul>
+<hr />
+<h2 id="127">12.7 练习题</h2>
+<p>每道题包含提示（Hint），答案默认折叠。</p>
+<h3 id="_1">基础题（熟悉机制）</h3>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter11.html" class="nav-link prev">← 第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</a><a href="chapter13.html" class="nav-link next">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策 →</a></nav>
+        </main>
+    </div>
+</body>
+</html>
