@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>附录 C：Trace Schema 与蒸馏数据构建 (chapter22.md)</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 3 章 Tool Call：工具调用设计与编排</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 16 章 机器人操作与具身 VLA Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 17 章 文档/票据/表格多模 RPA Agent：企业流程自动化</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 18 章 生产级工程化：可观测、可回归、可运营 (Production-Grade Engineering)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 19 章 安全、对齐与红队：把风险变成可测试项</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：Harmony 格式与多模态消息协议标准 (Appendix A)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 B：Tool Schema Cookbook (全场景工具定义速查)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter22.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 C：Trace Schema 与蒸馏数据构建 (chapter22.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter23.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 D：Benchmark 清单与自建评测指南 (chapter23.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="ctrace-schema-chapter22md">附录 C：Trace Schema 与蒸馏数据构建 (chapter22.md)</h1>
+<blockquote>
+<p><strong>本章概要</strong>
+在多模态智能体系统中，<strong>Trace（轨迹）</strong> 是连接运行时（Inference）与训练时（Training）的唯一血脉。它不仅是调试的依据，更是构建“数据飞轮”的核心资产。
+许多团队的痛点在于：线上跑了数万次任务，但因为 Log 格式混乱、缺乏证据对齐、多模态数据丢失，导致无法利用这些数据反哺模型。
+本章将提供一套<strong>工业级、标准化</strong>的 Trace Schema 设计，并详解如何构建从“原始日志”到“SFT/DPO 训练数据”的 ETL 流水线。
+<strong>核心产出</strong>：</p>
+<ol>
+<li><strong>全景 Trace 协议</strong>：支持文本、图像、工具、反思、用的统一 JSON 结构。</li>
+<li><strong>证据锚点（Grounding）</strong>：解决多模态幻觉的坐标级对齐方案。</li>
+<li><strong>数据清洗流水线</strong>：从 PII 脱敏到质量打分的七道工序。</li>
+<li><strong>偏好数据集构建</strong>：自动化构造 Chosen/Rejected 样本的策略。</li>
+</ol>
+</blockquote>
+<hr />
+<h2 id="c1-trace">C.1 Trace 的全景架构与生命周期</h2>
+<p>在深入 JSON 字段之前，我们需要理解一条 Trace 在系统中的流动。</p>
+<h3 id="trace-ascii">Trace 数据流向图 (ASCII)</h3>
+<div class="codehilite"><pre><span></span><code>[Runtime: Agent Execution]
+       │
+       ▼
+   (RAW TRACE)  &lt;-- 包含冗余信息、Base64图片、原始HTML、未脱敏敏感词
+       │
+       ▼
+[ETL Pipeline: Cleaning &amp; Formatting]
+       │
+       ├── 1. 图片上传至 S3 (替换 Base64 为 URL)
+       ├── 2. 敏感信息 (PII) 掩码处理
+       ├── 3. 工具输出截断/摘要 (Canonicalization)
+       └── 4. 结构化校验 (Schema Validation)
+       │
+       ▼
+   (GOLDEN TRACE) &lt;-- 存入数据湖 (Data Lake)，用于检索与回放
+       │
+       ├── 分支 A: 行为克隆 (SFT Data Generation)
+       └── 分支 B: 偏好对齐 (DPO Pair Construction)
+</code></pre></div>
+
+<hr />
+<h2 id="c2-trace-schema-the-universal-schema">C.2 通用 Trace Schema 定义 (The Universal Schema)</h2>
+<p>这是一套兼容 OpenAI Chat 格式但扩展了 <strong>Agent 特性</strong>（如思考链、引用、执行状态）的 Schema。</p>
+<h3 id="21-the-envelope">2.1 顶层信封 (The Envelope)</h3>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;trace_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;req_550e8400-e29b&quot;</span><span class="p">,</span><span class="w">      </span><span class="c1">// 全局唯一请求 ID</span>
+<span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sess_a1b2c3d4&quot;</span><span class="p">,</span><span class="w">         </span><span class="c1">// 会话 ID (用于多轮上下文)</span>
+<span class="w">  </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_12345&quot;</span><span class="p">,</span><span class="w">               </span><span class="c1">// 用户标识 (用于权限/个性化)</span>
+<span class="w">  </span><span class="nt">&quot;timestamp_start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-10-27T10:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp_end&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-10-27T10:00:15Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;duration_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span><span class="w">                   </span><span class="c1">// success | failure | timeout</span>
+
+<span class="w">  </span><span class="c1">// 环境与配置快照 (这对复现 Bug 至关重要)</span>
+<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;model_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4-vision-preview&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;temperature&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;system_prompt_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v3.1.2_finance_analyst&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tools_schema_hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a8f9c2...&quot;</span><span class="p">,</span><span class="w">    </span><span class="c1">// 工具定的哈希值，防止工具变了 Log 没变</span>
+<span class="w">    </span><span class="nt">&quot;environment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;production&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+
+<span class="w">  </span><span class="c1">// 核心交互步骤</span>
+<span class="w">  </span><span class="nt">&quot;steps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">],</span>
+
+<span class="w">  </span><span class="c1">// 最终产出与评测</span>
+<span class="w">  </span><span class="nt">&quot;outcome&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="22-the-steps-">2.2 步骤详情 (The Steps) - 多模态核心</h3>
+<p>步骤必须是一个<strong>有序列表</strong>，严格还原时间线。我们采用 <code>role</code> + <code>content</code> + <code>metadata</code> 的结构。</p>
+<h4 id="a-multimodal-user-input">A. 用户输入 (Multimodal User Input)</h4>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;step_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;请分析这张合同中的付款条款，并检查是否合规。&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;image_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://s3.bucket/path/to/img_01.jpg&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 这里的 URL 必须是持久化的</span>
+<span class="w">        </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;original_filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;contract_scan.jpg&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;ocr_cache_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ocr_img_01&quot;</span><span class="w"> </span><span class="c1">// 关联 OCR 预处理结果</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="b-assistant-thought-action">B. 模型思考与动作 (Assistant Thought &amp; Action)</h4>
+<p>是 Agent 的“大脑”活动。必须区分 <strong>思考 (Thought)</strong> 和 <strong>调用 (Call)</strong>。</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;step_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="c1">// 对于 Tool Call 步骤，content 通常为空或包含 CoT</span>
+
+<span class="w">  </span><span class="c1">// 显式的思维链 (CoT)</span>
+<span class="w">  </span><span class="nt">&quot;thought&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;用户上传了合同图片。我首先需要调用 OCR 工具提取文本，然后使用关键词搜索&#39;付款条款&#39;。&quot;</span><span class="p">,</span>
+
+<span class="w">  </span><span class="nt">&quot;tool_calls&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;call_ocr_123&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;function&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;function&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;document_ocr&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;image_id\&quot;: \&quot;img_01\&quot;, \&quot;mode\&quot;: \&quot;dense_text\&quot;}&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>关键点</strong>：<code>thought</code> 字段是蒸馏小模型（SLM）的核心。小模型往往缺乏规划能力，通过学习大模型的 <code>thought</code>，可以显著提升其推理能力。</p>
+</blockquote>
+<h4 id="c-tool-execution">C. 工具执行结果 (Tool Execution)</h4>
+<p>记录环境的真实反馈。</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;step_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tool&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tool_call_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;call_ocr_123&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 必须对应上面的 call_id</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;document_ocr&quot;</span><span class="p">,</span>
+
+<span class="w">  </span><span class="c1">// 原始输出，可能非常长。训练时需要截断，但 Trace 中建议保留全量 (或存链接)</span>
+<span class="w">  </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;full_text\&quot;: \&quot;合同编号：HB-2023... 本合同付款方式如下：...\&quot;, \&quot;pages\&quot;: 1}&quot;</span><span class="p">,</span>
+
+<span class="w">  </span><span class="c1">// 执行状态元数据</span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span><span class="w">          </span><span class="c1">// ok | error</span>
+<span class="w">    </span><span class="nt">&quot;latency_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1200</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;is_truncated&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">    </span><span class="c1">// 标记内容是否因过长被截断</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="d-self-correction">D. 错误处理与自我修正 (Self-Correction)</h4>
+<p>如果工具报错，Trace 应如实记录，这构成了“负样本”或“修正样本”。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Step 3: Assistant 收到错误后的反应</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;thought&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OCR 提取成功，现在我尝试在文本中搜索关键词。哎呀，我之前的搜索参数格式好像错了，我需要修正参数。&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tool_calls&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="c3-grounding-schema">C.3 证据对齐与 Grounding Schema</h2>
+<p>为了解决幻觉，Answer 必须“钉”在源文档上。我们不应只存储文本，应存储“带坐标的引用”。</p>
+<h3 id="citation-object">引用对象 (Citation Object)</h3>
+<p>在 <code>outcome</code> 字段中：</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&quot;outcome&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;final_answer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;根据合同第 3 页，付款账期为验收后 30 天 [1]。&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;citations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;source_doc_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;doc_contract_001&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;quote_text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;乙方应在验收合格后 30 个工作日内支付款项&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 原文片段</span>
+<span class="w">      </span><span class="nt">&quot;semantic_similarity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.98</span><span class="p">,</span><span class="w"> </span><span class="c1">// 验证模型打分</span>
+
+<span class="w">      </span><span class="c1">// 视觉定位 (Visual Grounding)</span>
+<span class="w">      </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;page_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="c1">// 0-indexed</span>
+<span class="w">        </span><span class="nt">&quot;bbox&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">450</span><span class="p">,</span><span class="w"> </span><span class="mi">600</span><span class="p">,</span><span class="w"> </span><span class="mi">500</span><span class="p">],</span><span class="w"> </span><span class="c1">// [x1, y1, x2, y2]</span>
+<span class="w">        </span><span class="nt">&quot;highlight_color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yellow&quot;</span><span class="w">   </span><span class="c1">// 前端渲染用</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Rule of Thumb</strong>: 如果你的 Agent 是处理 PDF 的，<strong>必须</strong>存储 bbox。没有 bbox 的引用无法用于训练“多模态高亮”功能，也难以人工验证准确性。</p>
+</blockquote>
+<hr />
+<h2 id="c4-sft-dpo">C.4 蒸馏数据构建：SFT 与 DPO</h2>
+<p>有了上面的 Trace，我们如何生成训练数据？</p>
+<h3 id="41-sft">4.1 监督微调 (SFT) 数据构建</h3>
+<p><strong>目标</strong>：教会模型“如何正确使用工具”和“遵循格式”。</p>
+<p><strong>过滤逻辑 (The Filter Funnel)</strong>：</p>
+<ol>
+<li><strong>Status Filter</strong>: 只保留 <code>status == "success"</code> 的 Trace。</li>
+<li><strong>Length Filter</strong>: 剔除交互轮数 &lt; 2 的（太简单）或 &gt; 50 的（可能陷入死循环）。</li>
+<li><strong>Thought Check</strong>: 剔除 <code>thought</code> 字段为空的样本（无法学习推理过程）。</li>
+</ol>
+<p><strong>格式转换</strong>:
+将 Trace 打平为 <code>User -&gt; Assistant (Thought + Call) -&gt; Tool -&gt; Assistant (Answer)</code> 的线性对话格式。</p>
+<h3 id="42-dporlhf">4.2 偏好数据 (DPO/RLHF) 构建</h3>
+<p><strong>目标</strong>：教会模型“什么更好”，减少幻觉，提升安全性。需要构造 <code>(Prompt, Chosen, Rejected)</code> 三元组。</p>
+<h4 id="a-rejected-self-rejection">策略 A: 自动构造 Rejected (Self-Rejection)</h4>
+<p>利用模型生成的错误 Trace。</p>
+<ul>
+<li><strong>Case</strong>: 发生了 Python 语法错误，但最终通过重试修好了。</li>
+<li><strong>Chosen</strong>: 将错误的中间步骤移除，拼接成一条“一次过”的完美路径。</li>
+<li><strong>Rejected</strong>: 保留原始包含错误的路径（或者保留错误步骤作为反面材，视训练目标而定）。</li>
+</ul>
+<h4 id="b-rejection-sampling-best-of-n">策略 B: 拒绝采样 (Rejection Sampling / Best-of-N)</h4>
+<p>对于同一个 Prompt，让模型生成 N=4 个不同的回答路径。</p>
+<ul>
+<li><strong>评分</strong>: 使用 Reward Model 或 单元测试（针对代码 Agent）对 N 个结果评分。</li>
+<li><strong>配对</strong>: 取分最高的为 Chosen，分最低的为 Rejected。</li>
+</ul>
+<h4 id="c-hallucination-injection-">策略 C: 幻觉植入 (Hallucination Injection) - <em>进阶</em></h4>
+<ul>
+<li><strong>Chosen</strong>: 原始正确的 Trace。</li>
+<li><strong>Rejected</strong>: 取正确的 Trace，人为修改其中的“事实性数据”（如将“利润增长 15%”改为“150%”），构造一条看起来通顺但事实错误的样本。这对训练 Factuality 极其有效。</li>
+</ul>
+<hr />
+<h2 id="c5">C.5 数据清洗与质量控制流水线</h2>
+<p>不要把垃圾喂给模型。以下是建议的 ETL 清洗步骤：</p>
+<p>| 步骤 | 动作名称 | 详细操作与规则 |</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>动作名称</th>
+<th>详细操作与规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>去重 (Dedup)</strong></td>
+<td>计算 User Prompt 的 MinHash。对于重复度 &gt; 0.9 的请求，只保留 Outcome 评分最高的一条。</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>脱敏 (Scrub)</strong></td>
+<td><strong>Regex 替换</strong>：Email, Phone, IP Address, API Keys (sk-...)。<br></td>
+</tr>
+</tbody>
+</table>
+<p><br><strong>实体替换</strong>：将具体人名替换为 <code>[PERSON]</code>，公司名替换为 <code>[ORG]</code>（视任务而定，有时需要保留）。 |
+| <strong>3</strong> | <strong>毒性检测 (Detox)</strong> | 使用轻量级分类器（如 Deberta-v3-small）扫描 <code>user_input</code> 和 <code>final_answer</code>。剔除色情、暴力、仇恨言论。 |
+| <strong>4</strong> | <strong>语言一致性</strong> | 剔除中英文夹杂严重、乱码比例过高的文本。 |
+| <strong>5</strong> | <strong>代码/JSON 校验</strong> | 提取所有 JSON 和 Code Block，尝试解析 (JSON.parse / AST parse)。无法解析的视为“格式错误样本”，作为 Negative Sample 或丢弃。 |
+| <strong>6</strong> | <strong>引用验证</strong> | 检查 Trace 中的引用片段是否存在于源文档中。如果 <code>quote_text</code> 在原文找不到，标记为“幻觉样本”。 |
+| <strong>7</strong> | <strong>多模态对齐检查</strong> | 检查 <code>image_url</code> 是否有效。如果是死链，该条数据必须丢弃，否则模型会学习到“无视图像”的行为。 |</p>
+<hr />
+<h2 id="c6">C.6 本章练习</h2>
+<h3 id="50">基础题 (50%)</h3>
+<ol>
+<li><strong>Trace 补全</strong>：
+给定一个只有 <code>User</code> 和 <code>Final Answer</code> 的简单日志，请手动补充中间的 <code>Thought</code> 和 <code>Tool Call</code> 步骤，使其构成一个合法的 Chain-of-Thought Trace。任务：“查询 Google 股价并计算其市盈率。”</li>
+</ol>
+<details>
+<summary>提示</summary>
+<p>你需要补全：1. 调用搜索工具查股价；2. 调用搜索工具查每股收益(EPS)；3. 调用计算器或代码解释器算出 PE ratio。注意 Thought 必须先于 Action。</p>
+</details>
+<ol start="2">
+<li><strong>Schema 纠错</strong>：
+以下 JSON 片段哪里不符合本章定义的规范？</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;function&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Error: timeout&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<details>
+<summary>提示</summary>
+<ol>
+<li>角色名应统一为 <code>tool</code> 而非 <code>function</code>（OpenAI 新版规范）。2. 缺少 <code>tool_call_id</code>，导致无法知道这是响应哪个调用的。3. 缺少 <code>name</code> 字段。</li>
+</ol>
+</details>
+<ol start="3">
+<li><strong>脱敏实战</strong>：
+编写一个简单的 Python 正则表达式列表，用于从 Trace 字符串中 <code>sk-</code> 开头的 OpenAI Key 和 11 位手机号替换为 <code>[SECRET]</code>。</li>
+</ol>
+<h3 id="50_1">挑战题 (50%)</h3>
+<ol start="4">
+<li><strong>多轮对话的 Context 截断策略</strong>：
+在构造 SFT 数据时，如果一个 Session 有 50 轮对话，直接放入训练会导致 Context Window 爆炸。请设计一个滑动窗口算法，既能保留 System Prompt 和最新的几轮对话，又能通过 Summary 机制保留早期的关键信息。请描述 Trace 中需要增加什么字段来存储这种 Summary？</li>
+</ol>
+<details>
+<summary>提示</summary>
+<p>需要在 Meta 中增加 <code>running_summary</code> 字段。算法：保留第 0 轮（System），保留第 T-5 到 T 轮。第 1 到 T-6 轮的内容被压缩为一段文本，作为新的 System Prompt 的一部分插入。</p>
+</details>
+<ol start="5">
+<li><strong>基于“修改距离”的 DPO 构造</strong>：
+设计一个自动化流程：取一个正确的 Python 代码生成 Trace (Chosen)。使用脚本自动修改代码中的一个变量名，使其产生 <code>NameError</code>。将运行报错后的 Trace 设为 Rejected。请分析这种成数据的优缺点。</li>
+</ol>
+<details>
+<summary>提示</summary>
+<p>优点：低成本、大规模生成负样本。缺点：模型可能只学会了纠正简单的 NameError，而没有学到深层的逻辑错误；且这种负样本可能过于“弱智”，导致梯度下降收益极小。</p>
+</details>
+<hr />
+<h2 id="c7-gotchas">C.7 常见陷阱与错误 (Gotchas)</h2>
+<ol>
+<li>
+<p><strong>Ghost References (幽灵引用)</strong>
+* <strong>现象</strong>：Trace 中记录了引用 <code>[1]</code>，但对应的 <code>citations</code> 列表里只有 <code>source_id</code>，没有具体的 <code>text_span</code> 或 <code>bbox</code>。
+* <strong>后果</strong>：由于缺乏细粒度监督，蒸馏出的 Student 模型虽然会写 <code>[1]</code>，但指向的内容往往是随机的页面，造成“看起来有理有据的胡说八道”。
+* <strong>修复</strong>：在 ETL 阶段强制校验：<code>assert len(citation.bbox) == 4</code>。</p>
+</li>
+<li>
+<p><strong>Tool Output Contamination (工具输出污染)</strong>
+* <strong>现象</strong>：OCR 工具返回了大量乱码，或者搜索工具返回了 100kb 的 HTML 源码。直接将这些扔进 SFT 训练。
+* <strong>后果</strong>：模型学会输出无意义的长文本，或者对 Context 长度极其敏感。
+* <strong>修复</strong>：并在 Trace Schema 中引入 <code>summary</code> 字段。训练时使用 summary，但保留原始 content 用于审计。</p>
+</li>
+<li>
+<p><strong>Trace Drift (Schema 漂移)</strong>
+* <strong>现象</strong>：代码库更新了 Tool 的参数名（如 <code>file_name</code> 改为 <code>filename</code>），但历史 Trace 还是旧的。
+* <strong>后果</strong>：混合训练时，模型会混淆参数名，导致幻觉参数。
+* <strong>修复</strong>：Trace 必须包含 <code>tool_version</code>。在构建数据集时，必须编写 Adapter 将旧 Trace 迁移到新 Schema，或者丢弃旧版本数据的工具调用部分。</p>
+</li>
+<li>
+<p><strong>Only Training on Success (幸存者偏差)</strong>
+* <strong>现象</strong>：只使用最终成功的 Trace 进行 SFT。
+* <strong>后果</strong>：模型从未见过“报错”的样子。一旦线上环境出问题（如网络波动），模型不知道如何重试或优雅降级，而是直接崩溃或死循环。
+* <strong>修复</strong>：在 SFT 数据中混入 10% 的“Error -&gt; Recovery -&gt; Success” 样本，教模型鲁棒性。</p>
+</li>
+</ol>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter21.html" class="nav-link prev">← 附录 B：Tool Schema Cookbook (全场景工具定义速查)</a><a href="chapter23.html" class="nav-link next">附录 D：Benchmark 清单与自建评测指南 (chapter23.md) →</a></nav>
+        </main>
+    </div>
+</body>
+</html>

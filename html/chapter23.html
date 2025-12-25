@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>附录 D：Benchmark 清单与自建评测指南 (chapter23.md)</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/highlight.css">
+    <script src="assets/script.js" defer></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']],
+                processEscapes: false,
+                packages: {'[+]': ['noerrors', 'ams']}
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            },
+            loader: {
+                load: ['[tex]/noerrors', '[tex]/ams']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>目录</h3>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="sidebar-search">
+                <input type="text" id="sidebar-search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <div id="tree-container">
+                <nav class="tree-nav" role="tree">
+                    <div class="tree-item " >
+                        <a href="index.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">基于多模态理解生成模型的智能体构建教程（目录）</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter1.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 1 章 多模态智能体概览 (Chapter 1: Overview of Multimodal Agents)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter2.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 2 章 多模态输入输出与上下文管理 (Multimodal I/O & Context)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter3.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 3 章 Tool Call：工具调用设计与编排</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter4.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 4 章 Agent Loop：规划-执行-反思的闭环</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter5.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 5 章 记忆与知识：RAG、多模态检索与状态管理</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter6.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 6 章 Agent Handoff：任务移交与协作协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter7.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 7 章 OpenAI Harmony 格式与多模态消息协议</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter8.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 8 章 Multi-Agent：从单体到群体协作</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter9.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 9 章 与仿真系统互动：闭环、采样与安全</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter10.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 10 章 Trace 构造、蒸馏与 Benchmark 评测体系</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter11.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 11 章 DeepResearch 智能体：多模态研究与长文档 PDF</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter12.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 12 章 Coding Agent：从仓库理解到可合并 PR</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter13.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 13 章 自动驾驶 VLA Agent：从感知到闭环决策</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter14.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 14 章 座舱多模对话机器人：可控、可靠、可解释</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter15.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 15 章 GeoGuessr / 地理定位 Agent：从一张图到一个世界坐标</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter16.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 16 章 机器人操作与具身 VLA Agent</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter17.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 17 章 文档/票据/表格多模 RPA Agent：企业流程自动化</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter18.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 18 章 生产级工程化：可观测、可回归、可运营 (Production-Grade Engineering)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter19.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">第 19 章 安全、对齐与红队：把风险变成可测试项</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter20.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 A：Harmony 格式与多模态消息协议标准 (Appendix A)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter21.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 B：Tool Schema Cookbook (全场景工具定义速查)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="chapter22.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 C：Trace Schema 与蒸馏数据构建 (chapter22.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item active" >
+                        <a href="chapter23.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">附录 D：Benchmark 清单与自建评测指南 (chapter23.md)</span>
+                        </a>
+                    </div>
+                
+                    <div class="tree-item " >
+                        <a href="CLAUDE.html" class="tree-link">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-title">Untitled</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <article>
+                <h1 id="dbenchmark-chapter23md">附录 D：Benchmark 清单与自建评测指南 (chapter23.md)</h1>
+<blockquote>
+<p><strong>摘要</strong>：在多模态智能体（Agent）的工程落地中，评测（Evaluation）不仅是分数的比拼，更是系统稳定性的生命线。本章首先梳理了当前主流的公开 Benchmark 版图，帮助开发者进行模型选型；随后，深入剖析了如何从零构建业务专属的“金标准数据集（Golden Set）”，设计分层级的自动化评分器，并将其集成到 CI/CD 流水线中，建立起一套“可观测、可量化、可回归”的质量保障体系。</p>
+</blockquote>
+<hr />
+<h2 id="d1-benchmark">D.1 Benchmark 类型地图：从选型到定标</h2>
+<p>公开 Benchmark 的主要价值在于<strong>模型选型（Model Selection）</strong>和<strong>能力基线（Capability Baseline）</strong>的建立。盲目追求综合高分不仅浪费资源，还可能导致对特定领域缺陷的忽视。我们需要根据 Agent 的应用场景，选择最相关的“标尺”。</p>
+<h3 id="d11-perception-reasoning">D.1.1 多模态理解与推理类 (Perception &amp; Reasoning)</h3>
+<p>此类 Benchmark 主要考察 VLM（Visual Language Model）对图像、图表、文档的感知与逻辑推理能力，是所有多模态 Agent 的基石。</p>
+<p>| Benchmark 名称 | 核心考察点 | 适用 Agent 场景 | 局限性/注意事项 |</p>
+<table>
+<thead>
+<tr>
+<th>Benchmark 名称</th>
+<th>核心考察点</th>
+<th>适用 Agent 场景</th>
+<th>局限性/注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MMMU</strong> (Massive Multi-discipline Multimodal Understanding)</td>
+<td>大学水平的多学科知识推理（图表、图示、公式）。</td>
+<td><strong>文档分析、专家咨询、教育辅导</strong></td>
+<td>侧重选择题，难以反映 Agent 的“长链条”推理能力。</td>
+</tr>
+<tr>
+<td><strong>MMBench</strong></td>
+<td>感知与推理的综合能力，采用 CircularEval 消除猜测成分。</td>
+<td><strong>通用多模态助手</strong></td>
+<td>问题相对短小，无法评估长文档处理能力。</td>
+</tr>
+<tr>
+<td><strong>DocVQA / InfographicVQA</strong></td>
+<td>针对文档扫描件、海报、信息图的文字提取与问答。</td>
+<td><strong>RPA、票据处理、文档检索</strong></td>
+<td>必须关注 OCR 的精度与空间位置理解。</td>
+</tr>
+<tr>
+<td><strong>MathVista</strong></td>
+<td>视觉环境下的数学推理与计算。</td>
+<td><strong>数据分析、科学计算</strong></td>
+<td>对逻辑严密性要求极高。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="d12-agent-tool-use-general-agent">D.1.2 工具使用与 Agent 综合能力类 (Tool Use &amp; General Agent)</h3>
+<p>此类 Benchmark 考察模型是否真的能“做事”，即调用 API、规划路径、纠正错误。</p>
+<p>| Benchmark 名称 | 核心考察点 | 适用 Agent 场景 | 局限性/注意事项 |</p>
+<table>
+<thead>
+<tr>
+<th>Benchmark 名称</th>
+<th>核心考察点</th>
+<th>适用 Agent 场景</th>
+<th>局限性/注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GAIA</strong> (General AI Assistants)</td>
+<td>概念简单但步骤极繁琐的任务，需精准组合多种工具。</td>
+<td><strong>个人助理、复杂任务规划</strong></td>
+<td>它是目前最接近“人类助理”难度的公开测试集，极具参考价值。</td>
+</tr>
+<tr>
+<td><strong>AgentBench</strong></td>
+<td>包含 OS、DB、KG 等 8 个不同环境的综合测试。</td>
+<td><strong>通用作系统 Agent</strong></td>
+<td>环境配置复杂，复现成本较高。</td>
+</tr>
+<tr>
+<td><strong>ToolBench</strong></td>
+<td>大规模的真实 API 调用指令遵循与参数填充。</td>
+<td><strong>插件调度、API 网关助手</strong></td>
+<td>数据多为合成，可能缺乏真实世界的“脏数据”噪声。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="d13-coding-swe">D.1.3 代码与软件工程类 (Coding &amp; SWE)</h3>
+<p>| Benchmark 名称 | 核心考察点 | 适用 Agent 场景 | 局限性/注意事项 |</p>
+<table>
+<thead>
+<tr>
+<th>Benchmark 名称</th>
+<th>核心考察点</th>
+<th>适用 Agent 场景</th>
+<th>局限性/注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SWE-bench</strong></td>
+<td>基于真实 GitHub Issue 的仓库级问题解决（复现+修复+测试）。</td>
+<td><strong>Devin 类编程助手、自动运维</strong></td>
+<td><strong>黄金标准</strong>。必须在 Docker 容器中运行，资源消耗巨大。</td>
+</tr>
+<tr>
+<td><strong>HumanEval / MBPP</strong></td>
+<td>函数级的代码生成与补全。</td>
+<td><strong>代码补全 Copilot</strong></td>
+<td>仅适合测试底座模型的代码语法能力，不足以评估工程 Agent。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="d14-gui-web-embodied">D.1.4 浏览器与 GUI 自动化类 (Web &amp; Embodied)</h3>
+<p>| Benchmark 名称 | 核心考察点 | 适用 Agent 场景 | 局限性/注意事项 |</p>
+<table>
+<thead>
+<tr>
+<th>Benchmark 名称</th>
+<th>核心考察点</th>
+<th>适用 Agent 场景</th>
+<th>局限性/注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WebArena / Mind2Web</strong></td>
+<td>真/模拟网站中的端到端任务（购物、预订、表单）。</td>
+<td><strong>浏览器自动化、订票助手</strong></td>
+<td>网页 DOM 经常变动，环境维护成本极高。</td>
+</tr>
+<tr>
+<td><strong>AndroidWorld</strong></td>
+<td>安卓系统内的跨 App 操作与任务完成。</td>
+<td><strong>手机端助手</strong></td>
+<td>依赖模拟器，动作空间较大。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="d2-golden-set">D.2 自建评测集：构建你的 "Golden Set"</h2>
+<p>公开数据往往存在<strong>数据泄露（Contamination）</strong>问题，且无法覆盖特定的业务逻辑（如“只能在周一到周五调用退款接口”）。<strong>自建 Golden Set 是 Agent 能够上线的必要条件。</strong></p>
+<h3 id="d21">D.2.1 数据来源的“倒金字塔”策略</h3>
+<p>构建高质量评测集应遵循优先级从高到低的策略：</p>
+<ol>
+<li>
+<p><strong>L0 - 线上真实故障 (Production Bad Cases)</strong>：
+* <strong>来源</strong>：用户反馈的报错、客服介入的对话、导致崩溃的 Trace。
+* <strong>价值</strong>：最高。这是系统曾经“流血”的地方，必须确保 Fix 后不再复发（Regression Test）。
+* <strong>处理</strong>：必须脱敏，并将其转为可自动化执行的测试用例。</p>
+</li>
+<li>
+<p><strong>L1 - 核心业务路径 (Critical User Journeys - CUJs)</strong>：
+* <strong>来源</strong>：产品经理定义的“Happy Path”和常见“Sad Path”（异常流程）。
+* <strong>价值</strong>：高。确保产品主功能（如“查询库存并下单”）始终可用。
+* <strong>形式</strong>：通常由专家人工撰写。</p>
+</li>
+<li>
+<p><strong>L2 - 对抗与边界测试 (Red Teaming &amp; Edge Cases)</strong>：
+* <strong>来源</strong>：安全团队的注入攻击、Prompt Injection、无意义输入、超长文本。
+* <strong>价值</strong>：中高。保证系统的鲁棒性和安全性。</p>
+</li>
+<li>
+<p><strong>L3 - 合成增强数据 (Synthetic Data)</strong>：
+* <strong>来源</strong>：使用强模型（如 GPT-4）对 L1 数据进行改写（Rephrasing）、参数替换、多语言翻译。
+* <strong>价值</strong>：中。用于提升测试覆盖率和泛化能力。</p>
+</li>
+</ol>
+<h3 id="d22-schema-json">D.2.2 评测样本的标准 Schema (JSON)</h3>
+<p>一个优秀的评测样本不应只有“输入”和“输出”，而应包含完整的<strong>上下文</strong>和<strong>验证逻辑</strong>。</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;case_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;refund_policy_001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;customer_service&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;difficulty&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hard&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;input&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;user_query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;我上周买的咖啡机坏了，能退吗？&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;context_files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;policy_2023.pdf&quot;</span><span class="p">],</span><span class="w">  </span><span class="c1">// 关联的知识库文件</span>
+<span class="w">    </span><span class="nt">&quot;mock_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-10-25T10:00:00Z&quot;</span><span class="p">,</span><span class="w">   </span><span class="c1">// 固定时间，防止因时间变化导致测试抖动</span>
+<span class="w">    </span><span class="nt">&quot;user_profile&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;vip_level&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}</span><span class="w">       </span><span class="c1">// 用户状态模拟</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;gold_standard&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;expected_action_sequence&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;search_policy&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;check_order_status&quot;</span><span class="p">],</span><span class="w"> </span><span class="c1">// 必须调用的工具</span>
+<span class="w">    </span><span class="nt">&quot;forbidden_actions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;direct_refund&quot;</span><span class="p">],</span><span class="w"> </span><span class="c1">// 严禁调用的工具（无权限时）</span>
+<span class="w">    </span><span class="nt">&quot;key_facts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;7天无理由&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;质量问题30天包换&quot;</span><span class="p">],</span><span class="w"> </span><span class="c1">// 必须包含的语义点</span>
+<span class="w">    </span><span class="nt">&quot;required_citation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;page&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;text_snippet&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;质量问题...&quot;</span><span class="p">}</span><span class="w"> </span><span class="c1">// 必须引用的证据</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;constraints&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;max_latency_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;max_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="d3">D.3 自动化评分体系：分层打分机制</h2>
+<p>人工评测（Human Eval）极其昂贵且不可扩展。我们需要构建一个分级的自动化评分流水线（Scoring Pipeline）。</p>
+<h3 id="d31-level-1-rule-based-scorer">D.3.1 Level 1: 确定性规则评分 (Rule-based Scorer)</h3>
+<ul>
+<li><strong>适用场景</strong>：格式检查、工具调用参数校验、关键词匹配。</li>
+<li><strong>成本</strong>：极低。</li>
+<li><strong>方法</strong>：</li>
+<li><strong>JSON Schema Validator</strong>：输出是否符合 JSON 格式？字段是否缺失？</li>
+<li><strong>Exact Match</strong>：SQL 生成是否完全一致？提取的身份证号是否正确？</li>
+<li><strong>Regex</strong>：是否包含敏感词？是否包含特定的 URL 格式？</li>
+</ul>
+<h3 id="d32-level-2-execution-based-scorer">D.3.2 Level 2: 执行结果评分 (Execution-based Scorer)</h3>
+<ul>
+<li><strong>适用场景</strong>：Coding Agent、SQL Agent、API 调用类。</li>
+<li><strong>成本</strong>：高（需要沙箱环境）。</li>
+<li><strong>方法</strong>：</li>
+<li><strong>Unit Test</strong>：运行 Agent 生成的代码，看是否通过单元测试。</li>
+<li><strong>SQL Execution</strong>：在影子库中执行生成的 SQL，对比返回的 Rows 是否与标准答案一致（<strong>这是比文本对比更准确的方法</strong>）。</li>
+<li><strong>API Dry-run</strong>：模拟执行 API，检查请求体（Payload）是否符合后端要求。</li>
+</ul>
+<h3 id="d33-level-3-llm-as-a-judge">D.3.3 Level 3: 模型裁判评分 (LLM-as-a-Judge)</h3>
+<ul>
+<li><strong>适用场景</strong>：开放式问答、摘要生成、多模态推理、Tone &amp; Style 检查。</li>
+<li><strong>成本</strong>：中高（Token 消耗）。</li>
+<li><strong>方法</strong>：</li>
+<li>使用最强模型（如 GPT-4o, Claude 3.5 Sonnet）作为裁判。</li>
+<li><strong>Rubric-based Grading</strong>：提供详细的评分细则（1-5分制），要求裁判先解释理由再打分。</li>
+<li><strong>Reference-guided</strong>：传入标准答案（Gold Answer），要求裁判对比生成结果与标准答案的<strong>语义一致性</strong>，而非字面一致性。</li>
+</ul>
+<blockquote>
+<p><strong>最佳实践：Pairwise Comparison（成对比较）</strong>
+不要让 LLM 直接打分（存在方差），而是让它对比 <code>Model_A_Output</code> 和 <code>Model_B_Output</code>（或者是 <code>New_Version</code> vs <code>Baseline</code>），判断哪个更好。这种方式更接近人类直觉，准确率更高。</p>
+</blockquote>
+<h4 id="llm-prompt">附：通用 LLM 裁判 Prompt 模板</h4>
+<div class="codehilite"><pre><span></span><code>You are an expert evaluator for an AI assistant.
+[<span class="nl">User Query</span>]: <span class="na">{query}</span>
+[<span class="nl">Context</span>]: <span class="na">{context}</span>
+[<span class="nl">Gold Standard Answer</span>]: <span class="na">{gold_answer}</span>
+[<span class="nl">Model Output</span>]: <span class="na">{model_output}</span>
+
+Please evaluate the Model Output based on the following dimensions:
+
+<span class="k">1.</span> <span class="gs">**Accuracy**</span>: Does it match the Gold Standard semantically? (Yes/No)
+<span class="k">2.</span> <span class="gs">**Citation**</span>: Did it cite the correct document/page? (Yes/No/NA)
+<span class="k">3.</span> <span class="gs">**Hallucination**</span>: Does it contain information NOT present in Context? (Yes/No)
+<span class="k">4.</span> <span class="gs">**Completeness**</span>: Did it miss any key constraints?
+
+Output a JSON with scores and a brief reasoning.
+</code></pre></div>
+
+<hr />
+<h2 id="d4">D.4 生产级评测流水线与回归策略</h2>
+<p>将评测集成到 DevOps 流程中，是防止 Agent“变笨”的唯一手段。</p>
+<h3 id="d41">D.4.1 评测集的分级执行策略</h3>
+<p>为了平衡速度与覆盖率，建议将 Golden Set 分为三级：</p>
+<ol>
+<li>
+<p><strong>Smoke Test (冒烟测试)</strong>
+* <strong>规模</strong>：10-20 个核心 Case。
+* <strong>触发时机</strong>：每次 Git Commit / PR 提交。
+* <strong>要求</strong>：100% 通过，耗时 &lt; 2分钟。主要跑 Level 1 评分。</p>
+</li>
+<li>
+<p><strong>Regression Test (回归测试)</strong>
+* <strong>规模</strong>：100-300 个典型 Case（覆盖所有 Topic）。
+* <strong>触发时机</strong>：每日夜间构建（Nightly Build）或上线前封板。
+* <strong>要求</strong>：Pass Rate 不低于基线（Baseline），主要跑 Level 2 + Level 3 评分。</p>
+</li>
+<li>
+<p><strong>Full Evaluation (全量评测)</strong>
+* <strong>规模</strong>：1000+ Case（包含合成数据、压力测试）。
+* <strong>触发时机</strong>：更换基座模型（Base Model）或重大架构重构时。</p>
+</li>
+</ol>
+<h3 id="d42-metrics-that-matter">D.4.2 关键观测指标 (Metrics that Matter)</h3>
+<p>除了准确率，工程化评测必须关注以下维度的“退化”：</p>
+<ul>
+<li><strong>Pass Rate (SR)</strong>：任务成功率。对于 Agent，<strong>Pass@1</strong> (一次做对) 远比 Pass@k 重要。</li>
+<li><strong>Step Count Efficiency</strong>：完成同样任务，新版本是否用了更少的步骤？（步骤越少，出错概率越低，越省钱）。</li>
+<li><strong>Cost per Task</strong>：平均每个任务消耗的 Token 成本。</li>
+<li><strong>Latency p95/p99</strong>：端到端耗时的尾部延迟。</li>
+<li><strong>Hallucination Rate</strong>：在“不可知”问题上，模型是否能够正确拒识（Refusal），而不是胡编乱造。</li>
+</ul>
+<h3 id="d43-the-flywheel">D.4.3 持续改进闭环 (The Flywheel)</h3>
+<ol>
+<li><strong>Monitor</strong>: 线上发现 Bad Case。</li>
+<li><strong>Capture</strong>: 抓取 Trace，人工标注正确逻辑。</li>
+<li><strong>Add</strong>: 将其加入 Golden Set 的 Regression 组。</li>
+<li><strong>Debug</strong>: 开发者修复 Bug，本地跑通测试。</li>
+<li><strong>Deploy</strong>: 上线，确保该类错误永不复发。</li>
+</ol>
+<hr />
+<h2 id="_1">附：自建评测工具链推荐</h2>
+<ul>
+<li><strong>Promptfoo</strong>: 轻量级、开发者友好的 CLI 工具，支持各种断言（Asserts）和 LLM 裁判，非常适合集成到 CI 中。</li>
+<li><strong>Ragas</strong>: 专注于 RAG（检索增强生成）系统的评测框架，提供 Context Recall, Faithfulness 等细粒度指标。</li>
+<li><strong>LangSmith / Langfuse</strong>: 提供可视化的 Trace 记录和在线评测数据集管理功能，适合团队协作标注。</li>
+</ul>
+<hr />
+<p><em>(本章完)</em></p>
+            </article>
+            
+            <nav class="page-nav"><a href="chapter22.html" class="nav-link prev">← 附录 C：Trace Schema 与蒸馏数据构建 (chapter22.md)</a><a href="CLAUDE.html" class="nav-link next">Untitled →</a></nav>
+        </main>
+    </div>
+</body>
+</html>
