@@ -1,7 +1,7 @@
 （交流可以用英文，所有文档中文）
 
 ## 项目目标
-编写一份基于多模态理解生成模型
+编写一份基于多模态理解生成模型，构建智能体的中文教程markdown。 第一部分综述多模 Agent 的通用内容。包括 tool call，agent handoff，OpenAI harmony 格式，multi-agent，与仿真系统互动，agent trace 构造（用于蒸馏），常见 benchmark 等（再想一些）。 第二部分讨论具体智能体的构建，以 DeepResearch（含多模处理 PDF 等，再想一些），Coding Agent，自动驾驶 VLA Agent，座舱多模对话机器人，geoguessr agent 为例（再想一些）。
 要包含大量的习题和参考答案（答案默认折叠）。
 
 文件组织是 index.md + chapter1.md + ...
